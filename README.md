@@ -1,2 +1,2 @@
 # Osmium
-####Um aplicativo para se conectar com outros usuários que jogam seu jogo favorito. 
+#### Um aplicativo para se conectar com outros usuários que jogam seu jogo favorito. 
