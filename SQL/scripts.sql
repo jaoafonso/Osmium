@@ -3,59 +3,59 @@ USE osmium;
 
 CREATE TABLE usuario (
 	id_usuario INTEGER(9) AUTO_INCREMENT,
-    nome_usuario VARCHAR(20),
-    email_usuario VARCHAR(256),
-    senha_usuario VARCHAR(128),
-    desc_usuario VARCHAR(190),
-    idade_usuario INTEGER(2),
-    foto_usuario INTEGER(50),
-    banner_usuario INTEGER(50),
-    tema_escuro BOOLEAN,
-    administrador BOOLEAN,
-    PRIMARY KEY(id_usuario),
-    UNIQUE(nome_usuario)
+	nome_usuario VARCHAR(20),
+	email_usuario VARCHAR(256),
+	senha_usuario VARCHAR(128),
+	desc_usuario VARCHAR(190),
+	idade_usuario INTEGER(2),
+	foto_usuario INTEGER(50),
+	banner_usuario INTEGER(50),
+	tema_escuro BOOLEAN,
+	administrador BOOLEAN,
+	PRIMARY KEY(id_usuario),
+	UNIQUE(nome_usuario)
 );
 
 CREATE TABLE plataformas_jogadas (
 	id_usuario INTEGER(9),
-    plataforma VARCHAR(20),
-    FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
+	plataforma VARCHAR(20),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
 );
 
 CREATE TABLE categoria_de_jogo (
 	id_categoria INTEGER(9) AUTO_INCREMENT,
-    nome_categoria VARCHAR(45),
-    PRIMARY KEY(id_categoria)
+	nome_categoria VARCHAR(45),
+	PRIMARY KEY(id_categoria)
 );
 
 CREATE TABLE jogos (
 	id_jogo INTEGER(9) AUTO_INCREMENT,
-    nome_jogo VARCHAR(45),
-    desc_jogo VARCHAR(300),
-    PRIMARY KEY(id_jogo)
+	nome_jogo VARCHAR(45),
+	desc_jogo VARCHAR(300),
+	PRIMARY KEY(id_jogo)
 );
 
 CREATE TABLE categorias_do_jogo (
 	id_jogo INTEGER(9),
-    id_categoria INTEGER(9),
-    FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo),
-    FOREIGN KEY(id_categoria) REFERENCES categoria_de_jogo(id_categoria)
+	id_categoria INTEGER(9),
+	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo),
+	FOREIGN KEY(id_categoria) REFERENCES categoria_de_jogo(id_categoria)
 );
 
 CREATE TABLE interesses_do_usuario (
 	id_usuario INTEGER(9),
-    id_categoria INTEGER(9),
-    FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY(id_categoria) REFERENCES categoria_de_jogo(id_categoria)
+	id_categoria INTEGER(9),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(id_categoria) REFERENCES categoria_de_jogo(id_categoria)
 );
 
 CREATE TABLE jogos_jogados_pelo_usuario (
 	id_usuario INTEGER(9),
-    id_jogo INTEGER(9),
-    carac_jogabilidade VARCHAR(45),
-    favorito BOOLEAN,
-    FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
+	id_jogo INTEGER(9),
+	carac_jogabilidade VARCHAR(45),
+	favorito BOOLEAN,
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
 );
 
 #Categorias de Jogos
