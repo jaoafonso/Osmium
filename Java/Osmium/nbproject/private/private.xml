@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Usuario/Desktop/Osmium/Java/Osmium/src/factory/TestaConexao.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Osmium/Java/Osmium/src/modelo/Usuario.java</file>
             <file>file:/C:/Users/Usuario/Desktop/Osmium/Java/Osmium/src/factory/ConnectionFactory.java</file>
+            <file>file:/C:/Users/Usuario/Desktop/Osmium/Java/Osmium/src/dao/UsuarioDAO.java</file>
         </group>
     </open-files>
 </project-private>
