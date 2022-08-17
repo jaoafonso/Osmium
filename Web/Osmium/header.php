@@ -17,7 +17,7 @@
 		</title>
 		<meta name="description" content="TCC - Osmium">
 		
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0D1117; border-bottom: 5px solid #212529;">
 			<ul class="navbar-nav mr-auto dropdown">
 				<li class="nav-item dropdown">
 					<a class="nav-link active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
