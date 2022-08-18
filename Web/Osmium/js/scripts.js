@@ -4,7 +4,7 @@ function loadHTML(page) {
 	.then(text => document.getElementById('pagina').innerHTML = text);
 }
 
-loadHTML("home.php");
+loadHTML("home.html");
 
 current_page = 1;
 total_pages = 5;
@@ -25,19 +25,19 @@ function lastPage() {
 		document.getElementById("paginas").innerHTML = "Página " + current_page + " de " + total_pages;
 		switch (current_page) {
 			case 1:
-			loadHTML("home.php")
+			loadHTML("home.html")
 			break;
 			case 2:
-			loadHTML("sobre.php")
+			loadHTML("sobre.html")
 			break;
 			case 3:
-			loadHTML("contato.php")
+			loadHTML("contato.html")
 			break;
 			case 4:
-			loadHTML("atualizacoes.php")
+			loadHTML("atualizacoes.html")
 			break;
 			case 5:
-			loadHTML("equipe.php")
+			loadHTML("equipe.html")
 			break;
 		}
 	}
@@ -53,19 +53,19 @@ function nextPage() {
 		document.getElementById("paginas").innerHTML = "Página " + current_page + " de " + total_pages;
 		switch (current_page) {
 			case 1:
-			loadHTML("home.php")
+			loadHTML("home.html")
 			break;
 			case 2:
-			loadHTML("sobre.php")
+			loadHTML("sobre.html")
 			break;
 			case 3:
-			loadHTML("contato.php")
+			loadHTML("contato.html")
 			break;
 			case 4:
-			loadHTML("atualizacoes.php")
+			loadHTML("atualizacoes.html")
 			break;
 			case 5:
-			loadHTML("equipe.php")
+			loadHTML("equipe.html")
 			break;
 		}
 	}

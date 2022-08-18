@@ -12,9 +12,6 @@
 		<link rel="stylesheet" href="css/scripts.css">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title id="title">
-			<?php echo $title ?>
-		</title>
 		<meta name="description" content="TCC - Osmium">
 		
 		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0D1117; border-bottom: 5px solid #212529;">
@@ -24,31 +21,31 @@
 						<i class="fa-solid fa-bars fa-2x"></i>
 					</a>
 					<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("home.php", 1)'>Início</a>
-						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("sobre.php", 2);'>Sobre</a>
-						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("contato.php", 3);'>Contato</a>
-						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("atualizacoes.php", 4);'>Atualizações</a>
-						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("equipe.php", 5);'>Equipe</a>
+						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("home.html", 1)'>Início</a>
+						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("sobre.html", 2);'>Sobre</a>
+						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("contato.html", 3);'>Contato</a>
+						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("atualizacoes.html", 4);'>Atualizações</a>
+						<a class="dropdown-item text-white" href="javascript:void(0);" onclick='irPara("equipe.html", 5);'>Equipe</a>
 					</div>
 				</li>
 			</ul>
-			<a class="navbar-brand" href="/tcc-osmium/Web/Osmium/" style="margin-left: 20px;"><img src="img/logo3b.png" style="width:40px"></a>	
+			<a class="navbar-brand" href="/Osmium/Web/Osmium/" style="margin-left: 20px;"><img src="img/logo3b.png" style="width:40px"></a>	
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto" rel="stylesheet" href="styles.css">
 					<li class="navdiv nav-item active">
-						<a class="nav-link" href="/tcc-osmium/Web/Osmium/">Início</a>
+						<a class="nav-link" href="/Osmium/Web/Osmium/">Início</a>
 					</li>
 					<li class="navdiv nav-item active">
-						<a class="nav-link" href="javascript:void(0);" onclick='irPara("sobre.php", 2)'>Sobre</a>
+						<a class="nav-link" href="javascript:void(0);" onclick='irPara("sobre.html", 2)'>Sobre</a>
 					</li>
 					<li class="navdiv nav-item active">
-						<a class="nav-link" href="javascript:void(0);" onclick='irPara("contato.php", 3)'>Contato</a>
+						<a class="nav-link" href="javascript:void(0);" onclick='irPara("contato.html", 3)'>Contato</a>
 					</li>
 					<li class="navdiv nav-item active">
-						<a class="nav-link" href="javascript:void(0);" onclick='irPara("atualizacoes.php", 4)'>Atualizações</a>
+						<a class="nav-link" href="javascript:void(0);" onclick='irPara("atualizacoes.html", 4)'>Atualizações</a>
 					</li>
 					<li class="navdiv nav-item active">
-						<a class="nav-link" href="javascript:void(0);" onclick='irPara("equipe.php", 5)'>Equipe</a>
+						<a class="nav-link" href="javascript:void(0);" onclick='irPara("equipe.html", 5)'>Equipe</a>
 					</li>
 				</ul>
 			</div>
@@ -61,3 +58,17 @@
 			
 		</nav>
 	</head>
+
+<body style="background-color: #121212">
+    <div id = "pagina"></div>
+</body>
+
+<footer style="position: absolute; bottom: 0; width: 100%; height: 50px;">
+	<div class="align-bottom" style="padding: 6px 16px; color: white; background-color:#0D1117; border-top: 5px solid #212529; text-align: center;">
+        <h5 id="paginas"></h5>
+        <!--<h1>Osmium</h1>-->
+    </div>
+    <script src="js/scripts.js"></script>
+</footer>
+
+</html>
