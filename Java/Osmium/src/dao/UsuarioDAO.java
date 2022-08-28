@@ -61,15 +61,14 @@ public class UsuarioDAO {
 
     public ArrayList buscarUsuario(Usuario objUsuario) {
         
-        String variavelTeste = "2"; //Essa variavel será recebida do GUI na hora da pesquisa por um usuario. Mudar o nome futuramente
-        boolean isNumeric = isNumeric(variavelTeste);
-        try {
+        
+        try { //Será verificado se a variavel de pesquisa é uma String numérica ou não, para a busca por ID ou Nome
             String sql = "";
-            if (isNumeric == true) {
-                sql = "SELECT * FROM usuario WHERE id_usuario LIKE '%" + variavelTeste + "%' ";
+            if (isNumeric(String.valueOf(objUsuario)) == true) {
+                sql = "SELECT * FROM usuario WHERE id_usuario LIKE " + objUsuario;
 
-            } else if (isNumeric == false) {
-                sql = "SELECT * FROM usuario WHERE nome_usuario LIKE '%" + variavelTeste + "%' ";
+            } else if (isNumeric(String.valueOf(objUsuario)) == false) {
+                sql = "SELECT * FROM usuario WHERE nome_usuario LIKE '%" + objUsuario + "%' ";
             }
             ArrayList dado = new ArrayList();
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -92,5 +91,9 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro preencher o ArrayList");
             return null;
         }
+    }
+    
+    public void loginUsuario(Usuario objUsuario) {
+            
     }
 }
