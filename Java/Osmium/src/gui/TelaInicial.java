@@ -5,12 +5,16 @@
  */
 package gui;
 
+import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
@@ -22,16 +26,14 @@ import javax.swing.border.LineBorder;
  * @author Usuario
  */
 public class TelaInicial extends javax.swing.JFrame {
-
+    Connection connection;
     /**
      * Creates new form TelaInicial
      */
     public TelaInicial() {
         initComponents();
-        TelaLogin login = new TelaLogin();
-        login.setLocation(jPanel9.getLocation().x + (jPanel9.getWidth() /2 + (jPanel9.getWidth() /4)) ,(jPanel9.getHeight() / 2) + (jPanel9.getHeight() / 8));
-        login.setVisible(true);
-        this.dispose();
+        panelLogin.setVisible(true);
+        panelCadastro.setVisible(false);
     }
 
     /**
@@ -59,7 +61,21 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        panelLogin = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
+        panelLogin1 = new javax.swing.JPanel();
+        txtEmail = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JPasswordField();
+        labelEmail = new javax.swing.JLabel();
+        labelSenha = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        labelTitle = new javax.swing.JLabel();
+        panelTxtRegistro = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        labelBtnRegistrese = new javax.swing.JLabel();
+        panelCadastro = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -92,7 +108,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/final_logob.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 47, -1, -1));
 
-        jPanel8.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel8.setBackground(new java.awt.Color(33, 37, 41));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel5.setBackground(new java.awt.Color(13, 17, 23));
@@ -186,6 +202,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        jPanel7.setBackground(new java.awt.Color(33, 37, 41));
         jPanel7.setOpaque(false);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -232,23 +249,205 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 470, 180));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 470, 180));
 
-        jPanel9.setBackground(new java.awt.Color(18, 18, 18));
-        jPanel9.setOpaque(false);
+        panelLogin.setBackground(new java.awt.Color(18, 18, 18));
+        panelLogin.setOpaque(false);
+
+        jPanel9.setBackground(new java.awt.Color(33, 37, 41));
+
+        panelLogin1.setBackground(new java.awt.Color(33, 37, 41));
+
+        txtEmail.setBackground(new java.awt.Color(69, 73, 73));
+        txtEmail.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtEmail.setForeground(new java.awt.Color(255, 255, 255));
+        txtEmail.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        txtSenha.setBackground(new java.awt.Color(69, 73, 73));
+        txtSenha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        txtSenha.setForeground(new java.awt.Color(255, 255, 255));
+        txtSenha.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        labelEmail.setForeground(new java.awt.Color(186, 186, 186));
+        labelEmail.setText("USUÁRIO OU E-MAIL *");
+
+        labelSenha.setForeground(new java.awt.Color(186, 186, 186));
+        labelSenha.setText("SENHA *");
+
+        jPanel10.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel10MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel10MouseEntered(evt);
+            }
+        });
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("ENTRAR");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelLogin1Layout = new javax.swing.GroupLayout(panelLogin1);
+        panelLogin1.setLayout(panelLogin1Layout);
+        panelLogin1Layout.setHorizontalGroup(
+            panelLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLogin1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtSenha)
+                    .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(panelLogin1Layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(97, Short.MAX_VALUE))
+        );
+        panelLogin1Layout.setVerticalGroup(
+            panelLogin1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLogin1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelSenha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        labelTitle.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        labelTitle.setForeground(new java.awt.Color(186, 186, 186));
+        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitle.setText("Bem Vindo de Volta!");
+
+        panelTxtRegistro.setBackground(new java.awt.Color(33, 37, 41));
+
+        jLabel16.setForeground(new java.awt.Color(186, 186, 186));
+        jLabel16.setText("Precisando de uma conta?");
+
+        labelBtnRegistrese.setForeground(new java.awt.Color(88, 166, 255));
+        labelBtnRegistrese.setText("Registre-se");
+        labelBtnRegistrese.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelBtnRegistreseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                labelBtnRegistreseMouseEntered(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTxtRegistroLayout = new javax.swing.GroupLayout(panelTxtRegistro);
+        panelTxtRegistro.setLayout(panelTxtRegistroLayout);
+        panelTxtRegistroLayout.setHorizontalGroup(
+            panelTxtRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTxtRegistroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelBtnRegistrese))
+        );
+        panelTxtRegistroLayout.setVerticalGroup(
+            panelTxtRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTxtRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelBtnRegistrese, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(panelTxtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 66, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(labelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelTxtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
+        panelLogin.setLayout(panelLoginLayout);
+        panelLoginLayout.setHorizontalGroup(
+            panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
+        );
+        panelLoginLayout.setVerticalGroup(
+            panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+                .addContainerGap(122, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117))
+        );
+
+        jPanel1.add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
+
+        panelCadastro.setBackground(new java.awt.Color(18, 18, 18));
+        panelCadastro.setEnabled(false);
+        panelCadastro.setOpaque(false);
+
+        javax.swing.GroupLayout panelCadastroLayout = new javax.swing.GroupLayout(panelCadastro);
+        panelCadastro.setLayout(panelCadastroLayout);
+        panelCadastroLayout.setHorizontalGroup(
+            panelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 590, Short.MAX_VALUE)
+        );
+        panelCadastroLayout.setVerticalGroup(
+            panelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 580, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
+        jPanel1.add(panelCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
+
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("<html>Percebemos que muitas pessoas tem a dificuldade de encontrar parceiros para jogos online, nosso aplicativo resolverá esse problema, proporcionando uma plataforma para nossos usuários encontrarem facilmente outros usuários com os mesmos interesses para jogos.<html>");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 510, 100));
 
         jPanel3.setBackground(new java.awt.Color(13, 17, 23));
 
@@ -282,6 +481,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("ENTRAR");
@@ -304,7 +504,16 @@ public class TelaInicial extends javax.swing.JFrame {
         );
 
         panelBtnRegistro.setOpaque(false);
+        panelBtnRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelBtnRegistroMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panelBtnRegistroMouseEntered(evt);
+            }
+        });
 
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("REGISTRE-SE");
@@ -328,6 +537,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         panelBtnSuporte.setOpaque(false);
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("SUPORTE");
@@ -351,6 +561,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         panelBtnWebsite.setOpaque(false);
 
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("WEBSITE");
 
@@ -527,15 +738,79 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void panelBtnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseClicked
         // TODO add your handling code here:
+        panelLogin.setVisible(true);
+        panelCadastro.setVisible(false);
     }//GEN-LAST:event_panelBtnEntrarMouseClicked
 
     private void panelBtnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseEntered
         // TODO add your handling code here:
+        panelBtnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrarMouseEntered
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_formFocusGained
+
+    private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
+        // TODO add your handling code here:
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            String entrada_usuario = txtEmail.getText();
+            String senha_usuario = txtSenha.getText();
+            String sql = "";
+            Statement stmt = connection.createStatement();
+            if (entrada_usuario.contains("@")) {
+                sql = "SELECT * FROM usuario WHERE email_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
+            }else {
+                sql = "SELECT * FROM usuario WHERE nome_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
+            }
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if(rs.next()) {
+                TelaPrincipal frame = new TelaPrincipal();
+                frame.setVisible(true);
+                this.dispose();
+            }else {
+                JOptionPane.showMessageDialog(this, "E-mail ou Senha incorretos!");
+                txtEmail.setText("");
+                txtSenha.setText("");
+            }
+
+            connection.close();
+
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jPanel10MouseClicked
+
+    private void jPanel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseEntered
+        // TODO add your handling code here:
+        jPanel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel10MouseEntered
+
+    private void labelBtnRegistreseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistreseMouseClicked
+        // TODO add your handling code here:
+        panelCadastro.setVisible(true);
+        panelLogin.setVisible(false);
+    }//GEN-LAST:event_labelBtnRegistreseMouseClicked
+
+    private void labelBtnRegistreseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistreseMouseEntered
+        // TODO add your handling code here:
+        labelBtnRegistrese.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_labelBtnRegistreseMouseEntered
+
+    private void panelBtnRegistroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistroMouseEntered
+        // TODO add your handling code here:
+        panelBtnRegistro.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_panelBtnRegistroMouseEntered
+
+    private void panelBtnRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistroMouseClicked
+        // TODO add your handling code here:
+        panelCadastro.setVisible(true);
+        panelLogin.setVisible(false);
+    }//GEN-LAST:event_panelBtnRegistroMouseClicked
 
     /**
      * @param args the command line arguments
@@ -580,6 +855,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -589,6 +867,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -597,10 +876,20 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel labelBtnRegistrese;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelSenha;
+    private javax.swing.JLabel labelTitle;
     private javax.swing.JPanel panelBtnEntrar;
     private javax.swing.JPanel panelBtnRegistro;
     private javax.swing.JPanel panelBtnSuporte;
     private javax.swing.JPanel panelBtnWebsite;
+    private javax.swing.JPanel panelCadastro;
+    private javax.swing.JPanel panelLogin;
+    private javax.swing.JPanel panelLogin1;
+    private javax.swing.JPanel panelTxtRegistro;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JLabel txtGithub;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
