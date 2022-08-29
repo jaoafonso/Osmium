@@ -28,9 +28,9 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
-        TelaLogin frame = new TelaLogin();
-        frame.setLocation(jPanel9.getLocation().x + (jPanel9.getLocation().x / 2) ,jPanel9.getLocation().y + (jPanel9.getLocation().y / 2));
-        frame.setVisible(true);
+        TelaLogin login = new TelaLogin();
+        login.setLocation(jPanel9.getLocation().x + (jPanel9.getWidth() /2 + (jPanel9.getWidth() /4)) ,(jPanel9.getHeight() / 2) + (jPanel9.getHeight() / 8));
+        login.setVisible(true);
         this.dispose();
     }
 
@@ -76,6 +76,11 @@ public class TelaInicial extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(33, 37, 41));
@@ -227,8 +232,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 470, 180));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 470, 180));
 
+        jPanel9.setBackground(new java.awt.Color(18, 18, 18));
         jPanel9.setOpaque(false);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -239,10 +245,10 @@ public class TelaInicial extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 640));
+        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
 
         jPanel3.setBackground(new java.awt.Color(13, 17, 23));
 
@@ -266,6 +272,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconPequeno.png"))); // NOI18N
 
+        panelBtnEntrar.setOpaque(false);
         panelBtnEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelBtnEntrarMouseClicked(evt);
@@ -275,6 +282,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("ENTRAR");
 
@@ -295,6 +303,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelBtnRegistro.setOpaque(false);
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("REGISTRE-SE");
 
@@ -315,6 +326,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelBtnSuporte.setOpaque(false);
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("SUPORTE");
 
@@ -335,6 +349,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelBtnWebsite.setOpaque(false);
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("WEBSITE");
 
         javax.swing.GroupLayout panelBtnWebsiteLayout = new javax.swing.GroupLayout(panelBtnWebsite);
@@ -419,7 +436,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -515,6 +532,10 @@ public class TelaInicial extends javax.swing.JFrame {
     private void panelBtnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_panelBtnEntrarMouseEntered
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formFocusGained
 
     /**
      * @param args the command line arguments
