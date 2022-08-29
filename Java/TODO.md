@@ -1,1 +1,1 @@
-1- fazer a função isNumeric receber a variavel digitada pelo usuario
+1- Aumentar o tamanho da tela de login para encaixar perfeitamente quando for invocada no jPanel

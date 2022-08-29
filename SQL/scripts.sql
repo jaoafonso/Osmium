@@ -57,6 +57,8 @@ CREATE TABLE jogos_jogados_pelo_usuario (
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
 	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
 );
+#Administrador
+INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, administrador) VALUES ("admin", "admin@gmail.com", "admin", true);
 
 #Categorias de Jogos
 INSERT INTO categoria_de_jogo (nome_categoria) VALUES ("Ação");

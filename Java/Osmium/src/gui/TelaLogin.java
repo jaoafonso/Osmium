@@ -36,7 +36,8 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         labelEmail = new javax.swing.JLabel();
         labelSenha = new javax.swing.JLabel();
-        btnEntrar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         labelTitle = new javax.swing.JLabel();
         panelRegistro = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -45,6 +46,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Osmium - Entrar");
+        setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setUndecorated(true);
         setResizable(false);
@@ -62,25 +64,48 @@ public class TelaLogin extends javax.swing.JFrame {
         txtSenha.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         labelEmail.setForeground(new java.awt.Color(186, 186, 186));
-        labelEmail.setText("E-MAIL *");
+        labelEmail.setText("USUÁRIO OU E-MAIL *");
 
         labelSenha.setForeground(new java.awt.Color(186, 186, 186));
         labelSenha.setText("SENHA *");
 
-        btnEntrar.setBackground(new java.awt.Color(60, 63, 64));
-        btnEntrar.setForeground(new java.awt.Color(186, 186, 186));
-        btnEntrar.setText("ENTRAR");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
+        jPanel1.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
             }
         });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ENTRAR");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
         panelLoginLayout.setHorizontalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
+            .addGroup(panelLoginLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -88,9 +113,9 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(txtEmail)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelLoginLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLoginLayout.setVerticalGroup(
@@ -105,8 +130,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEntrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         getContentPane().add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
@@ -160,17 +185,16 @@ public class TelaLogin extends javax.swing.JFrame {
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
+            .addGap(0, 638, Short.MAX_VALUE)
         );
 
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 320));
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 640));
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelBtnRegistreseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistreseMouseEntered
@@ -185,20 +209,23 @@ public class TelaLogin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_labelBtnRegistreseMouseClicked
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         // TODO add your handling code here:
         try {
             this.connection = new ConnectionFactory().getConnection();
-            
-            String email_usuario = txtEmail.getText();
+
+            String entrada_usuario = txtEmail.getText();
             String senha_usuario = txtSenha.getText();
-            
+            String sql = "";
             Statement stmt = connection.createStatement();
-            
-            String sql = "SELECT * FROM usuario WHERE email_usuario='"+ email_usuario +"' and senha_usuario='"+ senha_usuario +"'";
-            
+            if (entrada_usuario.contains("@")) {
+                sql = "SELECT * FROM usuario WHERE email_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
+            }else {
+                sql = "SELECT * FROM usuario WHERE nome_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
+            }
+
             ResultSet rs = stmt.executeQuery(sql);
-            
+
             if(rs.next()) {
                 TelaPrincipal frame = new TelaPrincipal();
                 frame.setVisible(true);
@@ -208,13 +235,18 @@ public class TelaLogin extends javax.swing.JFrame {
                 txtEmail.setText("");
                 txtSenha.setText("");
             }
-            
+
             connection.close();
-            
+
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_btnEntrarActionPerformed
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        // TODO add your handling code here:
+        jPanel1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel1MouseEntered
 
     /**
      * @param args the command line arguments
@@ -253,8 +285,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
-    private javax.swing.JButton btnEntrar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelBtnRegistrese;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelSenha;
