@@ -7,10 +7,9 @@ public class Usuario {
     private String email_usuario;
     private String senha_usuario;
     private String desc_usuario;
-    private int idade_usuario;
+    private String dataNasc_usuario;
     private int foto_usuario;
     private int banner_usuario;
-    private boolean tema_escuro;
     private boolean administrador;
 
     public int getId_usuario() {
@@ -53,12 +52,12 @@ public class Usuario {
         this.desc_usuario = desc_usuario;
     }
 
-    public int getIdade_usuario() {
-        return idade_usuario;
+    public String getDataNasc_usuario() {
+        return dataNasc_usuario;
     }
 
-    public void setIdade_usuario(int idade_usuario) {
-        this.idade_usuario = idade_usuario;
+    public void setDataNasc_usuario(String dataNasc_usuario) {
+        this.dataNasc_usuario = dataNasc_usuario;
     }
 
     public int getFoto_usuario() {
@@ -75,14 +74,6 @@ public class Usuario {
 
     public void setBanner_usuario(int banner_usuario) {
         this.banner_usuario = banner_usuario;
-    }
-
-    public boolean isTema_escuro() {
-        return tema_escuro;
-    }
-
-    public void setTema_escuro(boolean tema_escuro) {
-        this.tema_escuro = tema_escuro;
     }
 
     public boolean isAdministrador() {

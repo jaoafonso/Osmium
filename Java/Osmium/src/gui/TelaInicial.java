@@ -20,13 +20,17 @@ import javax.swing.JOptionPane;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+import modelo.Usuario;
+import dao.UsuarioDAO;
 
 /**
  *
  * @author Usuario
  */
 public class TelaInicial extends javax.swing.JFrame {
+
     Connection connection;
+
     /**
      * Creates new form TelaInicial
      */
@@ -70,14 +74,14 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
+        panelBtnRegistrar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         jComboBox6 = new javax.swing.JComboBox<>();
+        jPasswordField1 = new javax.swing.JPasswordField();
         panelTxtRegistro1 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         labelBtnRegistrese1 = new javax.swing.JLabel();
@@ -189,16 +193,19 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtGithub, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtGithub, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, 0)
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
                         .addComponent(imgStargazers)
@@ -257,7 +264,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +275,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 470, 180));
@@ -294,6 +301,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(69, 73, 73));
         jTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         jLabel19.setForeground(new java.awt.Color(186, 186, 186));
@@ -301,26 +309,23 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTextField2.setBackground(new java.awt.Color(69, 73, 73));
         jTextField2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         jLabel20.setForeground(new java.awt.Color(186, 186, 186));
         jLabel20.setText("SENHA *");
 
-        jTextField3.setBackground(new java.awt.Color(69, 73, 73));
-        jTextField3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
         jLabel21.setForeground(new java.awt.Color(186, 186, 186));
         jLabel21.setText("DATA DE NASCIMENTO *");
 
-        jPanel15.setBackground(new java.awt.Color(60, 63, 64));
-        jPanel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel15.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBtnRegistrar.setBackground(new java.awt.Color(60, 63, 64));
+        panelBtnRegistrar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelBtnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel15MouseClicked(evt);
+                panelBtnRegistrarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel15MouseEntered(evt);
+                panelBtnRegistrarMouseEntered(evt);
             }
         });
 
@@ -328,18 +333,18 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setText("REGISTRAR");
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBtnRegistrarLayout = new javax.swing.GroupLayout(panelBtnRegistrar);
+        panelBtnRegistrar.setLayout(panelBtnRegistrarLayout);
+        panelBtnRegistrarLayout.setHorizontalGroup(
+            panelBtnRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnRegistrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
+        panelBtnRegistrarLayout.setVerticalGroup(
+            panelBtnRegistrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnRegistrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -349,8 +354,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jComboBox4.setBackground(new java.awt.Color(18, 18, 18));
         jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setAutoscrolls(true);
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -359,11 +363,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jComboBox5.setBackground(new java.awt.Color(18, 18, 18));
         jComboBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
 
         jComboBox6.setBackground(new java.awt.Color(18, 18, 18));
         jComboBox6.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ano", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905", "1904", "1903", "1902", "1901", "1900" }));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -373,7 +377,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -387,6 +391,11 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jComboBox6))
                 .addGap(4, 4, 4))
         );
+
+        jPasswordField1.setBackground(new java.awt.Color(69, 73, 73));
+        jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -402,15 +411,17 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jTextField2)
                             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelBtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPasswordField1)))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -427,13 +438,13 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelBtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -475,7 +486,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69))
             .addGroup(jPanel11Layout.createSequentialGroup()
@@ -505,16 +516,16 @@ public class TelaInicial extends javax.swing.JFrame {
         panelCadastroLayout.setHorizontalGroup(
             panelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(87, 87, 87)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         panelCadastroLayout.setVerticalGroup(
             panelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCadastroLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(52, 52, 52)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel1.add(panelCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
@@ -681,16 +692,16 @@ public class TelaInicial extends javax.swing.JFrame {
         panelLoginLayout.setHorizontalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addGap(87, 87, 87)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87))
         );
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(112, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117))
+                .addGap(120, 120, 120))
         );
 
         jPanel1.add(panelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
@@ -725,7 +736,6 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(13, 17, 23));
 
-        btnExit.setForeground(new java.awt.Color(0, 0, 0));
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logout.png"))); // NOI18N
         btnExit.setBorderPainted(false);
         btnExit.setContentAreaFilled(false);
@@ -974,7 +984,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "https://github.com/jaoafonsokkj/TCC-Osmium";
 
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
@@ -982,7 +992,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + url);
@@ -1007,7 +1017,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "https://github.com/jaoafonsokkj/TCC-Osmium/stargazers";
 
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
@@ -1015,7 +1025,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + url);
@@ -1051,18 +1061,18 @@ public class TelaInicial extends javax.swing.JFrame {
             String sql = "";
             Statement stmt = connection.createStatement();
             if (entrada_usuario.contains("@")) {
-                sql = "SELECT * FROM usuario WHERE email_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
-            }else {
-                sql = "SELECT * FROM usuario WHERE nome_usuario='"+ entrada_usuario +"' and senha_usuario='"+ senha_usuario +"'";
+                sql = "SELECT * FROM usuario WHERE email_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
+            } else {
+                sql = "SELECT * FROM usuario WHERE nome_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
             }
 
             ResultSet rs = stmt.executeQuery(sql);
 
-            if(rs.next()) {
+            if (rs.next()) {
                 TelaPrincipal frame = new TelaPrincipal();
                 frame.setVisible(true);
                 this.dispose();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "E-mail ou Senha incorretos!");
                 txtEmail.setText("");
                 txtSenha.setText("");
@@ -1070,7 +1080,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
             connection.close();
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_jPanel10MouseClicked
@@ -1102,13 +1112,41 @@ public class TelaInicial extends javax.swing.JFrame {
         panelLogin.setVisible(false);
     }//GEN-LAST:event_panelBtnRegistroMouseClicked
 
-    private void jPanel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseClicked
+    private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel15MouseClicked
+        Usuario usr = new Usuario();
+        
+        usr.setEmail_usuario(jTextField1.getText());
+        usr.setNome_usuario(jTextField2.getText());
+        usr.setSenha_usuario(jPasswordField1.getText());
 
-    private void jPanel15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseEntered
+        String dia = jComboBox4.getSelectedItem().toString();
+        String mes = jComboBox5.getSelectedItem().toString();
+        String ano = jComboBox6.getSelectedItem().toString();
+
+        usr.setDataNasc_usuario(ano + "-" + mes + "-" + dia);
+
+        if (!jTextField1.getText().contains("@")) {
+            JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
+            jTextField1.setText("");
+        } else if (jTextField2.getText().contains("@")) {
+            JOptionPane.showMessageDialog(this, "Nomes de usuário não podem conter arrobas!");
+            jTextField2.setText("");
+        } else {
+
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.preCadastrar(usr);
+                
+                TelaPosCadastro frame = new TelaPosCadastro();
+                frame.setVisible(true);
+                this.dispose();
+            }
+    }//GEN-LAST:event_panelBtnRegistrarMouseClicked
+
+    private void panelBtnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel15MouseEntered
+        panelBtnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_panelBtnRegistrarMouseEntered
 
     private void labelBtnRegistrese1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistrese1MouseClicked
         // TODO add your handling code here:
@@ -1130,7 +1168,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/Osmium/";
 
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
@@ -1138,7 +1176,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + url);
@@ -1158,7 +1196,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/Osmium/";
 
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
@@ -1166,7 +1204,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + url);
@@ -1186,7 +1224,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         String url = "https://github.com/jaoafonsokkj/TCC-Osmium";
 
-        if(Desktop.isDesktopSupported()){
+        if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(url));
@@ -1194,7 +1232,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + url);
@@ -1281,7 +1319,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1290,9 +1327,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelBtnRegistrese;
     private javax.swing.JLabel labelBtnRegistrese1;
     private javax.swing.JLabel labelEmail;
@@ -1300,6 +1337,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitle;
     private javax.swing.JPanel panelBtnEntrar;
     private javax.swing.JPanel panelBtnGithub;
+    private javax.swing.JPanel panelBtnRegistrar;
     private javax.swing.JPanel panelBtnRegistro;
     private javax.swing.JPanel panelBtnWebsite;
     private javax.swing.JPanel panelCadastro;
