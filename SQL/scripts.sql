@@ -7,10 +7,9 @@ CREATE TABLE usuario (
 	email_usuario VARCHAR(256),
 	senha_usuario VARCHAR(128),
 	desc_usuario VARCHAR(190),
-	idade_usuario INTEGER(2),
+	dataNasc_usuario DATE,
 	foto_usuario INTEGER(50),
 	banner_usuario INTEGER(50),
-	tema_escuro BOOLEAN,
 	administrador BOOLEAN,
 	PRIMARY KEY(id_usuario),
 	UNIQUE(nome_usuario)
