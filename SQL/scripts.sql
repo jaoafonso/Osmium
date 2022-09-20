@@ -6,13 +6,14 @@ CREATE TABLE usuario (
 	nome_usuario VARCHAR(20),
 	email_usuario VARCHAR(256),
 	senha_usuario VARCHAR(128),
-	desc_usuario VARCHAR(190),
+	desc_usuario VARCHAR(300),
 	dataNasc_usuario DATE,
-	foto_usuario INTEGER(50),
-	banner_usuario INTEGER(50),
+	foto_usuario INTEGER(2),
+	banner_usuario INTEGER(2),
 	administrador BOOLEAN,
 	PRIMARY KEY(id_usuario),
-	UNIQUE(nome_usuario)
+	UNIQUE(nome_usuario),
+    UNIQUE(email_usuario)
 );
 
 CREATE TABLE plataformas_jogadas (
@@ -24,14 +25,16 @@ CREATE TABLE plataformas_jogadas (
 CREATE TABLE categoria_de_jogo (
 	id_categoria INTEGER(9) AUTO_INCREMENT,
 	nome_categoria VARCHAR(45),
-	PRIMARY KEY(id_categoria)
+	PRIMARY KEY(id_categoria),
+    UNIQUE(nome_categoria)
 );
 
 CREATE TABLE jogos (
 	id_jogo INTEGER(9) AUTO_INCREMENT,
 	nome_jogo VARCHAR(45),
 	desc_jogo VARCHAR(300),
-	PRIMARY KEY(id_jogo)
+	PRIMARY KEY(id_jogo),
+    UNIQUE(nome_jogo)
 );
 
 CREATE TABLE categorias_do_jogo (
