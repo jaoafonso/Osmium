@@ -13,7 +13,7 @@ CREATE TABLE usuario (
 	administrador BOOLEAN,
 	PRIMARY KEY(id_usuario),
 	UNIQUE(nome_usuario),
-    UNIQUE(email_usuario)
+	UNIQUE(email_usuario)
 );
 
 CREATE TABLE plataformas_jogadas (
@@ -26,7 +26,7 @@ CREATE TABLE categoria_de_jogo (
 	id_categoria INTEGER(9) AUTO_INCREMENT,
 	nome_categoria VARCHAR(45),
 	PRIMARY KEY(id_categoria),
-    UNIQUE(nome_categoria)
+	UNIQUE(nome_categoria)
 );
 
 CREATE TABLE jogos (
@@ -34,7 +34,7 @@ CREATE TABLE jogos (
 	nome_jogo VARCHAR(45),
 	desc_jogo VARCHAR(300),
 	PRIMARY KEY(id_jogo),
-    UNIQUE(nome_jogo)
+	UNIQUE(nome_jogo)
 );
 
 CREATE TABLE categorias_do_jogo (
