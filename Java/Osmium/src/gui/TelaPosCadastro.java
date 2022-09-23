@@ -10,6 +10,8 @@ import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import modelo.Usuario;
+import dao.UsuarioDAO;
 
 /**
  *
@@ -23,6 +25,10 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     public TelaPosCadastro() {
         initComponents();
     }
+
+    Usuario usr = new Usuario();
+    int num_foto;
+    int num_banner;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -344,6 +350,17 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         // TODO add your handling code here:
+        usr.setDesc_usuario(jTextArea2.getText());
+        usr.setFoto_usuario(num_foto);
+        usr.setBanner_usuario(num_banner);
+
+        UsuarioDAO dao = new UsuarioDAO();
+        dao.posCadastrar(usr, usr.getNome_usuario());
+
+        TelaPrincipal frame = new TelaPrincipal();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_panelBtnRegistrarMouseClicked
 
     private void panelBtnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseEntered

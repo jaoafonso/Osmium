@@ -5,6 +5,14 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import modelo.Usuario;
+import dao.UsuarioDAO;
+
 /**
  *
  * @author Usuario
@@ -18,6 +26,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
     }
 
+    Usuario usr = new Usuario();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

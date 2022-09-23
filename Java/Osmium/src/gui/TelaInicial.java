@@ -1146,6 +1146,7 @@ public class TelaInicial extends javax.swing.JFrame {
             dao.preCadastrar(usr);
 
             TelaPosCadastro frame = new TelaPosCadastro();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
             frame.setVisible(true);
             this.dispose();
         }
