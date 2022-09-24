@@ -27,8 +27,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     }
 
     Usuario usr = new Usuario();
-    int num_foto;
-    int num_banner;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -351,8 +349,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         // TODO add your handling code here:
         usr.setDesc_usuario(jTextArea2.getText());
-        usr.setFoto_usuario(num_foto);
-        usr.setBanner_usuario(num_banner);
+        usr.setFoto_usuario(usr.getFoto_usuario());
+        usr.setBanner_usuario(usr.getBanner_usuario());
 
         UsuarioDAO dao = new UsuarioDAO();
         dao.posCadastrar(usr, usr.getNome_usuario());
@@ -370,6 +368,11 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
     private void panelBtnRegistrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar1MouseClicked
         // TODO add your handling code here:
+        TelaBanners frame = new TelaBanners();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setFoto_usuario(usr.getFoto_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_panelBtnRegistrar1MouseClicked
 
     private void panelBtnRegistrar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar1MouseEntered
@@ -379,6 +382,11 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
     private void panelBtnRegistrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar2MouseClicked
         // TODO add your handling code here:
+        TelaImagens frame = new TelaImagens();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setBanner_usuario(usr.getBanner_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_panelBtnRegistrar2MouseClicked
 
     private void panelBtnRegistrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar2MouseEntered
