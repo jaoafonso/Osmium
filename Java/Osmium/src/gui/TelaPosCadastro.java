@@ -50,14 +50,15 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        panelBtnRegistrar1 = new javax.swing.JPanel();
+        panelBtnBanner = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        panelBtnRegistrar2 = new javax.swing.JPanel();
+        panelBtnFoto = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         panelBtnRegistrar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Conclua seu Cadastro");
         setMaximumSize(new java.awt.Dimension(720, 720));
         setMinimumSize(new java.awt.Dimension(720, 720));
         setUndecorated(true);
@@ -100,7 +101,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/perfilVazio.png"))); // NOI18N
 
         jLabel1.setForeground(new java.awt.Color(186, 186, 186));
-        jLabel1.setText("Escolha uma Foto:");
+        jLabel1.setText("Escolha uma Foto de Perfil:");
 
         jLabel2.setForeground(new java.awt.Color(186, 186, 186));
         jLabel2.setText("Escolha um Banner:");
@@ -125,14 +126,14 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jTextArea2.setHighlighter(null);
         jScrollPane1.setViewportView(jTextArea2);
 
-        panelBtnRegistrar1.setBackground(new java.awt.Color(60, 63, 64));
-        panelBtnRegistrar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelBtnRegistrar1.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBtnBanner.setBackground(new java.awt.Color(60, 63, 64));
+        panelBtnBanner.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelBtnBanner.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnRegistrar1MouseClicked(evt);
+                panelBtnBannerMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panelBtnRegistrar1MouseEntered(evt);
+                panelBtnBannerMouseEntered(evt);
             }
         });
 
@@ -140,31 +141,31 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("ESCOLHER");
 
-        javax.swing.GroupLayout panelBtnRegistrar1Layout = new javax.swing.GroupLayout(panelBtnRegistrar1);
-        panelBtnRegistrar1.setLayout(panelBtnRegistrar1Layout);
-        panelBtnRegistrar1Layout.setHorizontalGroup(
-            panelBtnRegistrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnRegistrar1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBtnBannerLayout = new javax.swing.GroupLayout(panelBtnBanner);
+        panelBtnBanner.setLayout(panelBtnBannerLayout);
+        panelBtnBannerLayout.setHorizontalGroup(
+            panelBtnBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnBannerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelBtnRegistrar1Layout.setVerticalGroup(
-            panelBtnRegistrar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnRegistrar1Layout.createSequentialGroup()
+        panelBtnBannerLayout.setVerticalGroup(
+            panelBtnBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnBannerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        panelBtnRegistrar2.setBackground(new java.awt.Color(60, 63, 64));
-        panelBtnRegistrar2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelBtnRegistrar2.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelBtnFoto.setBackground(new java.awt.Color(60, 63, 64));
+        panelBtnFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelBtnFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnRegistrar2MouseClicked(evt);
+                panelBtnFotoMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panelBtnRegistrar2MouseEntered(evt);
+                panelBtnFotoMouseEntered(evt);
             }
         });
 
@@ -172,18 +173,18 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("ESCOLHER");
 
-        javax.swing.GroupLayout panelBtnRegistrar2Layout = new javax.swing.GroupLayout(panelBtnRegistrar2);
-        panelBtnRegistrar2.setLayout(panelBtnRegistrar2Layout);
-        panelBtnRegistrar2Layout.setHorizontalGroup(
-            panelBtnRegistrar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnRegistrar2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelBtnFotoLayout = new javax.swing.GroupLayout(panelBtnFoto);
+        panelBtnFoto.setLayout(panelBtnFotoLayout);
+        panelBtnFotoLayout.setHorizontalGroup(
+            panelBtnFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnFotoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        panelBtnRegistrar2Layout.setVerticalGroup(
-            panelBtnRegistrar2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnRegistrar2Layout.createSequentialGroup()
+        panelBtnFotoLayout.setVerticalGroup(
+            panelBtnFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBtnFotoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -199,12 +200,12 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(panelBtnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelBtnBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelBtnRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -221,7 +222,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(panelBtnRegistrar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +231,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                         .addComponent(jLabel5))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(panelBtnRegistrar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelBtnBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,32 +367,33 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         panelBtnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnRegistrarMouseEntered
 
-    private void panelBtnRegistrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar1MouseClicked
+    private void panelBtnBannerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnBannerMouseClicked
         // TODO add your handling code here:
         TelaBanners frame = new TelaBanners();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.usr.setFoto_usuario(usr.getFoto_usuario());
         frame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_panelBtnRegistrar1MouseClicked
+    }//GEN-LAST:event_panelBtnBannerMouseClicked
 
-    private void panelBtnRegistrar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar1MouseEntered
+    private void panelBtnBannerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnBannerMouseEntered
         // TODO add your handling code here:
-        panelBtnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_panelBtnRegistrar1MouseEntered
+        panelBtnBanner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_panelBtnBannerMouseEntered
 
-    private void panelBtnRegistrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar2MouseClicked
+    private void panelBtnFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnFotoMouseClicked
         // TODO add your handling code here:
         TelaImagens frame = new TelaImagens();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.usr.setBanner_usuario(usr.getBanner_usuario());
         frame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_panelBtnRegistrar2MouseClicked
+    }//GEN-LAST:event_panelBtnFotoMouseClicked
 
-    private void panelBtnRegistrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrar2MouseEntered
+    private void panelBtnFotoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnFotoMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_panelBtnRegistrar2MouseEntered
+        panelBtnFoto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_panelBtnFotoMouseEntered
 
     /**
      * @param args the command line arguments
@@ -445,8 +447,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JPanel panelBtnBanner;
+    private javax.swing.JPanel panelBtnFoto;
     private javax.swing.JPanel panelBtnRegistrar;
-    private javax.swing.JPanel panelBtnRegistrar1;
-    private javax.swing.JPanel panelBtnRegistrar2;
     // End of variables declaration//GEN-END:variables
 }

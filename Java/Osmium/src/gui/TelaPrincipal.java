@@ -130,6 +130,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Osmium");
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1177,7 +1178,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(18, 18, 18));
 
+        jPanel8.setBackground(new java.awt.Color(60, 63, 64));
+
+        jLabel31.setBackground(new java.awt.Color(60, 63, 64));
         jLabel31.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel31.setText("Atividades Recentes");
 
@@ -1198,6 +1203,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel13.setBackground(new java.awt.Color(60, 63, 64));
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1208,6 +1215,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
+
+        jPanel14.setBackground(new java.awt.Color(60, 63, 64));
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1220,6 +1229,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
+        jPanel15.setBackground(new java.awt.Color(60, 63, 64));
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
@@ -1230,6 +1241,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
+
+        jPanel16.setBackground(new java.awt.Color(60, 63, 64));
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -1242,6 +1255,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
+        jPanel45.setBackground(new java.awt.Color(60, 63, 64));
+
         javax.swing.GroupLayout jPanel45Layout = new javax.swing.GroupLayout(jPanel45);
         jPanel45.setLayout(jPanel45Layout);
         jPanel45Layout.setHorizontalGroup(
@@ -1253,6 +1268,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
+        jPanel46.setBackground(new java.awt.Color(60, 63, 64));
+
         javax.swing.GroupLayout jPanel46Layout = new javax.swing.GroupLayout(jPanel46);
         jPanel46.setLayout(jPanel46Layout);
         jPanel46Layout.setHorizontalGroup(
@@ -1263,6 +1280,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
+
+        jPanel47.setBackground(new java.awt.Color(60, 63, 64));
 
         javax.swing.GroupLayout jPanel47Layout = new javax.swing.GroupLayout(jPanel47);
         jPanel47.setLayout(jPanel47Layout);
