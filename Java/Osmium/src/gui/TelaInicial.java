@@ -1069,7 +1069,6 @@ public class TelaInicial extends javax.swing.JFrame {
             String entrada_usuario = txtEmail.getText();
             String senha_usuario = txtSenha.getText();
             String sql = "";
-            String user = "";
             Statement stmt = connection.createStatement();
             if (entrada_usuario.contains("@")) {
                 sql = "SELECT * FROM usuario WHERE email_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
@@ -1078,12 +1077,23 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             
             ResultSet rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 usr.setNome_usuario(rs.getString("nome_usuario"));
+                /*usr.setDesc_usuario(rs.getString("desc_usuario"));
+                usr.setEmail_usuario(rs.getString("email_usuario"));
+                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
+                usr.setFoto_usuario(rs.getInt("foto_usuario"));
+                usr.setBanner_usuario(rs.getInt("banner_usuario"));
+                usr.setAdministrador(rs.getBoolean("administrador"));*/
                 
                 TelaPrincipal frame = new TelaPrincipal();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
+                /*frame.usr.setDesc_usuario(usr.getDesc_usuario());
+                frame.usr.setEmail_usuario(usr.getEmail_usuario());
+                frame.usr.setDataNasc_usuario(usr.getDataNasc_usuario());
+                frame.usr.setFoto_usuario(usr.getFoto_usuario());
+                frame.usr.setBanner_usuario(usr.getBanner_usuario());
+                frame.usr.setAdministrador(usr.isAdministrador());*/
                 frame.setVisible(true);
                 this.dispose();
             } else {

@@ -12,6 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
 import dao.UsuarioDAO;
+import factory.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
@@ -22,12 +26,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
     public TelaPrincipal() {
         initComponents();
     }
-
+    Connection connection;
     Usuario usr = new Usuario();
     
+    public void carregarUsuario() {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + usr.getNome_usuario() + "'";
+            Statement stmt = connection.createStatement();
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                usr.setNome_usuario(rs.getString("nome_usuario"));
+                usr.setDesc_usuario(rs.getString("desc_usuario"));
+                usr.setEmail_usuario(rs.getString("email_usuario"));
+                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
+                usr.setFoto_usuario(rs.getInt("foto_usuario"));
+                usr.setBanner_usuario(rs.getInt("banner_usuario"));
+                usr.setAdministrador(rs.getBoolean("administrador"));
+                
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,6 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jPanel45 = new javax.swing.JPanel();
         jPanel46 = new javax.swing.JPanel();
@@ -1231,15 +1261,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel15.setBackground(new java.awt.Color(60, 63, 64));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addGap(381, 381, 381)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18))
         );
 
         jPanel16.setBackground(new java.awt.Color(60, 63, 64));
@@ -1394,8 +1437,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         UIManager.put("OptionPane.background", temaDark);
         UIManager.put("OptionPane.messageForeground", Color.white);
         int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja realmente sair do sistema?", "Sair",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-            new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
             System.exit(0);
         }
@@ -1437,6 +1480,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
         // TODO add your handling code here:
+        TelaConfig frame = new TelaConfig();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExit1MouseClicked
 
     private void btnExit1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseEntered
@@ -1462,6 +1509,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        carregarUsuario();
+        System.out.println(usr.getDataNasc_usuario());
+        System.out.println(usr.isAdministrador());
+        System.out.println(usr.getFoto_usuario());
+        System.out.println(usr.getNome_usuario());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1502,6 +1558,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnExit1;
     private javax.swing.JButton btnExit2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
