@@ -13,9 +13,11 @@ import javax.swing.UIManager;
 import modelo.Usuario;
 import dao.UsuarioDAO;
 import factory.ConnectionFactory;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,11 +31,46 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                carregarUsuarioPadrao();
+                ImageIcon fotoUsr = new ImageIcon(getClass().getResource("/img/img" + usr.getFoto_usuario() + ".png"));
+                jLabel35.setText(usr.getNome_usuario());
+                fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(50,50,Image.SCALE_SMOOTH));
+                jLabel37.setIcon(fotoUsr);
+                jLabel37.setText("");
+            }
+        });
     }
     Connection connection;
     Usuario usr = new Usuario();
+    Usuario outroUsr = new Usuario(); 
     
-    public void carregarUsuario() {
+    public void carregarOutroUsuario(String nome_usuario) {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'";
+            Statement stmt = connection.createStatement();
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                outroUsr.setNome_usuario(rs.getString("nome_usuario"));
+                outroUsr.setDesc_usuario(rs.getString("desc_usuario"));
+                outroUsr.setEmail_usuario(rs.getString("email_usuario"));
+                outroUsr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
+                outroUsr.setFoto_usuario(rs.getInt("foto_usuario"));
+                outroUsr.setBanner_usuario(rs.getInt("banner_usuario"));
+                outroUsr.setAdministrador(rs.getBoolean("administrador"));
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void carregarUsuarioPadrao() {
         try {
             this.connection = new ConnectionFactory().getConnection();
 
@@ -1160,6 +1197,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel24.add(jPanel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 140, 30));
 
+        jPanel48.setBackground(new java.awt.Color(60, 63, 64));
+
+        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Username");
 
         jLabel37.setText("Foto");
@@ -1169,19 +1209,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel48Layout.setHorizontalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel48Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel48Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jLabel37))
+                .addGroup(jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1480,8 +1520,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
         // TODO add your handling code here:
+        carregarUsuarioPadrao();
         TelaConfig frame = new TelaConfig();
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setFoto_usuario(usr.getFoto_usuario());
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnExit1MouseClicked
@@ -1512,11 +1554,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        carregarUsuario();
-        System.out.println(usr.getDataNasc_usuario());
-        System.out.println(usr.isAdministrador());
-        System.out.println(usr.getFoto_usuario());
-        System.out.println(usr.getNome_usuario());
+        carregarOutroUsuario(jTextField1.getText());
+        System.out.println(outroUsr.getDataNasc_usuario());
+        System.out.println(outroUsr.isAdministrador());
+        System.out.println(outroUsr.getFoto_usuario());
+        System.out.println(outroUsr.getNome_usuario());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

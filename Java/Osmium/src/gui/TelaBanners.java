@@ -476,49 +476,49 @@ public class TelaBanners extends javax.swing.JFrame {
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(4);
+        usr.setBanner_usuario(4);
         jPanel6.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel7MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(5);
+        usr.setBanner_usuario(5);
         jPanel7.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel7MouseClicked
 
     private void jPanel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(6);
+        usr.setBanner_usuario(6);
         jPanel8.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel8MouseClicked
 
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(7);
+        usr.setBanner_usuario(7);
         jPanel9.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(8);
+        usr.setBanner_usuario(8);
         jPanel10.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel10MouseClicked
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(9);
+        usr.setBanner_usuario(9);
         jPanel11.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
         // TODO add your handling code here:
         limparBordas();
-        usr.setFoto_usuario(10);
+        usr.setBanner_usuario(10);
         jPanel12.setBorder((javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2)));
     }//GEN-LAST:event_jPanel12MouseClicked
 
