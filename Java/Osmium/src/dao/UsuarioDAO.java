@@ -23,7 +23,7 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
-
+    
     public void preCadastrar(Usuario objUsuario) {
         try {
             String sql = "";
@@ -60,55 +60,5 @@ public class UsuarioDAO {
         } catch (SQLException u) {
             throw new RuntimeException(u);
         }
-    }
-
-    public boolean isNumeric(String pesquisa) {
-        if (pesquisa == null) {
-            return false;
-        }
-        try {
-            double d = Double.parseDouble(pesquisa);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
-    public ArrayList buscarUsuario(Usuario objUsuario) {
-        
-        
-        try { //Será verificado se a variavel de pesquisa é uma String numérica ou não, para a busca por ID ou Nome
-            String sql = "";
-            if (isNumeric(String.valueOf(objUsuario)) == true) {
-                sql = "SELECT * FROM usuario WHERE id_usuario LIKE " + objUsuario;
-
-            } else if (isNumeric(String.valueOf(objUsuario)) == false) {
-                sql = "SELECT * FROM usuario WHERE nome_usuario LIKE '%" + objUsuario + "%' ";
-            }
-            ArrayList dado = new ArrayList();
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                dado.add(new Object[]{
-                    rs.getString("nome"),});
-
-            }
-            ps.close();
-            rs.close();
-            connection.close();
-
-            return dado;
-
-        } catch (SQLException e) {
-            e.getMessage();
-            JOptionPane.showMessageDialog(null, "Erro preencher o ArrayList");
-            return null;
-        }
-    }
-    
-    public void loginUsuario(Usuario objUsuario) {
-            
     }
 }

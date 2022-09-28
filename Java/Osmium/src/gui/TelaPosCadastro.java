@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
 import dao.UsuarioDAO;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -24,6 +26,20 @@ public class TelaPosCadastro extends javax.swing.JFrame {
      */
     public TelaPosCadastro() {
         initComponents();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                if (usr.getFoto_usuario() != 0) {
+                    ImageIcon fotoUsr = new ImageIcon(getClass().getResource("/img/img" + usr.getFoto_usuario() + ".png"));
+                    fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+                    jLabel4.setIcon(fotoUsr);
+                }
+                /*if (usr.getBanner_usuario() != 0) {
+                    ImageIcon bannerUsr = new ImageIcon(getClass().getResource("/img/banner" + usr.getBanner_usuario() + ".png"));
+                    bannerUsr.setImage(bannerUsr.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
+                    jLabel5.setIcon(bannerUsr);
+                }*/ // Desbloquear após adicionar os banners
+            }
+        });
     }
 
     Usuario usr = new Usuario();

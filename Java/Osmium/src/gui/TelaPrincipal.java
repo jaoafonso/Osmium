@@ -189,8 +189,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         jPanel45 = new javax.swing.JPanel();
         jPanel46 = new javax.swing.JPanel();
         jPanel47 = new javax.swing.JPanel();
@@ -359,8 +359,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(69, 73, 73));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("  Buscar usuários ou jogos");
+        jTextField1.setText("  Buscar usuários");
         jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -1198,6 +1206,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel24.add(jPanel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 140, 30));
 
         jPanel48.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel48.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel48MouseClicked(evt);
+            }
+        });
 
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Username");
@@ -1301,41 +1314,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel15.setBackground(new java.awt.Color(60, 63, 64));
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addGap(381, 381, 381)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 840, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18))
+            .addGap(0, 70, Short.MAX_VALUE)
         );
 
         jPanel16.setBackground(new java.awt.Color(60, 63, 64));
+
+        jButton2.setText("perfil do jorge");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(365, 365, 365))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(17, 17, 17))
         );
 
         jPanel45.setBackground(new java.awt.Color(60, 63, 64));
@@ -1520,7 +1533,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
         // TODO add your handling code here:
-        carregarUsuarioPadrao();
         TelaConfig frame = new TelaConfig();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.usr.setFoto_usuario(usr.getFoto_usuario());
@@ -1538,6 +1550,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseClicked
         // TODO add your handling code here:
+        TelaPerfil frame = new TelaPerfil();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.outroUsr.setNome_usuario(jTextField1.getText());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExit2MouseClicked
 
     private void btnExit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseEntered
@@ -1552,14 +1569,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
         // TODO add your handling code here:
-        carregarOutroUsuario(jTextField1.getText());
-        System.out.println(outroUsr.getDataNasc_usuario());
-        System.out.println(outroUsr.isAdministrador());
-        System.out.println(outroUsr.getFoto_usuario());
-        System.out.println(outroUsr.getNome_usuario());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        TelaPerfil frame = new TelaPerfil();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel48MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        TelaPerfil frame = new TelaPerfil();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.outroUsr.setNome_usuario("jorge");
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        // TODO add your handling code here:
+        jTextField1.setText("");
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1FocusLost
 
     /**
      * @param args the command line arguments
@@ -1600,7 +1634,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnExit1;
     private javax.swing.JButton btnExit2;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
