@@ -59,7 +59,12 @@ CREATE TABLE jogos_favoritos (
 	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
 );
 #Administradores
-INSERT INTO usuario (nome_usuario, email_usuario, senha_usuario, administrador) VALUES ("admin", "admin@gmail.com", "admin", true);
+INSERT INTO usuario VALUES (1, "admin", "admin@gmail.com", "admin", "admin", "2001-01-01", 21, 21, true);
+
+#Usuários para Testes
+INSERT INTO usuario VALUES (2, "user", "user@gmail.com", "user", "Lorem ipsum facilisis curabitur quisque gravida vestibulum nulla scelerisque, fames hac lacinia taciti hendrerit class lobortis quisque tempor, nibh ante sociosqu phasellus mauris purus egestas. est velit potenti in dapibus non, rhoncus hendrerit mauris ligula mollis, platea torquent et sed.", "2001-01-01", 22, 22, false);
+INSERT INTO usuario VALUES (3, "jorge", "jorge@gmail.com", "jorge", "Lorem ipsum facilisis curabitur quisque gravida vestibulum nulla scelerisque, fames hac lacinia taciti hendrerit class lobortis quisque tempor, nibh ante sociosqu phasellus mauris purus egestas. est velit potenti in dapibus non, rhoncus hendrerit mauris ligula mollis, platea torquent et sed.", "2001-01-01", 1, 1, false);
+INSERT INTO usuario VALUES (4, "joao3003", "joao@gmail.com", "joao3003", "Lorem ipsum facilisis curabitur quisque gravida vestibulum nulla scelerisque, fames hac lacinia taciti hendrerit class lobortis quisque tempor, nibh ante sociosqu phasellus mauris purus egestas. est velit potenti in dapibus non, rhoncus hendrerit mauris ligula mollis, platea torquent et sed.", "2001-01-01", 2, 2, false);
 
 #Categorias de Jogos
 INSERT INTO categoria_de_jogo (nome_categoria) VALUES ("Ação");
