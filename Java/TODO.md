@@ -1,1 +1,0 @@
-1- Aumentar o tamanho da tela de login para encaixar perfeitamente quando for invocada no jPanel

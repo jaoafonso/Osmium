@@ -1,121 +1,70 @@
 <body>
-    <!-- CSS only -->
-
-    <center>
-        <br>
-        <div style="background-image: url(img/background2.jpg); background-position: center;
-	background-size: cover; height:811px;">
-            <div style="padding-top:90px"></div>
-            <div style="width:1000px; background-color: rgba(36, 36, 44, 0.5);">
-                <!--Section: Contact v.2-->
-                <section class="mb-4" style="padding: 40px">
-
-                    <!--Section heading-->
-                    <h2 class="h1-responsive font-weight-bold text-center my-4" style="color: white;">Fale Conosco!</h2>
-                    <!--Section description-->
-                    <p class="text-center w-responsive mx-auto mb-5" style="color: white;">Você tem alguma duvida? Por
-                        favor nos contate
-                        diretamente. Nossa equipe irá te responder o mais rápido possivel!</p>
-
-                    <div class="row">
-
-                        <!--Grid column-->
-                        <div class="col-md-9 mb-md-0 mb-5">
-                            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-                                <!--Grid row-->
-                                <div class="row">
-
-                                    <!--Grid column-->
-                                    <div class="col-md-12" style="color:white">
-                                        <div class="md-form mb-0">
-                                            <input type="text" id="name" name="name" class="form-control">
-                                            <label for="name" class="">Seu nome</label>
-                                        </div>
-                                    </div>
-                                    <!--Grid column-->
-
-                                    <!--Grid column-->
-                                    <div class="col-md-6" style="color: white;">
-                                        <div class="md-form mb-0">
-                                            <input type="text" id="email" name="email" class="form-control">
-                                            <label for="email" class="">Seu email</label>
-                                        </div>
-                                    </div>
-                                    <!--Grid column-->
-                                    <div class="col-md-6" style="color: white;">
-                                        <div class="md-form mb-0">
-                                            <input type="text" id="telefone" name="telefone" class="form-control">
-                                            <label for="email" class="">Seu telefone</label>
-                                            <script type="text/javascript">
-                                                $("#telefone, #celular").mask("(00) 0000-0000");
-                                            </script>
-                                        </div>
-                                    </div>
-
+    <div style="width:50%; background-color: #0D1117; border: 5px solid #212529; margin: 6.7% 25% 6.7% 25%;">
+        <section class="mb-4" style="padding: 30px 30px 0px 30px; color:white;">
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Fale Conosco!</h2>
+            <p class="text-center w-responsive mx-auto mb-5">Você tem alguma duvida? Por favor nos contate diretamente.
+                Nossa equipe irá te responder o mais rápido possivel!</p>
+            <div class="row">
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" name="contact-form" action="https://formsubmit.co/cttosmium@gmail.com" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="name">Seu nome</label>
+                                    <input type="text" id="name" name="Nome" class="form-control" style="background-color: #212529; color: white; border:0; outline:0;" required>
                                 </div>
-                                <!--Grid row-->
-
-                                <!--Grid row-->
-                                <div class="row">
-                                    <div class="col-md-12" style="color: white;">
-                                        <div class="md-form mb-0">
-                                            <input type="text" id="subject" name="subject" class="form-control">
-                                            <label for="subject" class="">Assunto</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Grid row-->
-
-                                <!--Grid row-->
-                                <div class="row">
-
-                                    <!--Grid column-->
-                                    <div class="col-md-12" style="color: white;">
-
-                                        <div class="md-form">
-                                            <textarea type="text" id="message" name="message" rows="4"
-                                                class="form-control md-textarea"></textarea>
-                                            <label for="message">Sua mensagem</label>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!--Grid row-->
-
-                            </form>
-
-                            <div class="text-center">
-                                <a class="btn btn-primary" onclick='alert("Enviado com Sucesso!");'>Enviar</a>
                             </div>
-                            <div class="status"></div>
+
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <label for="email">Seu email</label>
+                                    <input type="text" id="email" name="E-Mail" class="form-control" style="background-color: #212529; color: white; border:0; outline:0;" required>
+                                </div>
+                            </div>
                         </div>
-                        <!--Grid column-->
 
-                        <!--Grid column-->
-                        <div class="col-md-1.5 text-center" style="margin-left: 0px">
-                            <ul style="list-style-type: none; margin-bottom: 60px">
-                                <li><i class="fas fa-map-marker-alt fa-2x" style="color: white;"></i>
-                                    <p style="color: white;">Paraná, Brasil</p>
-                                </li>
-
-                                <li><i class="fa fa-phone mt-4 fa-2x" style="color: white;"></i>
-                                    <p style="color: white;">+55 43 3334-6567</p>
-                                </li>
-
-                                <li><i class="fa fa-envelope mt-4 fa-2x" style="color: white;"></i>
-                                    <p style="color: white;">contato@osmium.com</p>
-                                </li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <label for="subject">Assunto</label>
+                                    <input type="text" id="subject" name="Assunto" class="form-control" style="background-color: #212529; color: white; border:0; outline:0;" required>
+                                </div>
+                            </div>
                         </div>
-                        <!--Grid column-->
 
-                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form">
+                                    <label for="message">Sua mensagem</label>
+                                    <textarea type="text" id="message" name="Mensagem" rows="4"
+                                        class="form-control md-textarea" style="background-color: #212529; color: white; border:0; outline:0;"></textarea required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" style="margin-top: 25px">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="https://jaoafonsokkj.github.io/TCC-Osmium/Web/Osmium/obrigado.html">
+                            <button type="submit" class="text-center btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
+                </div>
 
-                </section>
-                <!--Section: Contact v.2-->
+                <div class="col-md-1.5 text-center" style="margin-left: 0px; margin-top: 20px;">
+                    <ul style="list-style-type: none; margin-bottom: 60px">
+                        <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                            <p>Paraná, Brasil</p>
+                        </li>
+
+                        <li><i class="fa fa-phone mt-4 fa-2x"></i>
+                            <p>+55 43 99905-5171</p>
+                        </li>
+
+                        <li><i class="fa fa-envelope mt-4 fa-2x"></i>
+                            <p>cttosmium@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </center>
-
+        </section>
+    </div>
 </body>
