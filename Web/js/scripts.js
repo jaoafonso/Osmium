@@ -11,6 +11,7 @@ total_pages = 5;
 document.getElementById("paginas").innerHTML = "Página " + current_page + " de " + total_pages;
 
 function irPara(pagina, numpag) {
+	window.scrollTo(0, 0);
 	document.getElementById("paginas").innerHTML = "Página " + numpag + " de " + total_pages;
 	loadHTML(pagina);
 	current_page = numpag;
