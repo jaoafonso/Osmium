@@ -1523,6 +1523,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void panelBtnEntrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar1MouseClicked
         // TODO add your handling code here:
+        TelaJogos frame = new TelaJogos();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_panelBtnEntrar1MouseClicked
 
     private void panelBtnEntrar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar1MouseEntered

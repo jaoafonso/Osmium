@@ -4,8 +4,6 @@ import factory.ConnectionFactory;
 import modelo.Usuario;
 import java.sql.*;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class UsuarioDAO {
 
