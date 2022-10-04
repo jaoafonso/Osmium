@@ -21,4 +21,13 @@ public class Categorias {
     public void setNome_categoria(String nome_categoria) {
         this.nome_categoria = nome_categoria;
     }
+
+    public String[] getColunas() {
+        return colunas;
+    }
+
+    public void setColunas(String[] colunas) {
+        this.colunas = colunas;
+    }
+    
 }

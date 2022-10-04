@@ -6,7 +6,13 @@
 package gui;
 
 import java.awt.Cursor;
+import java.util.ArrayList;
+import modelo.ModelTable;
 import modelo.Usuario;
+import modelo.Categorias;
+import dao.CategoriasDAO;
+import java.awt.Color;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -14,15 +20,42 @@ import modelo.Usuario;
  */
 public class TelaJogos extends javax.swing.JFrame {
 
+    private Categorias objCategorias;
+    private CategoriasDAO objDAO;
+    private boolean buscar = false;
+
     /**
      * Creates new form TelaJogos
      */
     public TelaJogos() {
         initComponents();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                carregarTable(objCategorias);
+            }
+        });
     }
-    
+
     Usuario usr = new Usuario();
-    
+
+    public void carregarTable(Categorias objCategorias) {
+
+        objDAO = new CategoriasDAO();
+        ArrayList dados = new ArrayList();
+
+        objCategorias = new Categorias();
+        dados = objDAO.listarCategorias();
+        String[] colunas = objCategorias.getColunas();
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable1.setModel(modelo);
+        jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
+        //JTableHeader header = jTable1.getTableHeader();
+        //header.setOpaque(false);
+        //header.setBackground(Color.black);
+        //header.setForeground(Color.black);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +119,11 @@ public class TelaJogos extends javax.swing.JFrame {
         jPanel3.setMinimumSize(new java.awt.Dimension(200, 640));
         jPanel3.setPreferredSize(new java.awt.Dimension(200, 640));
 
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
+
+        jTable1.setBackground(new java.awt.Color(60, 63, 64));
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
@@ -94,9 +132,11 @@ public class TelaJogos extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Title 1"
+                "Categorias de Jogos"
             }
         ));
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(27);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
