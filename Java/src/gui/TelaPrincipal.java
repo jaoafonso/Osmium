@@ -541,10 +541,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel18.setBackground(new java.awt.Color(60, 63, 64));
         jPanel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel18MouseClicked(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(186, 186, 186));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Jogo");
+        jLabel9.setText("Stumble Guys");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -570,7 +575,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel10.setForeground(new java.awt.Color(186, 186, 186));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Jogos Recentes");
+        jLabel10.setText("Jogos Recomendados");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -578,7 +583,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
@@ -596,7 +601,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel8.setForeground(new java.awt.Color(186, 186, 186));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Jogo");
+        jLabel8.setText("Minecraft");
 
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
@@ -622,7 +627,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel7.setForeground(new java.awt.Color(186, 186, 186));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Jogo");
+        jLabel7.setText("Forza Horizon 5");
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -648,7 +653,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel6.setForeground(new java.awt.Color(186, 186, 186));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Jogo");
+        jLabel6.setText("Terraria");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -674,7 +679,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel4.setForeground(new java.awt.Color(186, 186, 186));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Jogo");
+        jLabel4.setText("Hollow Knight");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -1626,6 +1631,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
+        // TODO add your handling code here:\
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.jg.setNome_jogo("Stumble Guys");
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel18MouseClicked
 
     /**
      * @param args the command line arguments

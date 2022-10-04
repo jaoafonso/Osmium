@@ -616,6 +616,9 @@
                           </Border>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel18MouseClicked"/>
+                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="0" y="30" width="140" height="30"/>
@@ -649,7 +652,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogo"/>
+                            <Property name="text" type="java.lang.String" value="Stumble Guys"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -676,7 +679,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel10" pref="126" max="32767" attributes="0"/>
+                                  <Component id="jLabel10" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -698,7 +701,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogos Recentes"/>
+                            <Property name="text" type="java.lang.String" value="Jogos Recomendados"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -747,7 +750,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogo"/>
+                            <Property name="text" type="java.lang.String" value="Minecraft"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -796,7 +799,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogo"/>
+                            <Property name="text" type="java.lang.String" value="Forza Horizon 5"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -845,7 +848,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogo"/>
+                            <Property name="text" type="java.lang.String" value="Terraria"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -894,7 +897,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Jogo"/>
+                            <Property name="text" type="java.lang.String" value="Hollow Knight"/>
                           </Properties>
                         </Component>
                       </SubComponents>
