@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import modelo.ModelTable;
 import modelo.Usuario;
 import modelo.Categorias;
+import modelo.Jogos;
 import dao.CategoriasDAO;
+import dao.JogosDAO;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JLabel;
@@ -24,8 +26,11 @@ import javax.swing.table.JTableHeader;
 public class TelaJogos extends javax.swing.JFrame {
 
     private Categorias objCategorias;
-    private CategoriasDAO objDAO;
+    private CategoriasDAO categDAO;
     private boolean buscar = false;
+    
+    private Jogos objJogos;
+    private JogosDAO jogoDAO;
 
     /**
      * Creates new form TelaJogos
@@ -34,7 +39,8 @@ public class TelaJogos extends javax.swing.JFrame {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                carregarTable(objCategorias);
+                carregarCategorias(objCategorias);
+                carregarJogos(objJogos);
             }
         });
         // Configurações de aparência da tabela de categorias
@@ -44,7 +50,9 @@ public class TelaJogos extends javax.swing.JFrame {
         header.setPreferredSize(new Dimension(100, 30));
         head_render.setBackground(new Color(122, 105, 190));
         jTable1.getTableHeader().setDefaultRenderer(head_render);
-        
+        jTable1.setGridColor(new Color(18,18,18));
+        jTable1.setShowHorizontalLines(true);
+
         // Configurações de aparência da tabela de jogos
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header2 = jTable2.getTableHeader();
@@ -52,20 +60,20 @@ public class TelaJogos extends javax.swing.JFrame {
         header2.setPreferredSize(new Dimension(100, 30));
         head_render2.setBackground(new Color(122, 105, 190));
         jTable2.getTableHeader().setDefaultRenderer(head_render2);
-        ((DefaultTableCellRenderer)jTable2.getTableHeader().getDefaultRenderer())
-    .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
+        ((DefaultTableCellRenderer) jTable2.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
     }
 
     Usuario usr = new Usuario();
     Categorias categ = new Categorias(); //salva o nome da categoria para ser enviado na pagina que vai listar os jogos dessa categoria
 
-    public void carregarTable(Categorias objCategorias) {
+    public void carregarCategorias(Categorias objCategorias) {
 
-        objDAO = new CategoriasDAO();
+        categDAO = new CategoriasDAO();
         ArrayList dados = new ArrayList();
 
         objCategorias = new Categorias();
-        dados = objDAO.listarCategorias();
+        dados = categDAO.listarCategorias();
         String[] colunas = objCategorias.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
@@ -73,11 +81,25 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable1.setModel(modelo);
 
     }
+    
+    public void carregarJogos(Jogos objJogos) {
+
+        jogoDAO = new JogosDAO();
+        ArrayList dados = new ArrayList();
+
+        objJogos = new Jogos();
+        dados = jogoDAO.listarJogos();
+        String[] colunas = objJogos.getColunas();
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable2.setModel(modelo);
+
+    }
 
     public void abrirCategoria() {
-        
+
         //Fazer esse metodo carregar os jogos com a respectiva categoria selecionada para a tabela 2
-        
         /*TelaListaJogos frame = new TelaListaJogos();
         frame.categ.setNome_categoria(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
         frame.usr.setNome_usuario(usr.getNome_usuario());

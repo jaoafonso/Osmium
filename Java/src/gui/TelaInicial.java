@@ -1177,7 +1177,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         // TODO add your handling code here:
-        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/Osmium/";
+        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
@@ -1213,7 +1213,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void panelBtnWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnWebsiteMouseClicked
         // TODO add your handling code here:
-        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/Osmium/";
+        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);

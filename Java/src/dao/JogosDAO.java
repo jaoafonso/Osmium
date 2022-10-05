@@ -16,25 +16,25 @@ public class JogosDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public String stringCategoriasJogo(ArrayList idCategorias) {
+    /*public String stringCategoriasJogo(ArrayList idCategorias) {
 
         ArrayList stringCategorias = new ArrayList();
-        
-        
 
         String categorias = String.join(", ", stringCategorias);
         return categorias;
-    }
-
-    public ArrayList categoriasJogo(int id_jogo) {
+    }*/
+    public String stringCategoriasJogo(int id_jogo) {
 
         // criar uma funcao que carrega as categorias da
         //tabela categorias_de_jogo com base no nome do jogo, e 
         //adiciona todas as categorias em uma só string (exemplo: ação, terror, 2d)
         try {
-            ArrayList idCategorias = new ArrayList();
+            ArrayList<Integer> idCategorias = new ArrayList<Integer>();
+            ArrayList stringCategorias = new ArrayList();
 
             String sql = "";
+            String sqlS = "";
+            String stringTest = "";
             sql = "SELECT id_categoria FROM categorias_do_jogo WHERE id_jogo = " + id_jogo;
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -42,16 +42,36 @@ public class JogosDAO {
 
             while (rs.next()) {
 
-                idCategorias.add(new Object[]{
-                    rs.getInt("id_categoria")
-                });
+                idCategorias.add(rs.getInt("id_categoria")
+                );
+                /*sqlS = "SELECT * FROM categorias WHERE id_categoria = " + rs.getInt("id_categoria");
+                PreparedStatement ps1 = connection.prepareStatement(sqlS);
+                ResultSet rs1 = ps1.executeQuery();
+                while (rs1.next()) {
+                    stringCategorias.add(new Object[]{
+                        rs1.getString("nome_categoria")
+                    });
+                }*/
 
             }
+            int[] str = new int[idCategorias.size()];
+            for (int i = 0; i < idCategorias.size(); i++) {
+                str[i] = idCategorias.get(i);
+            }
+
+            //String listString = String.join("", idCategorias);
+
             ps.close();
             rs.close();
             connection.close();
+            //String stringCategoriasJogo = String.join(", ", stringCategorias);
+            
+            for (int i = 0; i < idCategorias.size(); i++) {
+                stringTest = stringTest + str[i];
+            }
+            System.out.println(stringTest);
+            return stringTest;
 
-            return idCategorias;
         } catch (SQLException e) {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "Erro preencher o ArrayList");
@@ -68,10 +88,11 @@ public class JogosDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
+                int test = rs.getInt("id_jogo");
+                //System.out.println(stringCategoriasJogo(1));
                 dado.add(new Object[]{
                     rs.getString("nome_jogo"),
-                    stringCategoriasJogo(categoriasJogo(rs.getInt("id_jogo")))
+                    test
 
                 });
 
