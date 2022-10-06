@@ -121,7 +121,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nome do Jogo");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 306, 48));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 590, 48));
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(18, 18, 18));

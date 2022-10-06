@@ -72,10 +72,23 @@ public class JogosDAO {
 
             String nomeCategorias = categorias[0];
 
-            for (int i = 1; i < idCategorias.length; i++) {
-                nomeCategorias = nomeCategorias + ", " + categorias[i];
+            int outras = idCategorias.length - 3;
+            
+            if (idCategorias.length > 3) {
+                for (int i = 1; i < 3; i++) {
+                    nomeCategorias = nomeCategorias + ", " + categorias[i];
+                }
+                nomeCategorias = nomeCategorias + " e outras " + outras + " categorias";
+            } else {
+                for (int i = 1; i < idCategorias.length; i++) {
+                    nomeCategorias = nomeCategorias + ", " + categorias[i];
+                }
             }
 
+
+            /*for (int i = 1; i < idCategorias.length; i++) {
+                nomeCategorias = nomeCategorias + ", " + categorias[i];
+            }*/
             return nomeCategorias;
 
         } catch (SQLException e) {

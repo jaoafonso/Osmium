@@ -52,6 +52,7 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable1.getTableHeader().setDefaultRenderer(head_render);
         jTable1.setGridColor(new Color(18, 18, 18));
         jTable1.setShowHorizontalLines(true);
+        jTable1.setRowSelectionAllowed(false);
 
         // Configurações de aparência da tabela de jogos
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
@@ -64,6 +65,7 @@ public class TelaJogos extends javax.swing.JFrame {
                 .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
         jTable2.setGridColor(new Color(18, 18, 18));
         jTable2.setShowHorizontalLines(true);
+        jTable2.setRowSelectionAllowed(false);
     }
 
     Usuario usr = new Usuario();
@@ -193,7 +195,6 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable1.setFocusable(false);
         jTable1.setOpaque(false);
         jTable1.setRowHeight(27);
-        jTable1.setRowSelectionAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -240,7 +241,6 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable2.setFocusable(false);
         jTable2.setOpaque(false);
         jTable2.setRowHeight(50);
-        jTable2.setRowSelectionAllowed(false);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);

@@ -206,7 +206,6 @@
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="rowHeight" type="int" value="27"/>
-                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -293,7 +292,6 @@
                         <Property name="focusable" type="boolean" value="false"/>
                         <Property name="opaque" type="boolean" value="false"/>
                         <Property name="rowHeight" type="int" value="50"/>
-                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
