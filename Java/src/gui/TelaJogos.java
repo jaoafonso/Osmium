@@ -28,7 +28,7 @@ public class TelaJogos extends javax.swing.JFrame {
     private Categorias objCategorias;
     private CategoriasDAO categDAO;
     private boolean buscar = false;
-    
+
     private Jogos objJogos;
     private JogosDAO jogoDAO;
 
@@ -40,7 +40,7 @@ public class TelaJogos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarCategorias(objCategorias);
-                carregarJogos(objJogos);
+                carregarJogos(objJogos, null);
             }
         });
         // Configurações de aparência da tabela de categorias
@@ -50,7 +50,7 @@ public class TelaJogos extends javax.swing.JFrame {
         header.setPreferredSize(new Dimension(100, 30));
         head_render.setBackground(new Color(122, 105, 190));
         jTable1.getTableHeader().setDefaultRenderer(head_render);
-        jTable1.setGridColor(new Color(18,18,18));
+        jTable1.setGridColor(new Color(18, 18, 18));
         jTable1.setShowHorizontalLines(true);
 
         // Configurações de aparência da tabela de jogos
@@ -62,6 +62,8 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable2.getTableHeader().setDefaultRenderer(head_render2);
         ((DefaultTableCellRenderer) jTable2.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
+        jTable2.setGridColor(new Color(18, 18, 18));
+        jTable2.setShowHorizontalLines(true);
     }
 
     Usuario usr = new Usuario();
@@ -81,18 +83,21 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable1.setModel(modelo);
 
     }
-    
-    public void carregarJogos(Jogos objJogos) {
+
+    public void carregarJogos(Jogos objJogos, String nome_categoria) {
 
         jogoDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
-
         objJogos = new Jogos();
-        dados = jogoDAO.listarJogos();
+
+        if (nome_categoria == null) {
+            dados = jogoDAO.listarJogos();
+        }else {
+            dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
+        }
         String[] colunas = objJogos.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
-
         jTable2.setModel(modelo);
 
     }
@@ -105,6 +110,14 @@ public class TelaJogos extends javax.swing.JFrame {
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();*/
+    }
+
+    public void abrirJogo() {
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.jg.setNome_jogo(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }
 
     /**
@@ -122,7 +135,6 @@ public class TelaJogos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -206,19 +218,6 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(18, 18, 18));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
-
         jPanel7.setBackground(new java.awt.Color(18, 18, 18));
 
         jScrollPane2.setBorder(null);
@@ -242,6 +241,11 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable2.setOpaque(false);
         jTable2.setRowHeight(50);
         jTable2.setRowSelectionAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -250,14 +254,13 @@ public class TelaJogos extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -282,8 +285,7 @@ public class TelaJogos extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(206, 206, 206))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +297,6 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -342,8 +343,13 @@ public class TelaJogos extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        abrirCategoria();
+        carregarJogos(objJogos, jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        abrirJogo();
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -386,7 +392,6 @@ public class TelaJogos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

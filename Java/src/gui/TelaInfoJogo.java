@@ -117,6 +117,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jLabel1.setText("Informações do Jogo");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(74, 6, 564, 50));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nome do Jogo");
@@ -125,6 +126,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(18, 18, 18));
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
@@ -244,7 +246,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
-        TelaPrincipal frame = new TelaPrincipal();
+        TelaJogos frame = new TelaJogos();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();
