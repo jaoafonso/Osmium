@@ -57,10 +57,8 @@ public class TelaJogos extends javax.swing.JFrame {
         // Configurações de aparência da tabela de jogos
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header2 = jTable2.getTableHeader();
-        DefaultTableCellRenderer head_render2 = new DefaultTableCellRenderer();
         header2.setPreferredSize(new Dimension(100, 30));
-        head_render2.setBackground(new Color(122, 105, 190));
-        jTable2.getTableHeader().setDefaultRenderer(head_render2);
+        jTable2.getTableHeader().setDefaultRenderer(head_render);
         ((DefaultTableCellRenderer) jTable2.getTableHeader().getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
         jTable2.setGridColor(new Color(18, 18, 18));
@@ -118,6 +116,7 @@ public class TelaJogos extends javax.swing.JFrame {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.jg.setNome_jogo(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "Tela Jogos";
         frame.setVisible(true);
         this.dispose();
     }

@@ -86,9 +86,6 @@ public class JogosDAO {
             }
 
 
-            /*for (int i = 1; i < idCategorias.length; i++) {
-                nomeCategorias = nomeCategorias + ", " + categorias[i];
-            }*/
             return nomeCategorias;
 
         } catch (SQLException e) {

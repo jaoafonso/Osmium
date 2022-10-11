@@ -598,6 +598,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel20.setBackground(new java.awt.Color(60, 63, 64));
         jPanel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel20MouseClicked(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(186, 186, 186));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -624,6 +629,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel21.setBackground(new java.awt.Color(60, 63, 64));
         jPanel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel21MouseClicked(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(186, 186, 186));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -650,6 +660,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel22.setBackground(new java.awt.Color(60, 63, 64));
         jPanel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel22MouseClicked(evt);
+            }
+        });
 
         jLabel6.setForeground(new java.awt.Color(186, 186, 186));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -676,6 +691,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel23.setBackground(new java.awt.Color(60, 63, 64));
         jPanel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel23MouseClicked(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(186, 186, 186));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1641,9 +1661,50 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.jg.setNome_jogo("Stumble Guys");
+        frame.retorno = "Tela Principal";
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel18MouseClicked
+
+    private void jPanel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel22MouseClicked
+        // TODO add your handling code here:
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.jg.setNome_jogo("Terraria");
+        frame.retorno = "Tela Principal";
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel22MouseClicked
+
+    private void jPanel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel21MouseClicked
+        // TODO add your handling code here:
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.jg.setNome_jogo("Forza Horizon 5");
+        frame.retorno = "Tela Principal";
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel21MouseClicked
+
+    private void jPanel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseClicked
+        // TODO add your handling code here:
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.jg.setNome_jogo("Minecraft");
+        frame.retorno = "Tela Principal";
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel20MouseClicked
+
+    private void jPanel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseClicked
+        // TODO add your handling code here:
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.jg.setNome_jogo("Hollow Knight");
+        frame.retorno = "Tela Principal";
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel23MouseClicked
 
     /**
      * @param args the command line arguments

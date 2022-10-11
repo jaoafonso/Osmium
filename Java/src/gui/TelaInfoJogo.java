@@ -6,10 +6,14 @@
 package gui;
 
 import factory.ConnectionFactory;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import modelo.Jogos;
 import modelo.Usuario;
 
@@ -31,12 +35,32 @@ public class TelaInfoJogo extends javax.swing.JFrame {
                 jTextArea1.setText(jg.getDesc_jogo());
             }
         });
+        // Configurações de aparência da tabela dos amigos que jogam
+        jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
+        JTableHeader header = jTable1.getTableHeader();
+        DefaultTableCellRenderer head_render = new DefaultTableCellRenderer();
+        header.setPreferredSize(new Dimension(100, 30));
+        head_render.setBackground(new Color(122, 105, 190));
+        jTable1.getTableHeader().setDefaultRenderer(head_render);
+        jTable1.setGridColor(new Color(18, 18, 18));
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setRowSelectionAllowed(false);
+        
+        // Configurações de aparência da tabela das categorias
+        jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
+        JTableHeader header2 = jTable2.getTableHeader();
+        header2.setPreferredSize(new Dimension(100, 30));
+        jTable2.getTableHeader().setDefaultRenderer(head_render);
+        jTable2.setGridColor(new Color(18, 18, 18));
+        jTable2.setShowHorizontalLines(true);
+        jTable2.setRowSelectionAllowed(false);
     }
     Connection connection;
-    
+
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
-    
+    String retorno;
+
     public void carregarJogo() {
         try {
             this.connection = new ConnectionFactory().getConnection();
@@ -56,7 +80,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,12 +96,12 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextArea1 = new javax.swing.JTextArea();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 720));
@@ -137,56 +161,6 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jTextArea1.setHighlighter(null);
         jPanel2.add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 310, 122));
 
-        jPanel8.setBackground(new java.awt.Color(60, 63, 64));
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Amigos que Jogam");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(178, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
-
-        jPanel9.setBackground(new java.awt.Color(60, 63, 64));
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Categorias");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(178, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, -1));
-
         jPanel11.setBackground(new java.awt.Color(60, 63, 64));
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,7 +193,55 @@ public class TelaInfoJogo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 440, -1, -1));
+        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, -1, -1));
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
+
+        jTable1.setBackground(new java.awt.Color(60, 63, 64));
+        jTable1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Amigos que Jogam"
+            }
+        ));
+        jTable1.setFocusable(false);
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(26);
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 150, 200));
+
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setOpaque(false);
+
+        jTable2.setBackground(new java.awt.Color(60, 63, 64));
+        jTable2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jTable2.setForeground(new java.awt.Color(255, 255, 255));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Categorias"
+            }
+        ));
+        jTable2.setFocusable(false);
+        jTable2.setOpaque(false);
+        jTable2.setRowHeight(26);
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 150, 200));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -246,10 +268,17 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
-        TelaJogos frame = new TelaJogos();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.setVisible(true);
-        this.dispose();
+        if (retorno == "Tela Principal") {
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "Tela Jogos") {
+            TelaJogos frame = new TelaJogos();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
@@ -309,14 +338,14 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
