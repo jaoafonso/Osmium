@@ -58,6 +58,14 @@ CREATE TABLE jogos_favoritos (
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
 	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
 );
+
+CREATE TABLE convitesconvites (
+	remetente INTEGER(9),
+    destinatario INTEGER(9),
+    id_jogo INTEGER(9),
+    mensagem VARCHAR(300)
+);
+
 #Administradores
 INSERT INTO usuario VALUES (1, "admin", "admin@gmail.com", "admin", "admin", "2001-01-01", 21, 21, true);
 

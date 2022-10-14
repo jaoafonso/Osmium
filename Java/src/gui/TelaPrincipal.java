@@ -5,19 +5,26 @@
  */
 package gui;
 
+import dao.ConvitesDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
-import dao.UsuarioDAO;
 import factory.ConnectionFactory;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import modelo.Categorias;
+import modelo.Convites;
+import modelo.ModelTable;
 
 /**
  *
@@ -28,6 +35,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
+    private Convites objConvites;
+    private ConvitesDAO convitesDAO;
+    
     public TelaPrincipal() {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -38,12 +49,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
                 jLabel37.setIcon(fotoUsr);
                 jLabel37.setText("");
+                
+                carregarConvites(objConvites);
             }
         });
+        
+        jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
+        JTableHeader header = jTable1.getTableHeader();
+        DefaultTableCellRenderer head_render = new DefaultTableCellRenderer();
+        header.setPreferredSize(new Dimension(100, 30));
+        head_render.setBackground(new Color(122, 105, 190));
+        jTable1.getTableHeader().setDefaultRenderer(head_render);
+        jTable1.setGridColor(new Color(18, 18, 18));
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setRowSelectionAllowed(false);
+        jScrollPane1.setVisible(false);
+        jPanel49.setVisible(false);
     }
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
+    
+    public void carregarConvites(Convites objConvites) {
+
+        convitesDAO = new ConvitesDAO();
+        ArrayList dados = new ArrayList();
+
+        objConvites = new Convites();
+        dados = convitesDAO.listarConvites(usr.getNome_usuario());
+        String[] colunas = objConvites.getColunas();
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable1.setModel(modelo);
+
+    }
 
     public void carregarOutroUsuario(String nome_usuario) {
         try {
@@ -118,6 +158,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnExit2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel49 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -437,6 +480,69 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(33, 37, 41));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jScrollPane1FocusLost(evt);
+            }
+        });
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseExited(evt);
+            }
+        });
+
+        jTable1.setBackground(new java.awt.Color(60, 63, 64));
+        jTable1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nome", "Jogo"
+            }
+        ));
+        jTable1.setFocusable(false);
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(26);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jTable1MouseExited(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 400, 200));
+
+        jPanel49.setBackground((new Color(0,0,0,00)));
+        jPanel49.setOpaque(false);
+        jPanel49.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanel49MouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel49Layout = new javax.swing.GroupLayout(jPanel49);
+        jPanel49.setLayout(jPanel49Layout);
+        jPanel49Layout.setHorizontalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
+        );
+        jPanel49Layout.setVerticalGroup(
+            jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, -10, 420, 220));
 
         jPanel3.setBackground(new java.awt.Color(18, 18, 18));
 
@@ -954,6 +1060,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 642));
+
         jPanel4.setBackground(new java.awt.Color(18, 18, 18));
 
         jPanel24.setPreferredSize(new java.awt.Dimension(140, 160));
@@ -1298,6 +1406,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(34, 34, 34))
         );
 
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1064, 0, -1, 642));
+
         jPanel7.setBackground(new java.awt.Color(18, 18, 18));
 
         jPanel8.setBackground(new java.awt.Color(60, 63, 64));
@@ -1464,23 +1574,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 0, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1555,6 +1649,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void panelBtnEntrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseClicked
         // TODO add your handling code here:
+        jScrollPane1.setVisible(true);
+        jPanel49.setVisible(true);
     }//GEN-LAST:event_panelBtnEntrar2MouseClicked
 
     private void panelBtnEntrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseEntered
@@ -1706,6 +1802,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jPanel23MouseClicked
 
+    private void jScrollPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseExited
+
+    private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1MouseExited
+
+    private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1FocusLost
+
+    private void jPanel49MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseExited
+        // TODO add your handling code here:
+        jScrollPane1.setVisible(false);
+        jPanel49.setVisible(false);
+    }//GEN-LAST:event_jPanel49MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1824,11 +1938,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel46;
     private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel48;
+    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panelBtnEntrar;
     private javax.swing.JPanel panelBtnEntrar1;
