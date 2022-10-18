@@ -35,10 +35,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    
     private Convites objConvites;
     private ConvitesDAO convitesDAO;
-    
+
     public TelaPrincipal() {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -49,11 +48,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
                 jLabel37.setIcon(fotoUsr);
                 jLabel37.setText("");
-                
+
                 carregarConvites(objConvites);
             }
         });
-        
+
         jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header = jTable1.getTableHeader();
         DefaultTableCellRenderer head_render = new DefaultTableCellRenderer();
@@ -69,14 +68,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
-    
+
     public void carregarConvites(Convites objConvites) {
 
         convitesDAO = new ConvitesDAO();
         ArrayList dados = new ArrayList();
 
         objConvites = new Convites();
-        dados = convitesDAO.listarConvites(usr.getNome_usuario());
+        dados = convitesDAO.listarConvites(usr.getId_usuario());
         String[] colunas = objConvites.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
@@ -94,6 +93,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
+                outroUsr.setId_usuario(rs.getInt("id_usuario"));
                 outroUsr.setNome_usuario(rs.getString("nome_usuario"));
                 outroUsr.setDesc_usuario(rs.getString("desc_usuario"));
                 outroUsr.setEmail_usuario(rs.getString("email_usuario"));
@@ -118,6 +118,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
+                usr.setId_usuario(rs.getInt("id_usuario"));
                 usr.setNome_usuario(rs.getString("nome_usuario"));
                 usr.setDesc_usuario(rs.getString("desc_usuario"));
                 usr.setEmail_usuario(rs.getString("email_usuario"));
@@ -226,6 +227,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel48 = new javax.swing.JPanel();
         jLabel35 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jPanel50 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
@@ -344,7 +347,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel33.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Mensagens");
+        jLabel33.setText("Convites");
 
         javax.swing.GroupLayout panelBtnEntrar2Layout = new javax.swing.GroupLayout(panelBtnEntrar2);
         panelBtnEntrar2.setLayout(panelBtnEntrar2Layout);
@@ -500,15 +503,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null},
+                {null},
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Nome", "Jogo"
+                "Convites"
             }
         ));
         jTable1.setFocusable(false);
@@ -1385,15 +1388,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("Conclua seu Perfil");
+
+        javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
+        jPanel50.setLayout(jPanel50Layout);
+        jPanel50Layout.setHorizontalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel50Layout.setVerticalGroup(
+            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel50Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36)
+                .addContainerGap(130, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1401,7 +1425,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
@@ -1649,8 +1675,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void panelBtnEntrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseClicked
         // TODO add your handling code here:
-        jScrollPane1.setVisible(true);
-        jPanel49.setVisible(true);
+
+        if (jPanel49.isVisible()) {
+            jScrollPane1.setVisible(false);
+            jPanel49.setVisible(false);
+        } else {
+            jScrollPane1.setVisible(true);
+            jPanel49.setVisible(true);
+        }
     }//GEN-LAST:event_panelBtnEntrar2MouseClicked
 
     private void panelBtnEntrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseEntered
@@ -1676,16 +1708,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseClicked
         // TODO add your handling code here:
-        System.out.println(jTextField1.getText() + " e " + usr.getNome_usuario());
         if (jTextField1.getText().equals(usr.getNome_usuario())) {
             TelaPerfil frame = new TelaPerfil();
             frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setId_usuario(usr.getId_usuario());
             frame.setVisible(true);
             this.dispose();
         } else {
             TelaPerfil frame = new TelaPerfil();
             frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setId_usuario(usr.getId_usuario());
             frame.outroUsr.setNome_usuario(jTextField1.getText());
+            frame.outroUsr.setId_usuario(outroUsr.getId_usuario());
             frame.setVisible(true);
             this.dispose();
         }
@@ -1802,23 +1836,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jPanel23MouseClicked
 
-    private void jScrollPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane1MouseExited
-
     private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable1MouseExited
 
+    private void jPanel49MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseExited
+        // TODO add your handling code here:
+        jPanel49.setVisible(false);
+        jScrollPane1.setVisible(false);
+    }//GEN-LAST:event_jPanel49MouseExited
+
+    private void jScrollPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseExited
+
     private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1FocusLost
-
-    private void jPanel49MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseExited
-        // TODO add your handling code here:
-        jScrollPane1.setVisible(false);
-        jPanel49.setVisible(false);
-    }//GEN-LAST:event_jPanel49MouseExited
 
     /**
      * @param args the command line arguments
@@ -1888,6 +1922,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1940,6 +1975,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;

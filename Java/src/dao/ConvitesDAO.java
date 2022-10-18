@@ -57,38 +57,42 @@ public class ConvitesDAO {
         }
     }
     
-    public int idUsuario(String nome_usuario) {
+    public int idJogo(String nome_jogo) {
         try {
-
-            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM usuario WHERE nome_usuario='" + nome_usuario +"'");
+            
+            PreparedStatement ps = connection.prepareStatement("SELECT id_jogo FROM jogos WHERE nome_jogo='" + nome_jogo +"'");
             ResultSet rs = ps.executeQuery();
 
             rs.next();
-            int idUsuario = rs.getInt("id_usuario");
+            int id_jogo = rs.getInt("id_jogo");
             
             ps.close();
             rs.close();
 
-            return idUsuario;
+            return id_jogo;
         } catch (SQLException e) {
             e.getMessage();
-            JOptionPane.showMessageDialog(null, "idUsuario():" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "idUsuario():" + e.getMessage() + nome_jogo);
             return 0;
         }
     }
     
-    public ArrayList listarConvites(String nome_usuario) {
+    public String infoConvite(String nome_remetente, String nome_jogo) {
+        String info_convite = nome_remetente + " te convidou para jogar " + nome_jogo;
+        return info_convite;
+    }
+    
+    public ArrayList listarConvites(int id_usuario) {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM convites WHERE destinatario=" + idUsuario(nome_usuario));
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM convites WHERE destinatario=" + id_usuario);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 dado.add(new Object[]{
-                    nomeRemetente(rs.getInt("remetente")),
-                    nomeJogo(rs.getInt("id_jogo"))
+                    infoConvite(nomeRemetente(rs.getInt("remetente")), nomeJogo(rs.getInt("id_jogo")))
                 });
 
             }
@@ -107,13 +111,12 @@ public class ConvitesDAO {
     public void enviarConvite(Convites objConvite) {
         try {
             String sql = "";
-            sql = "INSERT INTO convites(remetente,destinatario,id_jogo,mensagem) VALUES(?,?,?,?)";
+            sql = "INSERT INTO convites(remetente,destinatario,id_jogo) VALUES(?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setInt(1, objConvite.getRemetente());
             stmt.setInt(2, objConvite.getDestinatario());
             stmt.setInt(3, objConvite.getId_jogo());
-            stmt.setString(4, objConvite.getMensagem());
 
             stmt.execute();
             stmt.close();

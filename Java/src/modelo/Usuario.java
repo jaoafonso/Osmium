@@ -11,6 +11,7 @@ public class Usuario {
     private int foto_usuario;
     private int banner_usuario;
     private boolean administrador;
+    private boolean perfil_concluido;
 
     public int getId_usuario() {
         return id_usuario;
@@ -82,5 +83,13 @@ public class Usuario {
 
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
+    }
+
+    public boolean isPerfil_concluido() {
+        return perfil_concluido;
+    }
+
+    public void setPerfil_concluido(boolean perfil_concluido) {
+        this.perfil_concluido = perfil_concluido;
     }
 }

@@ -4,8 +4,7 @@ public class Convites {
     private int remetente;
     private int destinatario;
     private int id_jogo;
-    private String mensagem;
-    private String[] colunas = new String[]{"Nome", "Jogo"};
+    private String[] colunas = new String[]{"Convites"};
 
     public int getRemetente() {
         return remetente;
@@ -29,14 +28,6 @@ public class Convites {
 
     public void setId_jogo(int id_jogo) {
         this.id_jogo = id_jogo;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
     }
 
     public String[] getColunas() {

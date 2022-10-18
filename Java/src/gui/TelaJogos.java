@@ -39,10 +39,11 @@ public class TelaJogos extends javax.swing.JFrame {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                carregarCategorias(objCategorias);
-                carregarJogos(objJogos, null);
             }
         });
+        carregarJogos(objJogos, null);
+        carregarCategorias(objCategorias);
+        
         // Configurações de aparência da tabela de categorias
         jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header = jTable1.getTableHeader();
