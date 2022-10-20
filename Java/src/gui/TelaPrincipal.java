@@ -1711,7 +1711,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (jTextField1.getText().equals(usr.getNome_usuario())) {
             TelaPerfil frame = new TelaPerfil();
             frame.usr.setNome_usuario(usr.getNome_usuario());
-            frame.usr.setId_usuario(usr.getId_usuario());
             frame.setVisible(true);
             this.dispose();
         } else {
@@ -1719,7 +1718,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             frame.usr.setNome_usuario(usr.getNome_usuario());
             frame.usr.setId_usuario(usr.getId_usuario());
             frame.outroUsr.setNome_usuario(jTextField1.getText());
-            frame.outroUsr.setId_usuario(outroUsr.getId_usuario());
             frame.setVisible(true);
             this.dispose();
         }
