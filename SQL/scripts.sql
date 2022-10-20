@@ -17,9 +17,11 @@ CREATE TABLE usuario (
 	UNIQUE(email_usuario)
 );
 
-CREATE TABLE plataformas_jogadas (
-	id_usuario INTEGER(9),
-	plataforma VARCHAR(20),
+CREATE TABLE plataformas (
+	id_usuario INTEGER(9) UNIQUE,
+	pc BOOLEAN,
+	console BOOLEAN,
+    mobile BOOLEAN,
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
 );
 

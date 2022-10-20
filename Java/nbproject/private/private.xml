@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/modelo/Plataformas.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPerfil.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/PlataformasDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/UsuarioDAO.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/ConvitesDAO.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/modelo/Jogos.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/JogosDAO.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/modelo/Convites.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/factory/ConnectionFactory.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaInicial.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaJogos.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
