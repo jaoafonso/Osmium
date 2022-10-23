@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.SeguidoresDAO;
 import dao.CategoriasDAO;
 import dao.ConvitesDAO;
 import dao.InteressesDAO;
@@ -24,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import modelo.Seguidores;
 import modelo.Categorias;
 import modelo.Convites;
 import modelo.Interesses;
@@ -168,6 +170,8 @@ public class TelaPerfil extends javax.swing.JFrame {
     Usuario outroUsr = new Usuario();
     Convites cvt = new Convites();
     ConvitesDAO ConvitesDAO = new ConvitesDAO();
+    Seguidores seg = new Seguidores();
+    SeguidoresDAO segDAO = new SeguidoresDAO();
 
     public void carregarJogosFavoritos(JogosFavoritos objJF) {
         jfDAO = new JogosFavoritosDAO();
@@ -1084,7 +1088,7 @@ public class TelaPerfil extends javax.swing.JFrame {
 
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Seguir");
+        jLabel12.setText("Adicionar Amigo");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1092,7 +1096,7 @@ public class TelaPerfil extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
@@ -1295,6 +1299,9 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
+        
+        // Botão de enviar mensagem, aparecer apenas se o usuario for amigo do outro usuario
+        
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
@@ -1340,6 +1347,12 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseClicked
         // TODO add your handling code here:
+        
+        seg.setId_seguidor(usr.getId_usuario());
+        seg.setId_usuario(outroUsr.getId_usuario());
+        
+        segDAO.seguir(seg);
+        
     }//GEN-LAST:event_jPanel15MouseClicked
 
     private void jPanel15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseEntered

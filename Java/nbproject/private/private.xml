@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaPerfil.java</file>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/dao/JogosDAO.java</file>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/dao/PlataformasDAO.java</file>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaInicial.java</file>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/dao/JogosFavoritosDAO.java</file>
-            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/dao/InteressesDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPerfil.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaEnviarMensagem.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/ConvitesDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/CategoriasDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaInicial.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaJogos.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaMensagens.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaLerMensagem.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>

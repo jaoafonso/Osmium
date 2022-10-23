@@ -5,46 +5,48 @@
  */
 package gui;
 
-import java.awt.Cursor;
-import java.util.ArrayList;
-import modelo.ModelTable;
-import modelo.Usuario;
-import modelo.Categorias;
-import modelo.Jogos;
-import dao.CategoriasDAO;
-import dao.JogosDAO;
+import dao.SeguidoresDAO;
+import factory.ConnectionFactory;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import modelo.Seguidores;
+import modelo.ModelTable;
+import modelo.Usuario;
 
 /**
  *
  * @author Usuario
  */
-public class TelaJogos extends javax.swing.JFrame {
-
-    private Categorias objCategorias;
-    private CategoriasDAO categDAO;
-    private boolean buscar = false;
-
-    private Jogos objJogos;
-    private JogosDAO jogoDAO;
+public class TelaMensagens extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaJogos
+     * Creates new form TelaMensagens
      */
-    public TelaJogos() {
+    Connection connection;
+    
+    private Seguidores objSeguidores;
+    private SeguidoresDAO segDAO;
+    
+    public TelaMensagens() {
         initComponents();
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                carregarUsuarioPadrao();
+                
+                carregarSeguidores(objSeguidores);
             }
         });
-        carregarJogos(objJogos, null);
-        carregarCategorias(objCategorias);
         
-        // Configurações de aparência da tabela de categorias
+        // Configurações de aparência da tabela dos amigos
         jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header = jTable1.getTableHeader();
         DefaultTableCellRenderer head_render = new DefaultTableCellRenderer();
@@ -55,72 +57,62 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable1.setShowHorizontalLines(true);
         jTable1.setRowSelectionAllowed(false);
 
-        // Configurações de aparência da tabela de jogos
+        // Configurações de aparência da tabela das mensagens
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header2 = jTable2.getTableHeader();
         header2.setPreferredSize(new Dimension(100, 30));
         jTable2.getTableHeader().setDefaultRenderer(head_render);
         ((DefaultTableCellRenderer) jTable2.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER); // Centraliza o texto do header
+                .setHorizontalAlignment(JLabel.CENTER);
         jTable2.setGridColor(new Color(18, 18, 18));
         jTable2.setShowHorizontalLines(true);
         jTable2.setShowVerticalLines(true);
         jTable2.setRowSelectionAllowed(false);
     }
-
+    
     Usuario usr = new Usuario();
-    Categorias categ = new Categorias(); //salva o nome da categoria para ser enviado na pagina que vai listar os jogos dessa categoria
+    
+    public void carregarSeguidores(Seguidores objSeguidores) {
 
-    public void carregarCategorias(Categorias objCategorias) {
-
-        categDAO = new CategoriasDAO();
+        segDAO = new SeguidoresDAO();
         ArrayList dados = new ArrayList();
 
-        objCategorias = new Categorias();
-        dados = categDAO.listarCategorias();
-        String[] colunas = objCategorias.getColunas();
+        objSeguidores = new Seguidores();
+        dados = segDAO.listarSeguidores(usr.getId_usuario());
+        String[] colunas = objSeguidores.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
 
         jTable1.setModel(modelo);
+        
+        System.out.println(usr.getId_usuario());
 
     }
+    
+    public void carregarUsuarioPadrao() {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
 
-    public void carregarJogos(Jogos objJogos, String nome_categoria) {
+            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + usr.getNome_usuario() + "'";
+            Statement stmt = connection.createStatement();
 
-        jogoDAO = new JogosDAO();
-        ArrayList dados = new ArrayList();
-        objJogos = new Jogos();
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                usr.setId_usuario(rs.getInt("id_usuario"));
+                usr.setNome_usuario(rs.getString("nome_usuario"));
+                usr.setDesc_usuario(rs.getString("desc_usuario"));
+                usr.setEmail_usuario(rs.getString("email_usuario"));
+                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
+                usr.setFoto_usuario(rs.getInt("foto_usuario"));
+                usr.setBanner_usuario(rs.getInt("banner_usuario"));
+                usr.setAdministrador(rs.getBoolean("administrador"));
 
-        if (nome_categoria == null) {
-            dados = jogoDAO.listarJogos();
-        }else {
-            dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        String[] colunas = objJogos.getColunas();
-
-        ModelTable modelo = new ModelTable(dados, colunas);
-        jTable2.setModel(modelo);
-
-    }
-
-    public void abrirCategoria() {
-
-        //Fazer esse metodo carregar os jogos com a respectiva categoria selecionada para a tabela 2
-        /*TelaListaJogos frame = new TelaListaJogos();
-        frame.categ.setNome_categoria(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.setVisible(true);
-        this.dispose();*/
-    }
-
-    public void abrirJogo() {
-        TelaInfoJogo frame = new TelaInfoJogo();
-        frame.jg.setNome_jogo(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.retorno = "Tela Jogos";
-        frame.setVisible(true);
-        this.dispose();
     }
 
     /**
@@ -135,16 +127,13 @@ public class TelaJogos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnVoltar = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setTitle("Mensagens");
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setUndecorated(true);
         setResizable(false);
@@ -171,11 +160,6 @@ public class TelaJogos extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(18, 18, 18));
-        jPanel3.setMaximumSize(new java.awt.Dimension(200, 640));
-        jPanel3.setMinimumSize(new java.awt.Dimension(200, 640));
-        jPanel3.setPreferredSize(new java.awt.Dimension(200, 640));
-
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
 
@@ -190,37 +174,13 @@ public class TelaJogos extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Categorias de Jogos"
+                "Amigos"
             }
         ));
         jTable1.setFocusable(false);
         jTable1.setOpaque(false);
-        jTable1.setRowHeight(27);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
+        jTable1.setRowHeight(26);
         jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-
-        jPanel7.setBackground(new java.awt.Color(18, 18, 18));
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setOpaque(false);
@@ -236,39 +196,18 @@ public class TelaJogos extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Nome do Jogo", "Categorias"
+                "Nome", "Última Mensagem"
             }
         ));
         jTable2.setFocusable(false);
         jTable2.setOpaque(false);
-        jTable2.setRowHeight(50);
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable2MouseClicked(evt);
-            }
-        });
+        jTable2.setRowHeight(26);
         jScrollPane2.setViewportView(jTable2);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1046, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Jogos");
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setMinWidth(300);
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(300);
+            jTable2.getColumnModel().getColumn(0).setMaxWidth(300);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -278,28 +217,23 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206))))
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -308,15 +242,15 @@ public class TelaJogos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
@@ -342,16 +276,6 @@ public class TelaJogos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        carregarJogos(objJogos, jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        // TODO add your handling code here:
-        abrirJogo();
-    }//GEN-LAST:event_jTable2MouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -369,31 +293,28 @@ public class TelaJogos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaJogos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMensagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaJogos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMensagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaJogos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMensagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaJogos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaMensagens.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaJogos().setVisible(true);
+                new TelaMensagens().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
