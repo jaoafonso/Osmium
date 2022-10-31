@@ -8,15 +8,6 @@ import java.sql.PreparedStatement;
 public class UsuarioDAO {
 
     private Connection connection;
-    int id_usuario;
-    String nome_usuario;
-    String email_usuario;
-    String senha_usuario;
-    String desc_usuario;
-    String dataNasc_usuario;
-    int foto_usuario;
-    int banner_usuario;
-    boolean administrador;
 
     public UsuarioDAO() {
         this.connection = new ConnectionFactory().getConnection();
@@ -50,7 +41,7 @@ public class UsuarioDAO {
             stmt.setString(1, objUsuario.getDesc_usuario());
             stmt.setInt(2, objUsuario.getFoto_usuario());
             stmt.setInt(3, objUsuario.getBanner_usuario());
-            stmt.setString(4, nome_usuario);
+            stmt.setString(4, objUsuario.getNome_usuario());
 
             stmt.execute();
             stmt.close();

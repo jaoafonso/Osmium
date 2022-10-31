@@ -52,10 +52,10 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private Plataformas objPlataformas;
     private PlataformasDAO platDAO;
-    
+
     private Interesses objInteresses;
     private InteressesDAO inDAO;
-    
+
     private JogosFavoritos objJF;
     private JogosFavoritosDAO jfDAO;
 
@@ -66,6 +66,9 @@ public class TelaPerfil extends javax.swing.JFrame {
                 if (outroUsr.getNome_usuario() == null) {
                     jLabel1.setText("Seu Perfil");
                     carregarUsuarioPadrao();
+                    carregarPlataformas(objPlataformas, usr.getId_usuario());
+                    carregarInteresses(objInteresses, usr.getId_usuario());
+                    carregarJogosFavoritos(objJF, usr.getId_usuario());
                     ImageIcon fotoUsr = new ImageIcon(getClass().getResource("/img/img" + usr.getFoto_usuario() + ".png"));
                     jLabel3.setText(usr.getNome_usuario());
                     jTextArea1.setText(usr.getDesc_usuario());
@@ -77,6 +80,9 @@ public class TelaPerfil extends javax.swing.JFrame {
                     jPanel15.setVisible(false);
                 } else {
                     carregarOutroUsuario(outroUsr.getNome_usuario());
+                    carregarPlataformas(objPlataformas, outroUsr.getId_usuario());
+                    carregarInteresses(objInteresses, outroUsr.getId_usuario());
+                    carregarJogosFavoritos(objJF, outroUsr.getId_usuario());
                     jLabel1.setText("Perfil de " + outroUsr.getNome_usuario());
                     ImageIcon fotoUsr = new ImageIcon(getClass().getResource("/img/img" + outroUsr.getFoto_usuario() + ".png"));
                     jLabel3.setText(outroUsr.getNome_usuario());
@@ -87,10 +93,6 @@ public class TelaPerfil extends javax.swing.JFrame {
                     jPanel12.setVisible(false);
                     jPanel13.setVisible(false);
                 }
-
-                carregarPlataformas(objPlataformas);
-                carregarInteresses(objInteresses);
-                carregarJogosFavoritos(objJF);
             }
         });
         btnEdit1.setVisible(false);
@@ -173,38 +175,38 @@ public class TelaPerfil extends javax.swing.JFrame {
     Seguidores seg = new Seguidores();
     SeguidoresDAO segDAO = new SeguidoresDAO();
 
-    public void carregarJogosFavoritos(JogosFavoritos objJF) {
+    public void carregarJogosFavoritos(JogosFavoritos objJF, int id_usuario) {
         jfDAO = new JogosFavoritosDAO();
         ArrayList dados = new ArrayList();
         objJF = new JogosFavoritos();
 
-        dados = jfDAO.listarJogosFavoritos(usr.getId_usuario());
+        dados = jfDAO.listarJogosFavoritos(id_usuario);
 
         String[] colunas = new String[]{"Jogos Favoritos"};
 
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable2.setModel(modelo);
-    }
-    
-    public void carregarInteresses(Interesses objInteresses) {
+    } 
+
+    public void carregarInteresses(Interesses objInteresses, int id_usuario) {
         inDAO = new InteressesDAO();
         ArrayList dados = new ArrayList();
         objInteresses = new Interesses();
 
-        dados = inDAO.listarInteresses(usr.getId_usuario());
+        dados = inDAO.listarInteresses(id_usuario);
 
         String[] colunas = new String[]{"Interesses"};
 
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable1.setModel(modelo);
     }
-    
-    public void carregarPlataformas(Plataformas objPlataformas) {
+
+    public void carregarPlataformas(Plataformas objPlataformas, int id_usuario) {
         platDAO = new PlataformasDAO();
         ArrayList dados = new ArrayList();
         objPlataformas = new Plataformas();
 
-        dados = platDAO.listarPlataformas(usr.getId_usuario());
+        dados = platDAO.listarPlataformas(id_usuario);
 
         String[] colunas = new String[]{"Plataformas Jogadas"};
 
@@ -1028,7 +1030,7 @@ public class TelaPerfil extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -1039,7 +1041,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 590, -1, -1));
+        jPanel2.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 640, 110, -1));
 
         jPanel13.setBackground(new java.awt.Color(60, 63, 64));
         jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1088,7 +1090,7 @@ public class TelaPerfil extends javax.swing.JFrame {
 
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Adicionar Amigo");
+        jLabel12.setText("Seguir");
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1107,7 +1109,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 590, -1, -1));
+        jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 590, 110, -1));
 
         jPanel6.setOpaque(false);
 
@@ -1299,9 +1301,9 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
-        
+
         // Botão de enviar mensagem, aparecer apenas se o usuario for amigo do outro usuario
-        
+
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
@@ -1323,7 +1325,7 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseClicked
         // TODO add your handling code here:
-        
+
         jPanel13.setVisible(false);
         btnEdit1.setVisible(false);
         btnEdit2.setVisible(false);
@@ -1347,12 +1349,12 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseClicked
         // TODO add your handling code here:
-        
+
         seg.setId_seguidor(usr.getId_usuario());
         seg.setId_usuario(outroUsr.getId_usuario());
-        
+
         segDAO.seguir(seg);
-        
+
     }//GEN-LAST:event_jPanel15MouseClicked
 
     private void jPanel15MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel15MouseEntered
@@ -1399,12 +1401,12 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
         // TODO add your handling code here:
-        
+
         Interesses in = new Interesses();
         InteressesDAO inDAO = new InteressesDAO();
 
         in.setId_usuario(usr.getId_usuario());
-        
+
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
 
             in.setId_categoria(inDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
@@ -1430,7 +1432,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         JogosFavoritosDAO jfDAO = new JogosFavoritosDAO();
 
         jf.setId_usuario(usr.getId_usuario());
-        
+
         for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
 
             jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));

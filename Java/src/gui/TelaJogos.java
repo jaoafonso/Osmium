@@ -104,16 +104,6 @@ public class TelaJogos extends javax.swing.JFrame {
 
     }
 
-    public void abrirCategoria() {
-
-        //Fazer esse metodo carregar os jogos com a respectiva categoria selecionada para a tabela 2
-        /*TelaListaJogos frame = new TelaListaJogos();
-        frame.categ.setNome_categoria(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.setVisible(true);
-        this.dispose();*/
-    }
-
     public void abrirJogo() {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.jg.setNome_jogo(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());

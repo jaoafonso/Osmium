@@ -1153,7 +1153,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="500" y="590" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="300" y="640" width="110" height="-1"/>
                 </Constraint>
               </Constraints>
 
@@ -1162,7 +1162,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel8" pref="93" max="32767" attributes="0"/>
+                          <Component id="jLabel8" pref="94" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1259,7 +1259,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="380" y="590" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="380" y="590" width="110" height="-1"/>
                 </Constraint>
               </Constraints>
 
@@ -1290,7 +1290,7 @@
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Adicionar Amigo"/>
+                    <Property name="text" type="java.lang.String" value="Seguir"/>
                   </Properties>
                 </Component>
               </SubComponents>

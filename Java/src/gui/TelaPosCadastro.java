@@ -70,6 +70,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         panelBtnFoto = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         panelBtnRegistrar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
 
@@ -140,6 +141,11 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jTextArea2.setWrapStyleWord(true);
         jTextArea2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jTextArea2.setHighlighter(null);
+        jTextArea2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea2KeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea2);
 
         panelBtnBanner.setBackground(new java.awt.Color(60, 63, 64));
@@ -206,6 +212,9 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -224,7 +233,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                         .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -252,7 +262,9 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 350));
@@ -411,6 +423,21 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         panelBtnFoto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnFotoMouseEntered
 
+    private void jTextArea2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyTyped
+        // TODO add your handling code here:
+        String s = jTextArea2.getText();
+        int l = s.length();
+        try {
+            if (l >= 300) {
+                evt.consume();
+                jLabel6.setText("Máximo 300 Caracteres!");
+            } else {
+                jLabel6.setText("");
+            }
+        } catch (Exception w) {
+        }
+    }//GEN-LAST:event_jTextArea2KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -457,6 +484,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

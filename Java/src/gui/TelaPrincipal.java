@@ -6,6 +6,7 @@
 package gui;
 
 import dao.ConvitesDAO;
+import dao.PublicacoesDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
@@ -23,9 +24,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
-import modelo.Categorias;
 import modelo.Convites;
 import modelo.ModelTable;
+import modelo.Publicacoes;
 
 /**
  *
@@ -38,6 +39,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     private Convites objConvites;
     private ConvitesDAO convitesDAO;
+    
+    private Publicacoes objPublicacoes;
+    private PublicacoesDAO pubDAO;
 
     public TelaPrincipal() {
         initComponents();
@@ -51,6 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jLabel37.setText("");
 
                 carregarConvites(objConvites);
+                carregarPublicacoes(objPublicacoes);
             }
         });
         
@@ -69,13 +74,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setVisible(false);
         jPanel49.setVisible(false);
         
-        // Configurações de aparência da tabela das atividades recentes
+        // Configurações de aparência da tabela das publicacoes
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header2 = jTable2.getTableHeader();
         header2.setPreferredSize(new Dimension(100, 50));
         jTable2.getTableHeader().setDefaultRenderer(head_render);
         ((DefaultTableCellRenderer) jTable2.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER);
+                .setHorizontalAlignment(JLabel.LEFT);
         jTable2.setGridColor(new Color(18, 18, 18));
         jTable2.setShowHorizontalLines(true);
         jTable2.setRowSelectionAllowed(false);
@@ -84,6 +89,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
 
+    public void carregarPublicacoes(Publicacoes objPublicacoes) {
+    
+        pubDAO = new PublicacoesDAO();
+        ArrayList dados = new ArrayList();
+
+        objPublicacoes = new Publicacoes();
+        dados = pubDAO.listarPublicacoes(usr.getId_usuario());
+        String[] colunas = objPublicacoes.getColunas();
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable2.setModel(modelo);
+        
+    }
+    
     public void carregarConvites(Convites objConvites) {
 
         convitesDAO = new ConvitesDAO();
@@ -245,6 +265,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jPanel50 = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -1419,13 +1442,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel36.setText("Conclua seu Perfil");
 
+        jButton1.setText("Interesses");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Jogos Favoritos");
+
+        jButton3.setText("Plataformas");
+
         javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
         jPanel50.setLayout(jPanel50Layout);
         jPanel50Layout.setHorizontalGroup(
             jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel50Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel50Layout.setVerticalGroup(
@@ -1433,7 +1471,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel50Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel36)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1472,13 +1516,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Atividades Recentes"
+                "Assunto", "Usuário", "Título"
             }
         ));
         jTable2.setFocusable(false);
@@ -1761,6 +1805,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit3MouseClicked
         // TODO add your handling code here:
+        TelaNovaPublicacao frame = new TelaNovaPublicacao();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnExit3MouseClicked
 
     private void btnExit3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit3MouseEntered
@@ -1770,6 +1818,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnExit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExit3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1811,6 +1863,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnExit1;
     private javax.swing.JButton btnExit2;
     private javax.swing.JButton btnExit3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

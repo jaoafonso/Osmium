@@ -17,6 +17,17 @@ CREATE TABLE usuario (
 	UNIQUE(email_usuario)
 );
 
+CREATE TABLE mensagens (
+	id_mensagem INTEGER(9) AUTO_INCREMENT,
+	id_remetente INTEGER(9),
+    id_destinatario INTEGER(9),
+	mensagem VARCHAR(300),
+    lida BOOLEAN,
+	FOREIGN KEY(id_remetente) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(id_destinatario) REFERENCES usuario(id_usuario),
+    PRIMARY KEY(id_mensagem)
+);
+
 CREATE TABLE plataformas (
 	id_usuario INTEGER(9) UNIQUE,
 	pc BOOLEAN,
@@ -76,6 +87,16 @@ CREATE TABLE seguidores (
 	id_seguidor INTEGER(9),
     FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
     FOREIGN KEY(id_seguidor) REFERENCES usuario(id_usuario)
+);
+
+CREATE TABLE publicacoes (
+	id_publicacao INTEGER(9) AUTO_INCREMENT,
+	id_usuario INTEGER(9),
+	assunto VARCHAR(40),
+	titulo VARCHAR(40),
+	descricao VARCHAR(300),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+    PRIMARY KEY(id_publicacao)
 );
 
 #Administradores

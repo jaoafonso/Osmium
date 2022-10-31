@@ -42,7 +42,7 @@ public class TelaMensagens extends javax.swing.JFrame {
             public void run() {
                 carregarUsuarioPadrao();
                 
-                carregarSeguidores(objSeguidores);
+                carregarSeguidoresMutuos(objSeguidores);
             }
         });
         
@@ -72,13 +72,44 @@ public class TelaMensagens extends javax.swing.JFrame {
     
     Usuario usr = new Usuario();
     
-    public void carregarSeguidores(Seguidores objSeguidores) {
+    public int pegarIdUsuario(String nome_usuario) {
+        try {
+            int id_usuario = 0;
+            
+            this.connection = new ConnectionFactory().getConnection();
+            
+            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'";
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                id_usuario = rs.getInt("id_usuario");
+            }
+            connection.close();
+            return id_usuario;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
+    
+    public void abrirChat() {
+        TelaEnviarMensagem frame = new TelaEnviarMensagem();
+        frame.msg.setId_destinatario(pegarIdUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        frame.msg.setId_remetente(usr.getId_usuario());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
+    }
+    
+    public void carregarSeguidoresMutuos(Seguidores objSeguidores) {
 
         segDAO = new SeguidoresDAO();
         ArrayList dados = new ArrayList();
 
         objSeguidores = new Seguidores();
-        dados = segDAO.listarSeguidores(usr.getId_usuario());
+        dados = segDAO.listarSeguidoresMutuos(usr.getId_usuario());
         String[] colunas = objSeguidores.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
@@ -174,12 +205,17 @@ public class TelaMensagens extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Amigos"
+                "Seguidores Mútuos"
             }
         ));
         jTable1.setFocusable(false);
         jTable1.setOpaque(false);
         jTable1.setRowHeight(26);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jScrollPane2.setBorder(null);
@@ -196,7 +232,7 @@ public class TelaMensagens extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Nome", "Última Mensagem"
+                "Remetente", "Mensagem"
             }
         ));
         jTable2.setFocusable(false);
@@ -275,6 +311,11 @@ public class TelaMensagens extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        abrirChat();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

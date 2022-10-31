@@ -12,11 +12,11 @@ import modelo.Seguidores;
 public class SeguidoresDAO {
 
     private Connection connection;
-    
+
     public SeguidoresDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
-    
+
     public String pegarNomeSeguidor(int id_seguidor) {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_seguidor);
@@ -24,7 +24,7 @@ public class SeguidoresDAO {
 
             rs.next();
             String nomeRemetente = rs.getString("nome_usuario");
-            
+
             ps.close();
             rs.close();
 
@@ -35,7 +35,7 @@ public class SeguidoresDAO {
             return null;
         }
     }
-    
+
     public ArrayList listarSeguidores(int id_usuario) {
         try {
             ArrayList dado = new ArrayList();
@@ -60,7 +60,39 @@ public class SeguidoresDAO {
             return null;
         }
     }
-    
+
+    public ArrayList listarSeguidoresMutuos(int id_usuario) {
+        try {
+            ArrayList dado = new ArrayList();
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_seguidor FROM seguidores WHERE id_usuario = " + id_usuario);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM seguidores WHERE id_usuario = " + rs.getInt("id_seguidor"));
+                ResultSet rs2 = ps2.executeQuery();
+
+                while (rs2.next()) {
+                    dado.add(new Object[]{
+                        pegarNomeSeguidor(rs2.getInt("id_seguidor"))
+                    });
+                }
+                ps2.close();
+                rs2.close();
+            }
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return dado;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "listarSeguidoresMutuos():" + e.getMessage());
+            return null;
+        }
+    }
+
     public void seguir(Seguidores objSeg) {
         try {
             String sql = "";
