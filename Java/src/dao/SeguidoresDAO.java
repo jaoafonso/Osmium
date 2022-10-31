@@ -65,21 +65,14 @@ public class SeguidoresDAO {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT id_seguidor FROM seguidores WHERE id_usuario = " + id_usuario);
+            PreparedStatement ps = connection.prepareStatement("SELECT id_seguidor FROM seguidores a WHERE id_seguidor IN (SELECT id_seguidor FROM seguidores b WHERE a.id_usuario = b.id_usuario) and id_usuario = " + id_usuario);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
-                PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM seguidores WHERE id_usuario = " + rs.getInt("id_seguidor"));
-                ResultSet rs2 = ps2.executeQuery();
-
-                while (rs2.next()) {
-                    dado.add(new Object[]{
-                        pegarNomeSeguidor(rs2.getInt("id_seguidor"))
-                    });
-                }
-                ps2.close();
-                rs2.close();
+                dado.add(new Object[]{
+                    pegarNomeSeguidor(rs.getInt("id_seguidor"))
+                });
             }
             ps.close();
             rs.close();
