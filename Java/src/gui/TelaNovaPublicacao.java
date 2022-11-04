@@ -57,7 +57,6 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
                 usr.setEmail_usuario(rs.getString("email_usuario"));
                 usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
                 usr.setFoto_usuario(rs.getInt("foto_usuario"));
-                usr.setBanner_usuario(rs.getInt("banner_usuario"));
                 usr.setAdministrador(rs.getBoolean("administrador"));
 
             }

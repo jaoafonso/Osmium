@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.MensagensDAO;
 import dao.SeguidoresDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import modelo.Mensagens;
 import modelo.Seguidores;
 import modelo.ModelTable;
 import modelo.Usuario;
@@ -31,21 +33,30 @@ public class TelaMensagens extends javax.swing.JFrame {
      * Creates new form TelaMensagens
      */
     Connection connection;
-    
+
+    private Mensagens objMensagens;
+    private MensagensDAO msgDAO;
     private Seguidores objSeguidores;
     private SeguidoresDAO segDAO;
-    
+
     public TelaMensagens() {
         initComponents();
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarUsuarioPadrao();
-                
                 carregarSeguidoresMutuos(objSeguidores);
+                carregarMensagens(objMensagens);
+
+                jTable2.getColumnModel().getColumn(2).setMinWidth(0);
+                jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
+                jTable2.getColumnModel().getColumn(2).setWidth(0);
+                jTable2.getColumnModel().getColumn(0).setMinWidth(300);
+                jTable2.getColumnModel().getColumn(0).setMaxWidth(300);
+                jTable2.getColumnModel().getColumn(0).setWidth(300);
             }
         });
-        
+
         // Configurações de aparência da tabela dos amigos
         jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header = jTable1.getTableHeader();
@@ -68,16 +79,17 @@ public class TelaMensagens extends javax.swing.JFrame {
         jTable2.setShowHorizontalLines(true);
         jTable2.setShowVerticalLines(true);
         jTable2.setRowSelectionAllowed(false);
+
     }
-    
+
     Usuario usr = new Usuario();
-    
+
     public int pegarIdUsuario(String nome_usuario) {
         try {
             int id_usuario = 0;
-            
+
             this.connection = new ConnectionFactory().getConnection();
-            
+
             String sql = "SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'";
             Statement stmt = connection.createStatement();
 
@@ -93,16 +105,40 @@ public class TelaMensagens extends javax.swing.JFrame {
             return 0;
         }
     }
-    
-    public void abrirChat() {
+
+    public void escreverMensagem() {
         TelaEnviarMensagem frame = new TelaEnviarMensagem();
         frame.msg.setId_destinatario(pegarIdUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
         frame.msg.setId_remetente(usr.getId_usuario());
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "Tela Mensagens";
         frame.setVisible(true);
         this.dispose();
     }
-    
+
+    public void abrirMensagem() {
+        TelaLerMensagem frame = new TelaLerMensagem();
+        frame.msg.setId_mensagem(Integer.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString()));
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
+    }
+
+    public void carregarMensagens(Mensagens objMensagens) {
+
+        msgDAO = new MensagensDAO();
+        ArrayList dados = new ArrayList();
+
+        objMensagens = new Mensagens();
+        dados = msgDAO.listarMensagens(usr.getId_usuario());
+        String[] colunas = objMensagens.getColunas();
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable2.setModel(modelo);
+
+    }
+
     public void carregarSeguidoresMutuos(Seguidores objSeguidores) {
 
         segDAO = new SeguidoresDAO();
@@ -115,11 +151,9 @@ public class TelaMensagens extends javax.swing.JFrame {
         ModelTable modelo = new ModelTable(dados, colunas);
 
         jTable1.setModel(modelo);
-        
-        System.out.println(usr.getId_usuario());
 
     }
-    
+
     public void carregarUsuarioPadrao() {
         try {
             this.connection = new ConnectionFactory().getConnection();
@@ -135,7 +169,6 @@ public class TelaMensagens extends javax.swing.JFrame {
                 usr.setEmail_usuario(rs.getString("email_usuario"));
                 usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
                 usr.setFoto_usuario(rs.getInt("foto_usuario"));
-                usr.setBanner_usuario(rs.getInt("banner_usuario"));
                 usr.setAdministrador(rs.getBoolean("administrador"));
 
             }
@@ -226,23 +259,31 @@ public class TelaMensagens extends javax.swing.JFrame {
         jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Remetente", "Mensagem"
+                "Remetente", "Mensagem", "ID"
             }
         ));
         jTable2.setFocusable(false);
         jTable2.setOpaque(false);
-        jTable2.setRowHeight(26);
+        jTable2.setRowHeight(50);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setMinWidth(300);
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(300);
             jTable2.getColumnModel().getColumn(0).setMaxWidth(300);
+            jTable2.getColumnModel().getColumn(2).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(0);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -314,8 +355,13 @@ public class TelaMensagens extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        abrirChat();
+        escreverMensagem();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        abrirMensagem();
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments

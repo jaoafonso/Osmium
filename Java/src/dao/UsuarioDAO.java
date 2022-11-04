@@ -35,13 +35,12 @@ public class UsuarioDAO {
     public void posCadastrar(Usuario objUsuario, String nome_usuario) {
         try {
             String sql = "";
-            sql = "UPDATE usuario SET desc_usuario = ?, foto_usuario = ?, banner_usuario = ? WHERE nome_usuario = ?";
+            sql = "UPDATE usuario SET desc_usuario = ?, foto_usuario = ? WHERE nome_usuario = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
 
             stmt.setString(1, objUsuario.getDesc_usuario());
             stmt.setInt(2, objUsuario.getFoto_usuario());
-            stmt.setInt(3, objUsuario.getBanner_usuario());
-            stmt.setString(4, objUsuario.getNome_usuario());
+            stmt.setString(3, objUsuario.getNome_usuario());
 
             stmt.execute();
             stmt.close();

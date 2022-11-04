@@ -16,7 +16,7 @@ public class JogosFavoritosDAO {
     public JogosFavoritosDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
-    
+
     public String nomeJogo(int id_jogo) {
         try {
 
@@ -25,7 +25,7 @@ public class JogosFavoritosDAO {
 
             rs.next();
             String nomeJogo = rs.getString("nome_jogo");
-            
+
             ps.close();
             rs.close();
 
@@ -81,6 +81,19 @@ public class JogosFavoritosDAO {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "pegarIdJogo():" + e.getMessage());
             return 0;
+        }
+    }
+
+    public void limparJogosFavoritos(int id_usuario) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM jogos_favoritos WHERE id_usuario = " + id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
         }
     }
 

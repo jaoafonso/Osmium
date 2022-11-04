@@ -134,7 +134,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 outroUsr.setEmail_usuario(rs.getString("email_usuario"));
                 outroUsr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
                 outroUsr.setFoto_usuario(rs.getInt("foto_usuario"));
-                outroUsr.setBanner_usuario(rs.getInt("banner_usuario"));
                 outroUsr.setAdministrador(rs.getBoolean("administrador"));
             }
             connection.close();
@@ -159,7 +158,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 usr.setEmail_usuario(rs.getString("email_usuario"));
                 usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
                 usr.setFoto_usuario(rs.getInt("foto_usuario"));
-                usr.setBanner_usuario(rs.getInt("banner_usuario"));
                 usr.setAdministrador(rs.getBoolean("administrador"));
 
             }
@@ -939,7 +937,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel16.setForeground(new java.awt.Color(186, 186, 186));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Amigos Recentes");
+        jLabel16.setText("Seguidores Recentes");
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);

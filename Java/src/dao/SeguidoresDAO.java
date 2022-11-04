@@ -102,4 +102,21 @@ public class SeguidoresDAO {
             throw new RuntimeException(u);
         }
     }
+
+    public void deixarDeSeguir(Seguidores objSeg) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM seguidores WHERE id_usuario = ? AND id_seguidor = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setInt(1, objSeg.getId_usuario());
+            stmt.setInt(2, objSeg.getId_seguidor());
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
 }

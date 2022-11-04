@@ -1162,7 +1162,7 @@
                               <Color blue="ba" green="ba" red="ba" type="rgb"/>
                             </Property>
                             <Property name="horizontalAlignment" type="int" value="0"/>
-                            <Property name="text" type="java.lang.String" value="Amigos Recentes"/>
+                            <Property name="text" type="java.lang.String" value="Seguidores Recentes"/>
                           </Properties>
                         </Component>
                       </SubComponents>

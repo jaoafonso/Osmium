@@ -9,7 +9,6 @@ public class Usuario {
     private String desc_usuario;
     private String dataNasc_usuario;
     private int foto_usuario;
-    private int banner_usuario;
     private boolean administrador;
     private boolean perfil_concluido;
 
@@ -67,14 +66,6 @@ public class Usuario {
 
     public void setFoto_usuario(int foto_usuario) {
         this.foto_usuario = foto_usuario;
-    }
-
-    public int getBanner_usuario() {
-        return banner_usuario;
-    }
-
-    public void setBanner_usuario(int banner_usuario) {
-        this.banner_usuario = banner_usuario;
     }
 
     public boolean isAdministrador() {

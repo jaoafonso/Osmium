@@ -75,11 +75,8 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         panelBtnRegistrar = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         panelTxtRegistro1 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         labelBtnRegistrese1 = new javax.swing.JLabel();
@@ -349,52 +346,20 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel13.setOpaque(false);
-
-        jComboBox4.setBackground(new java.awt.Color(18, 18, 18));
-        jComboBox4.setForeground(new java.awt.Color(186, 186, 186));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dia", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
-            }
-        });
-
-        jComboBox5.setBackground(new java.awt.Color(18, 18, 18));
-        jComboBox5.setForeground(new java.awt.Color(186, 186, 186));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mês", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-
-        jComboBox6.setBackground(new java.awt.Color(18, 18, 18));
-        jComboBox6.setForeground(new java.awt.Color(186, 186, 186));
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ano", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905", "1904", "1903", "1902", "1901", "1900" }));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox6))
-                .addGap(4, 4, 4))
-        );
-
         jPasswordField1.setBackground(new java.awt.Color(69, 73, 73));
         jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        jFormattedTextField1.setBackground(new java.awt.Color(69, 73, 73));
+        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jFormattedTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -403,8 +368,13 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(panelBtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 89, Short.MAX_VALUE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField1)
                             .addComponent(jTextField2)
@@ -412,15 +382,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(panelBtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPasswordField1)))
+                        .addComponent(jFormattedTextField1)))
                 .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
@@ -441,8 +404,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(panelBtnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
@@ -517,7 +480,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(panelCadastroLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         panelCadastroLayout.setVerticalGroup(
             panelCadastroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1130,9 +1093,9 @@ public class TelaInicial extends javax.swing.JFrame {
         usr.setNome_usuario(jTextField2.getText());
         usr.setSenha_usuario(jPasswordField1.getText());
 
-        String dia = jComboBox4.getSelectedItem().toString();
-        String mes = jComboBox5.getSelectedItem().toString();
-        String ano = jComboBox6.getSelectedItem().toString();
+        String ano = jFormattedTextField1.getText().substring(6, 10);
+        String mes = jFormattedTextField1.getText().substring(3, 5);
+        String dia = jFormattedTextField1.getText().substring(0, 2);
 
         usr.setDataNasc_usuario(ano + "-" + mes + "-" + dia);
 
@@ -1213,12 +1176,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void panelBtnWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnWebsiteMouseClicked
         // TODO add your handling code here:
-        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/";
+        String url = "https://jaoafonso.github.io/Osmium/Web/";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
         UIManager.put("OptionPane.messageForeground", Color.white);
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Esse link será aberto em seu navegador padrão, deseja continuar?", "Sair",
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Esse link será aberto em seu navegador padrão, deseja continuar?", "Redirecionando",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
@@ -1249,12 +1212,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void panelBtnGithubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnGithubMouseClicked
         // TODO add your handling code here:
-        String url = "https://github.com/jaoafonsokkj/TCC-Osmium";
+        String url = "https://github.com/jaoafonso/Osmium";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
         UIManager.put("OptionPane.messageForeground", Color.white);
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Esse link será aberto em seu navegador padrão, deseja continuar?", "Sair",
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Esse link será aberto em seu navegador padrão, deseja continuar?", "Redirecionando",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
@@ -1277,10 +1240,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_panelBtnGithubMouseClicked
-
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1320,9 +1279,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JLabel imgStargazers;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1353,7 +1310,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

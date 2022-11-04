@@ -6,7 +6,7 @@ public class Mensagens {
     private int id_destinatario;
     private String mensagem;
     private boolean lida;
-    private String[] colunas = new String[]{"Remetente", "Mensagem"};
+    private String[] colunas = new String[]{"Remetente", "Mensagem", "ID"};
 
     public int getId_mensagem() {
         return id_mensagem;

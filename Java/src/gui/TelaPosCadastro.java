@@ -33,11 +33,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                     fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
                     jLabel4.setIcon(fotoUsr);
                 }
-                /*if (usr.getBanner_usuario() != 0) {
-                    ImageIcon bannerUsr = new ImageIcon(getClass().getResource("/img/banner" + usr.getBanner_usuario() + ".png"));
-                    bannerUsr.setImage(bannerUsr.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH));
-                    jLabel5.setIcon(bannerUsr);
-                }*/ // Desbloquear após adicionar os banners
             }
         });
     }
@@ -61,13 +56,9 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        panelBtnBanner = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
         panelBtnFoto = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -117,16 +108,11 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/perfilVazio.png"))); // NOI18N
 
-        jLabel1.setForeground(new java.awt.Color(186, 186, 186));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Escolha uma Foto de Perfil:");
 
-        jLabel2.setForeground(new java.awt.Color(186, 186, 186));
-        jLabel2.setText("Escolha um Banner:");
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/perfilVazio.png"))); // NOI18N
-
-        jLabel3.setForeground(new java.awt.Color(186, 186, 186));
-        jLabel3.setText("<html>Adicione uma descrição para seu perfil<html>");
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Adicione uma descrição para seu perfil:");
 
         jScrollPane1.setBackground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -147,38 +133,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTextArea2);
-
-        panelBtnBanner.setBackground(new java.awt.Color(60, 63, 64));
-        panelBtnBanner.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelBtnBanner.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBtnBannerMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                panelBtnBannerMouseEntered(evt);
-            }
-        });
-
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("ESCOLHER");
-
-        javax.swing.GroupLayout panelBtnBannerLayout = new javax.swing.GroupLayout(panelBtnBanner);
-        panelBtnBanner.setLayout(panelBtnBannerLayout);
-        panelBtnBannerLayout.setHorizontalGroup(
-            panelBtnBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnBannerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelBtnBannerLayout.setVerticalGroup(
-            panelBtnBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelBtnBannerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         panelBtnFoto.setBackground(new java.awt.Color(60, 63, 64));
         panelBtnFoto.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -220,50 +174,40 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addComponent(panelBtnBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(17, 17, 17)
                         .addComponent(panelBtnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(panelBtnBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -379,7 +323,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         // TODO add your handling code here:
         usr.setDesc_usuario(jTextArea2.getText());
         usr.setFoto_usuario(usr.getFoto_usuario());
-        usr.setBanner_usuario(usr.getBanner_usuario());
 
         UsuarioDAO dao = new UsuarioDAO();
         dao.posCadastrar(usr, usr.getNome_usuario());
@@ -395,25 +338,10 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         panelBtnRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnRegistrarMouseEntered
 
-    private void panelBtnBannerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnBannerMouseClicked
-        // TODO add your handling code here:
-        TelaBanners frame = new TelaBanners();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setFoto_usuario(usr.getFoto_usuario());
-        frame.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_panelBtnBannerMouseClicked
-
-    private void panelBtnBannerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnBannerMouseEntered
-        // TODO add your handling code here:
-        panelBtnBanner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_panelBtnBannerMouseEntered
-
     private void panelBtnFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnFotoMouseClicked
         // TODO add your handling code here:
         TelaImagens frame = new TelaImagens();
         frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setBanner_usuario(usr.getBanner_usuario());
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_panelBtnFotoMouseClicked
@@ -477,13 +405,10 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -491,7 +416,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JPanel panelBtnBanner;
     private javax.swing.JPanel panelBtnFoto;
     private javax.swing.JPanel panelBtnRegistrar;
     // End of variables declaration//GEN-END:variables

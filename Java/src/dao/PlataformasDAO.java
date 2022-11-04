@@ -41,6 +41,19 @@ public class PlataformasDAO {
         }
     }
     
+    public void limparPlataformas(int id_usuario) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM plataformas WHERE id_usuario = " + id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public void cadastrarPlataformas(Plataformas objPlataforma) {
         try {
             String sql = "";

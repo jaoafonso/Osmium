@@ -666,7 +666,6 @@ public class TelaImagens extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaPosCadastro frame = new TelaPosCadastro();
         frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setBanner_usuario(usr.getBanner_usuario());
         frame.usr.setFoto_usuario(usr.getFoto_usuario());
         frame.setVisible(true);
         this.dispose();

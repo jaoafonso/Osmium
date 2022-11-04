@@ -63,6 +63,19 @@ public class InteressesDAO {
         }
     }
 
+    public void limparInteresses(int id_usuario) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM interesses_do_usuario WHERE id_usuario = " + id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public void favoritarCategoria(Interesses objInteresses) {
 
         try {

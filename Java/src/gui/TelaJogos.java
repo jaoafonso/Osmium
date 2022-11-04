@@ -27,7 +27,6 @@ public class TelaJogos extends javax.swing.JFrame {
 
     private Categorias objCategorias;
     private CategoriasDAO categDAO;
-    private boolean buscar = false;
 
     private Jogos objJogos;
     private JogosDAO jogoDAO;
