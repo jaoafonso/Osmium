@@ -1,10 +1,19 @@
 package modelo;
 
 public class Convites {
+    private int id_convite;
     private int remetente;
     private int destinatario;
     private int id_jogo;
-    private String[] colunas = new String[]{"Convites"};
+    private String[] colunas = new String[]{"Convites", "ID"};
+
+    public int getId_convite() {
+        return id_convite;
+    }
+
+    public void setId_convite(int id_convite) {
+        this.id_convite = id_convite;
+    }
 
     public int getRemetente() {
         return remetente;
@@ -37,4 +46,6 @@ public class Convites {
     public void setColunas(String[] colunas) {
         this.colunas = colunas;
     }
+
+    
 }

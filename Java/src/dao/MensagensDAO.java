@@ -17,6 +17,20 @@ public class MensagensDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
     
+    
+    public void excluirMensagem(int id_mensagem) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM mensagens WHERE id_mensagem = " + id_mensagem;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public void enviarMensagem(Mensagens objMsg) {
         try {
             String sql = "";
@@ -54,7 +68,7 @@ public class MensagensDAO {
         }
     }
     
-    public ArrayList listarMensagens(int id_usuario) {
+    public ArrayList listarMensagensRecebidas(int id_usuario) {
         try {
             ArrayList dado = new ArrayList();
 
@@ -76,7 +90,34 @@ public class MensagensDAO {
             return dado;
         } catch (SQLException e) {
             e.getMessage();
-            JOptionPane.showMessageDialog(null, "listarSeguidores():" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "listarMensagensRecebidas():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public ArrayList listarMensagensEnviadas(int id_usuario) {
+        try {
+            ArrayList dado = new ArrayList();
+
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM mensagens WHERE id_remetente = " + id_usuario + " ORDER BY id_mensagem DESC");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                dado.add(new Object[]{
+                    pegarNomeUsuario(id_usuario),
+                    rs.getString("mensagem"),
+                    rs.getInt("id_mensagem")
+                });
+            }
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return dado;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "listarMensagensEnviadas():" + e.getMessage());
             return null;
         }
     }

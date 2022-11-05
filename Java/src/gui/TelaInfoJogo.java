@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.JogosDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -12,6 +13,8 @@ import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import modelo.Jogos;
@@ -45,7 +48,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jTable1.setGridColor(new Color(18, 18, 18));
         jTable1.setShowHorizontalLines(true);
         jTable1.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela das categorias
         jScrollPane2.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header2 = jTable2.getTableHeader();
@@ -59,6 +62,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
+    JogosDAO jgDAO = new JogosDAO();
     String retorno;
 
     public void carregarJogo() {
@@ -278,6 +282,11 @@ public class TelaInfoJogo extends javax.swing.JFrame {
             frame.usr.setNome_usuario(usr.getNome_usuario());
             frame.setVisible(true);
             this.dispose();
+        } else {
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnVoltarMouseClicked
 
@@ -292,6 +301,23 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
+        if (jgDAO.encontrarParceiro(jg.getId_jogo()) == "" || jgDAO.encontrarParceiro(jg.getId_jogo()).equals(usr.getNome_usuario())){
+            Color temaDark = new Color(18, 18, 18);
+            UIManager.put("control", temaDark);
+            UIManager.put("OptionPane.background", temaDark);
+            UIManager.put("OptionPane.messageForeground", Color.white);
+            JOptionPane.showMessageDialog(null, "Não encontramos nenhum companheiro compátivel. :(");
+        } else {
+            TelaPerfil frame = new TelaPerfil();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setId_usuario(usr.getId_usuario());
+            frame.outroUsr.setNome_usuario(jgDAO.encontrarParceiro(jg.getId_jogo()));
+            frame.retorno = "TelaInfoJogo";
+            frame.outroRetorno = retorno;
+            frame.nome_jogo_retorno = jg.getNome_jogo();
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered

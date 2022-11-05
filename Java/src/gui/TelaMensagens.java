@@ -46,14 +46,7 @@ public class TelaMensagens extends javax.swing.JFrame {
             public void run() {
                 carregarUsuarioPadrao();
                 carregarSeguidoresMutuos(objSeguidores);
-                carregarMensagens(objMensagens);
-
-                jTable2.getColumnModel().getColumn(2).setMinWidth(0);
-                jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
-                jTable2.getColumnModel().getColumn(2).setWidth(0);
-                jTable2.getColumnModel().getColumn(0).setMinWidth(300);
-                jTable2.getColumnModel().getColumn(0).setMaxWidth(300);
-                jTable2.getColumnModel().getColumn(0).setWidth(300);
+                carregarMensagens(objMensagens, "recebidas");
             }
         });
 
@@ -110,6 +103,7 @@ public class TelaMensagens extends javax.swing.JFrame {
         TelaEnviarMensagem frame = new TelaEnviarMensagem();
         frame.msg.setId_destinatario(pegarIdUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
         frame.msg.setId_remetente(usr.getId_usuario());
+        frame.usr.setId_usuario(usr.getId_usuario());
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.retorno = "Tela Mensagens";
         frame.setVisible(true);
@@ -119,24 +113,43 @@ public class TelaMensagens extends javax.swing.JFrame {
     public void abrirMensagem() {
         TelaLerMensagem frame = new TelaLerMensagem();
         frame.msg.setId_mensagem(Integer.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 2).toString()));
+        frame.usr.setId_usuario(usr.getId_usuario());
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();
     }
 
-    public void carregarMensagens(Mensagens objMensagens) {
+    public void carregarMensagens(Mensagens objMensagens, String enviadasOuRecebidas) {
 
-        msgDAO = new MensagensDAO();
-        ArrayList dados = new ArrayList();
+        if (enviadasOuRecebidas == "recebidas") {
+            msgDAO = new MensagensDAO();
+            ArrayList dados = new ArrayList();
 
-        objMensagens = new Mensagens();
-        dados = msgDAO.listarMensagens(usr.getId_usuario());
-        String[] colunas = objMensagens.getColunas();
+            objMensagens = new Mensagens();
+            dados = msgDAO.listarMensagensRecebidas(usr.getId_usuario());
+            String[] colunas = objMensagens.getColunas();
 
-        ModelTable modelo = new ModelTable(dados, colunas);
+            ModelTable modelo = new ModelTable(dados, colunas);
 
-        jTable2.setModel(modelo);
+            jTable2.setModel(modelo);
+        } else if (enviadasOuRecebidas == "enviadas") {
+            msgDAO = new MensagensDAO();
+            ArrayList dados = new ArrayList();
 
+            objMensagens = new Mensagens();
+            dados = msgDAO.listarMensagensEnviadas(usr.getId_usuario());
+            String[] colunas = objMensagens.getColunas();
+
+            ModelTable modelo = new ModelTable(dados, colunas);
+
+            jTable2.setModel(modelo);
+        }
+        jTable2.getColumnModel().getColumn(2).setMinWidth(0);
+        jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(2).setWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(300);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(300);
+        jTable2.getColumnModel().getColumn(0).setWidth(300);
     }
 
     public void carregarSeguidoresMutuos(Seguidores objSeguidores) {
@@ -195,6 +208,8 @@ public class TelaMensagens extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mensagens");
@@ -286,6 +301,38 @@ public class TelaMensagens extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(2).setMaxWidth(0);
         }
 
+        jPanel11.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel11MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel11MouseEntered(evt);
+            }
+        });
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Mensagens Enviadas");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -297,16 +344,27 @@ public class TelaMensagens extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
@@ -363,6 +421,24 @@ public class TelaMensagens extends javax.swing.JFrame {
         abrirMensagem();
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
+        // TODO add your handling code here:
+        if (jLabel8.getText() == "Mensagens Enviadas") {
+            jLabel8.setText("Mensagens Recebidas");
+            carregarMensagens(objMensagens, "enviadas");
+
+        } else if (jLabel8.getText() == "Mensagens Recebidas") {
+            jLabel8.setText("Mensagens Enviadas");
+            carregarMensagens(objMensagens, "recebidas");
+
+        }
+    }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
+        // TODO add your handling code here:
+        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel11MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -400,7 +476,9 @@ public class TelaMensagens extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

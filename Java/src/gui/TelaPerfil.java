@@ -180,6 +180,9 @@ public class TelaPerfil extends javax.swing.JFrame {
     ConvitesDAO ConvitesDAO = new ConvitesDAO();
     Seguidores seg = new Seguidores();
     SeguidoresDAO segDAO = new SeguidoresDAO();
+    String retorno;
+    String outroRetorno;
+    String nome_jogo_retorno;
 
     public boolean estaSeguindo() {
         try {
@@ -1310,10 +1313,20 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
-        TelaPrincipal frame = new TelaPrincipal();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.setVisible(true);
-        this.dispose();
+
+        if (retorno == null) {
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "TelaInfoJogo") {
+            TelaInfoJogo frame = new TelaInfoJogo();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.jg.setNome_jogo(nome_jogo_retorno);
+            frame.retorno = outroRetorno;
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
@@ -1420,7 +1433,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         cvt.setDestinatario(outroUsr.getId_usuario());
 
         ConvitesDAO.enviarConvite(cvt);
-        
+
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
@@ -1465,7 +1478,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         InteressesDAO inDAO = new InteressesDAO();
 
         in.setId_usuario(usr.getId_usuario());
-        
+
         inDAO.limparInteresses(in.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
@@ -1502,7 +1515,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         JogosFavoritosDAO jfDAO = new JogosFavoritosDAO();
 
         jf.setId_usuario(usr.getId_usuario());
-        
+
         jfDAO.limparJogosFavoritos(jf.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
@@ -1510,7 +1523,7 @@ public class TelaPerfil extends javax.swing.JFrame {
             jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));
             jfDAO.favoritarJogo(jf);
         }
-        
+
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
@@ -1543,7 +1556,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         pla.setId_usuario(usr.getId_usuario());
 
         PlataformasDAO plaDAO = new PlataformasDAO();
-        
+
         plaDAO.limparPlataformas(pla.getId_usuario());
         plaDAO.cadastrarPlataformas(pla);
 
@@ -1557,7 +1570,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         frame.outroUsr.setNome_usuario(outroUsr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jPanel19MouseClicked
 
     private void jPanel19MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseEntered

@@ -7,10 +7,14 @@ package gui;
 
 import dao.MensagensDAO;
 import factory.ConnectionFactory;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import modelo.Mensagens;
 import modelo.Usuario;
 
@@ -28,16 +32,21 @@ public class TelaLerMensagem extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarMensagem();
-                jLabel2.setText("Mensagem de " + msgDAO.pegarNomeUsuario(msg.getId_remetente()));
+                if (msg.getId_remetente() == usr.getId_usuario()) {
+                    jLabel2.setText("Mensagem para " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                    jLabel8.setText("Excluir");
+                } else {
+                    jLabel2.setText("Mensagem de " + msgDAO.pegarNomeUsuario(msg.getId_remetente()));
+                }
             }
         });
     }
-    
+
     Connection connection;
     Usuario usr = new Usuario();
     Mensagens msg = new Mensagens();
     MensagensDAO msgDAO = new MensagensDAO();
-    
+
     public void carregarMensagem() {
         try {
             this.connection = new ConnectionFactory().getConnection();
@@ -57,7 +66,7 @@ public class TelaLerMensagem extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         jTextArea1.setText(msg.getMensagem());
     }
 
@@ -77,18 +86,21 @@ public class TelaLerMensagem extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(720, 610));
-        setMinimumSize(new java.awt.Dimension(720, 610));
+        setMaximumSize(new java.awt.Dimension(720, 460));
+        setMinimumSize(new java.awt.Dimension(720, 460));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(720, 460));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(33, 37, 41));
-        jPanel1.setMaximumSize(new java.awt.Dimension(720, 610));
-        jPanel1.setMinimumSize(new java.awt.Dimension(720, 610));
-        jPanel1.setPreferredSize(new java.awt.Dimension(720, 610));
+        jPanel1.setMaximumSize(new java.awt.Dimension(720, 460));
+        jPanel1.setMinimumSize(new java.awt.Dimension(720, 460));
+        jPanel1.setPreferredSize(new java.awt.Dimension(720, 460));
 
         jPanel2.setBackground(new java.awt.Color(18, 18, 18));
 
@@ -143,6 +155,7 @@ public class TelaLerMensagem extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(18, 18, 18));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Mensagem de [nome_remetente]");
@@ -164,31 +177,69 @@ public class TelaLerMensagem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel11.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel11MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel11MouseEntered(evt);
+            }
+        });
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Responder");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(287, 287, 287))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -208,7 +259,7 @@ public class TelaLerMensagem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 610));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 460));
 
         pack();
         setLocationRelativeTo(null);
@@ -230,6 +281,39 @@ public class TelaLerMensagem extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
+        // TODO add your handling code here:
+        if (msg.getId_remetente() == usr.getId_usuario()) {
+            Color temaDark = new Color(18, 18, 18);
+            UIManager.put("control", temaDark);
+            UIManager.put("OptionPane.background", temaDark);
+            UIManager.put("OptionPane.messageForeground", Color.white);
+            int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja excluir essa mensagem? " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + " não poderá mais vê-la!", "Apagar Mensagem",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+            if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em excluir
+                msgDAO.excluirMensagem(msg.getId_mensagem());
+                TelaMensagens frame = new TelaMensagens();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            TelaEnviarMensagem frame = new TelaEnviarMensagem();
+            frame.msg.setId_destinatario(msg.getId_remetente());
+            frame.msg.setId_remetente(usr.getId_usuario());
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.retorno = "Tela Mensagens";
+            frame.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
+        // TODO add your handling code here:
+        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel11MouseEntered
 
     /**
      * @param args the command line arguments
@@ -269,7 +353,9 @@ public class TelaLerMensagem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;

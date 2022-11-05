@@ -29,6 +29,10 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             public void run() {
                 jLabel2.setText("Nova mensagem para " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
                 jLabel1.setText(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                
+                if (jogo_convite != null) {
+                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", recebi seu convite para jogar " + jogo_convite + ", vamos lá?");
+                }
             }
         });
     }
@@ -37,6 +41,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
     Mensagens msg = new Mensagens();
     MensagensDAO msgDAO = new MensagensDAO();
     String retorno;
+    String jogo_convite;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -202,6 +207,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(18, 18, 18));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nova mensagem para [nome_remetente]");
@@ -331,6 +337,12 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 this.dispose();
             } else if (retorno == "Tela Perfil") {
                 TelaPerfil frame = new TelaPerfil();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                frame.setVisible(true);
+                this.dispose();
+            } else if (retorno == "Tela Principal") {
+                TelaPrincipal frame = new TelaPrincipal();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
                 frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
                 frame.setVisible(true);

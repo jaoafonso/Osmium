@@ -65,7 +65,7 @@ public class SeguidoresDAO {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT id_seguidor FROM seguidores a WHERE id_seguidor IN (SELECT id_seguidor FROM seguidores b WHERE a.id_usuario = b.id_usuario) and id_usuario = " + id_usuario);
+            PreparedStatement ps = connection.prepareStatement("SELECT id_seguidor FROM seguidores a WHERE id_seguidor IN (SELECT id_usuario FROM seguidores b WHERE id_seguidor = "+ id_usuario +") and id_usuario = " + id_usuario);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

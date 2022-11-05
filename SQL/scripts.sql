@@ -73,12 +73,14 @@ CREATE TABLE jogos_favoritos (
 );
 
 CREATE TABLE convites (
+	id_convite INTEGER(9) AUTO_INCREMENT,
 	remetente INTEGER(9),
 	destinatario INTEGER(9),
 	id_jogo INTEGER(9),
     FOREIGN KEY(remetente) REFERENCES usuario(id_usuario),
     FOREIGN KEY(destinatario) REFERENCES usuario(id_usuario),
-	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
+	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo),
+    PRIMARY KEY(id_convite)
 );
 
 CREATE TABLE seguidores (

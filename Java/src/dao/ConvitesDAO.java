@@ -86,13 +86,14 @@ public class ConvitesDAO {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM convites WHERE destinatario=" + id_usuario);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM convites WHERE destinatario=" + id_usuario + " ORDER BY id_convite DESC");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 dado.add(new Object[]{
-                    infoConvite(nomeRemetente(rs.getInt("remetente")), nomeJogo(rs.getInt("id_jogo")))
+                    infoConvite(nomeRemetente(rs.getInt("remetente")), nomeJogo(rs.getInt("id_jogo"))),
+                    rs.getInt("id_convite")
                 });
 
             }

@@ -48,6 +48,49 @@ public class JogosDAO {
         }
 
     }
+    
+    public String nomeUsuario(int id_usuario) {
+        try {
+
+            PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_usuario);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            String nomeRemetente = rs.getString("nome_usuario");
+            
+            ps.close();
+            rs.close();
+
+            return nomeRemetente;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "nomeUsuario():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public String encontrarParceiro(int id_jogo) {
+        try {
+            String nome_usuario = "";
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM jogos_favoritos ORDER BY RAND() LIMIT 1");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                nome_usuario = nomeUsuario(rs.getInt("id_usuario"));
+
+            }
+            ps.close();
+            rs.close();
+
+            return nome_usuario;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "encontrarParceiro():" + e.getMessage());
+            return null;
+        }
+    }
 
     public String stringCategoriasJogo(int id_jogo) {
 
@@ -122,7 +165,6 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -201,7 +243,6 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -257,7 +298,6 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {

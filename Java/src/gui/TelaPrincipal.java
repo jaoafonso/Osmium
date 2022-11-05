@@ -88,7 +88,42 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
+    Convites cvt = new Convites();
 
+    public void infoConvite(int id_convite) {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            String sql = "SELECT * FROM convites WHERE id_convite=" + id_convite;
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                cvt.setRemetente(rs.getInt("remetente"));
+                cvt.setDestinatario(rs.getInt("destinatario"));
+                cvt.setId_jogo(rs.getInt("id_jogo"));
+            }
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void escreverMensagem() {
+        ConvitesDAO cvtDAO = new ConvitesDAO();
+        infoConvite(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString()));
+        TelaEnviarMensagem frame = new TelaEnviarMensagem();
+        frame.msg.setId_destinatario(cvt.getRemetente());
+        frame.msg.setId_remetente(usr.getId_usuario());
+        frame.jogo_convite = cvtDAO.nomeJogo(cvt.getId_jogo());
+        frame.usr.setId_usuario(usr.getId_usuario());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "Tela Principal";
+        frame.setVisible(true);
+        this.dispose();
+    }
+    
     public void carregarPublicacoes(Publicacoes objPublicacoes) {
     
         pubDAO = new PublicacoesDAO();
@@ -116,6 +151,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ModelTable modelo = new ModelTable(dados, colunas);
 
         jTable1.setModel(modelo);
+        
+        jTable1.getColumnModel().getColumn(1).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
+        jTable1.getColumnModel().getColumn(1).setWidth(0);
 
     }
 
@@ -552,26 +591,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Convites"
+                "Convites", "ID"
             }
         ));
         jTable1.setFocusable(false);
         jTable1.setOpaque(false);
         jTable1.setRowHeight(26);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jTable1MouseExited(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(0);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
+        }
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 400, 200));
 
@@ -1820,6 +1867,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        escreverMensagem();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
