@@ -60,7 +60,7 @@ public class PublicacoesDAO {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM publicacoes WHERE id_usuario=" + id_usuario);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM publicacoes WHERE id_usuario IN (SELECT id_usuario FROM seguidores where id_seguidor= "+ id_usuario +")");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

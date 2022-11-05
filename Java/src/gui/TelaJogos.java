@@ -68,7 +68,7 @@ public class TelaJogos extends javax.swing.JFrame {
     }
 
     Usuario usr = new Usuario();
-    Categorias categ = new Categorias(); //salva o nome da categoria para ser enviado na pagina que vai listar os jogos dessa categoria
+    Categorias categ = new Categorias();
 
     public void carregarCategorias(Categorias objCategorias) {
 

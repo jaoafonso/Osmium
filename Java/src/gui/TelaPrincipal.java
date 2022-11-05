@@ -1484,9 +1484,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel36.setText("Conclua seu Perfil");
+        jPanel50.setBackground(new java.awt.Color(60, 63, 64));
 
+        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel36.setText("Conclua seu Perfil!");
+
+        jButton1.setBackground(new java.awt.Color(60, 63, 64));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Interesses");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1494,8 +1499,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(60, 63, 64));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Jogos Favoritos");
 
+        jButton3.setBackground(new java.awt.Color(60, 63, 64));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Plataformas");
 
         javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);

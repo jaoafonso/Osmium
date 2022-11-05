@@ -4,6 +4,8 @@ import factory.ConnectionFactory;
 import modelo.Usuario;
 import java.sql.*;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class UsuarioDAO {
 
@@ -47,6 +49,50 @@ public class UsuarioDAO {
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
+        }
+    }
+    
+     public String pegarNomeUsuario(int id_usuario) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_usuario);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            String nomeRemetente = rs.getString("nome_usuario");
+
+            ps.close();
+            rs.close();
+
+            return nomeRemetente;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarNomeUsuario():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public ArrayList listarUsuariosQueJogam(int id_jogo) {
+        try {
+            ArrayList dado = new ArrayList();
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM jogos_favoritos WHERE id_jogo = " + id_jogo);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                dado.add(new Object[]{
+                    pegarNomeUsuario(rs.getInt("id_usuario"))
+                });
+            }
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return dado;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "listarUsuariosQueJogam():" + e.getMessage());
+            return null;
         }
     }
 }

@@ -5,7 +5,9 @@
  */
 package gui;
 
+import dao.CategoriasDAO;
 import dao.JogosDAO;
+import dao.UsuarioDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,11 +15,14 @@ import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import modelo.Categorias;
 import modelo.Jogos;
+import modelo.ModelTable;
 import modelo.Usuario;
 
 /**
@@ -29,15 +34,24 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     /**
      * Creates new form TelaInfoJogo
      */
+    private Categorias objCategorias;
+    private CategoriasDAO categDAO;
+
+    private Usuario objUsuario;
+    private UsuarioDAO usrDAO;
+
     public TelaInfoJogo() {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarJogo();
+                carregarCategoriasJogo(objCategorias);
+                carregarUsuariosQueJogam(objUsuario);
                 jLabel2.setText(jg.getNome_jogo());
                 jTextArea1.setText(jg.getDesc_jogo());
             }
         });
+
         // Configurações de aparência da tabela dos amigos que jogam
         jScrollPane1.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header = jTable1.getTableHeader();
@@ -59,11 +73,47 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jTable2.setRowSelectionAllowed(false);
     }
     Connection connection;
-
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
     JogosDAO jgDAO = new JogosDAO();
     String retorno;
+
+    public void abrirPerfil() {
+        TelaPerfil frame = new TelaPerfil();
+        frame.outroUsr.setNome_usuario(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "TelaInfoJogo";
+        frame.outroRetorno = retorno;
+        frame.nome_jogo_retorno = jg.getNome_jogo();
+        frame.setVisible(true);
+        this.dispose();
+    }
+
+    public void carregarUsuariosQueJogam(Usuario objUsuario) {
+        usrDAO = new UsuarioDAO();
+        ArrayList dados = new ArrayList();
+
+        objUsuario = new Usuario();
+        dados = usrDAO.listarUsuariosQueJogam(jg.getId_jogo());
+        String[] colunas = new String[]{"Usuários que Jogam"};
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable1.setModel(modelo);
+    }
+
+    public void carregarCategoriasJogo(Categorias objCategorias) {
+        categDAO = new CategoriasDAO();
+        ArrayList dados = new ArrayList();
+
+        objCategorias = new Categorias();
+        dados = categDAO.listarCategoriasJogo(jg.getId_jogo());
+        String[] colunas = new String[]{"Categorias do Jogo"};
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+
+        jTable2.setModel(modelo);
+    }
 
     public void carregarJogo() {
         try {
@@ -149,12 +199,12 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nome do Jogo");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 590, 48));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 590, 48));
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(18, 18, 18));
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
@@ -163,7 +213,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         jTextArea1.setBorder(null);
         jTextArea1.setFocusable(false);
         jTextArea1.setHighlighter(null);
-        jPanel2.add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 310, 122));
+        jPanel2.add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 350, 150));
 
         jPanel11.setBackground(new java.awt.Color(60, 63, 64));
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -213,12 +263,17 @@ public class TelaInfoJogo extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Amigos que Jogam"
+                "Usuários que Jogam"
             }
         ));
         jTable1.setFocusable(false);
         jTable1.setOpaque(false);
         jTable1.setRowHeight(26);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 150, 200));
@@ -301,12 +356,12 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
-        if (jgDAO.encontrarParceiro(jg.getId_jogo()) == "" || jgDAO.encontrarParceiro(jg.getId_jogo()).equals(usr.getNome_usuario())){
+        if (jgDAO.encontrarParceiro(jg.getId_jogo()) == "" || jgDAO.encontrarParceiro(jg.getId_jogo()).equals(usr.getNome_usuario())) {
             Color temaDark = new Color(18, 18, 18);
             UIManager.put("control", temaDark);
             UIManager.put("OptionPane.background", temaDark);
             UIManager.put("OptionPane.messageForeground", Color.white);
-            JOptionPane.showMessageDialog(null, "Não encontramos nenhum companheiro compátivel. :(");
+            JOptionPane.showMessageDialog(null, "Não encontramos nenhum companheiro compatível. :(");
         } else {
             TelaPerfil frame = new TelaPerfil();
             frame.usr.setNome_usuario(usr.getNome_usuario());
@@ -324,6 +379,11 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel11MouseEntered
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        abrirPerfil();
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

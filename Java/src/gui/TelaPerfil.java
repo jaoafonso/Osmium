@@ -65,7 +65,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                if (outroUsr.getNome_usuario() == null) {
+                if (outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario())) {
                     jLabel1.setText("Seu Perfil");
                     carregarUsuarioPadrao();
                     carregarPlataformas(objPlataformas, usr.getId_usuario());
