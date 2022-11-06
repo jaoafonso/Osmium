@@ -5,8 +5,12 @@
         <group>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/SeguidoresDAO.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/PublicacoesDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPerfil.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaInicial.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/modelo/Publicacoes.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaNovaPublicacao.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPrincipal.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaMensagens.java</file>
         </group>
     </open-files>
 </project-private>

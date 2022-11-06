@@ -6,7 +6,7 @@ public class Publicacoes {
     private String assunto;
     private String titulo;
     private String descricao;
-    private String[] colunas = new String[]{"Assunto", "Usuário", "Título"};
+    private String[] colunas = new String[]{"Assunto", "Usuário", "Título", "ID"};
 
     public int getId_publicacao() {
         return id_publicacao;

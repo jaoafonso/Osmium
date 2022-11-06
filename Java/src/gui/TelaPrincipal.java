@@ -55,7 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jLabel37.setText("");
 
                 carregarConvites(objConvites);
-                carregarPublicacoes(objPublicacoes);
+                carregarPublicacoes(objPublicacoes, "deOutros");
             }
         });
         
@@ -83,6 +83,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .setHorizontalAlignment(JLabel.LEFT);
         jTable2.setGridColor(new Color(18, 18, 18));
         jTable2.setShowHorizontalLines(true);
+        jTable2.setShowVerticalLines(true);
         jTable2.setRowSelectionAllowed(false);
     }
     Connection connection;
@@ -124,18 +125,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }
     
-    public void carregarPublicacoes(Publicacoes objPublicacoes) {
+    public void carregarPublicacoes(Publicacoes objPublicacoes, String objetivo) {
     
         pubDAO = new PublicacoesDAO();
         ArrayList dados = new ArrayList();
 
         objPublicacoes = new Publicacoes();
-        dados = pubDAO.listarPublicacoes(usr.getId_usuario());
+        dados = pubDAO.listarPublicacoes(usr.getId_usuario(), objetivo);
         String[] colunas = objPublicacoes.getColunas();
 
         ModelTable modelo = new ModelTable(dados, colunas);
 
         jTable2.setModel(modelo);
+        
+        jTable2.getColumnModel().getColumn(3).setMinWidth(0);
+        jTable2.getColumnModel().getColumn(3).setMaxWidth(0);
+        jTable2.getColumnModel().getColumn(3).setWidth(0);
+        jTable2.getColumnModel().getColumn(0).setMinWidth(200);
+        jTable2.getColumnModel().getColumn(0).setMaxWidth(200);
+        jTable2.getColumnModel().getColumn(0).setWidth(200);
+        jTable2.getColumnModel().getColumn(1).setMinWidth(200);
+        jTable2.getColumnModel().getColumn(1).setMaxWidth(200);
+        jTable2.getColumnModel().getColumn(1).setWidth(200);
         
     }
     
@@ -308,6 +319,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Osmium");
@@ -1570,19 +1583,56 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Assunto", "Usuário", "Título"
+                "Assunto", "Usuário", "Título", "ID"
             }
         ));
         jTable2.setFocusable(false);
         jTable2.setOpaque(false);
         jTable2.setRowHeight(50);
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(3).setMinWidth(0);
+            jTable2.getColumnModel().getColumn(3).setPreferredWidth(0);
+            jTable2.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
+
+        jPanel13.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel13.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel13MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel13MouseEntered(evt);
+            }
+        });
+
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel31.setText("Suas Publicações");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1592,12 +1642,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(352, 352, 352)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1882,6 +1938,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         escreverMensagem();
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jPanel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseClicked
+        // TODO add your handling code here:
+        if (jLabel31.getText() == "Suas Publicações") {
+            jLabel31.setText("Publicações de Outros");
+            carregarPublicacoes(objPublicacoes, "doUsuario");
+
+        } else if (jLabel31.getText() == "Publicações de Outros") {
+            jLabel31.setText("Suas Publicações");
+            carregarPublicacoes(objPublicacoes, "deOutros");
+        }
+    }//GEN-LAST:event_jPanel13MouseClicked
+
+    private void jPanel13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseEntered
+        // TODO add your handling code here:
+        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel13MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1949,6 +2022,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
@@ -1964,6 +2038,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;

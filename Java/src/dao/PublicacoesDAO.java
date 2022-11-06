@@ -56,18 +56,26 @@ public class PublicacoesDAO {
         }
     }
     
-    public ArrayList listarPublicacoes(int id_usuario) {
+    public ArrayList listarPublicacoes(int id_usuario, String objetivo) {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM publicacoes WHERE id_usuario IN (SELECT id_usuario FROM seguidores where id_seguidor= "+ id_usuario +")");
+            String sql = "";
+            
+            if (objetivo == "deOutros") {
+                sql = "SELECT * FROM publicacoes WHERE id_usuario IN (SELECT id_usuario FROM seguidores where id_seguidor= "+ id_usuario +")";
+            } else if(objetivo == "doUsuario") {
+                sql = "SELECT * FROM publicacoes WHERE id_usuario = "+ id_usuario;
+            }
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 dado.add(new Object[]{
                     rs.getString("assunto"),
                     nomeUsuario(rs.getInt("id_usuario")),
-                    rs.getString("titulo")
+                    rs.getString("titulo"),
+                    rs.getInt("id_publicacao")
                 });
 
             }
