@@ -7,10 +7,14 @@ package gui;
 
 import dao.PublicacoesDAO;
 import factory.ConnectionFactory;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import modelo.Publicacoes;
 import modelo.Usuario;
 
@@ -37,7 +41,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
             }
         });
     }
-    
+
     Connection connection;
 
     Usuario usr = new Usuario();
@@ -67,9 +71,9 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
         jLabel3.setText(pub.getTitulo());
         jTextArea1.setText(pub.getDescricao());
         jLabel4.setText("Assunto: " + pub.getAssunto());
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -179,7 +183,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Comentar");
+        jLabel8.setText("Responder por Mensagem");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -187,7 +191,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -255,7 +259,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(303, 303, 303))))))
+                                .addGap(264, 264, 264))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +323,15 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         // TODO add your handling code here:
-        
+        TelaEnviarMensagem frame = new TelaEnviarMensagem();
+        frame.msg.setId_destinatario(pub.getId_usuario());
+        frame.msg.setId_remetente(usr.getId_usuario());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "TelaVerPublicacao";
+        frame.titulo_publicacao = pub.getTitulo();
+        frame.id_publicacao = pub.getId_publicacao();
+        frame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
@@ -329,7 +341,20 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
 
     private void jPanel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseClicked
         // TODO add your handling code here:
-        pubDAO.excluirPublicacao(pub.getId_publicacao());
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja excluir essa publicação? Ninguém mais poderá vê-la!", "Apagar Publicação",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em excluir
+            pubDAO.excluirPublicacao(pub.getId_publicacao());
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jPanel12MouseClicked
 
     private void jPanel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseEntered

@@ -18,7 +18,16 @@ public class PublicacoesDAO {
     }
     
     public void excluirPublicacao (int id_publicacao) {
-    
+        try {
+            String sql = "";
+            sql = "DELETE FROM publicacoes WHERE id_publicacao = " + id_publicacao;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
     }
     
     public void enviarPublicacao(Publicacoes objPublicacao) {

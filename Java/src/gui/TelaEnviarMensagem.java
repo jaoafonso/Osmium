@@ -33,6 +33,10 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 if (jogo_convite != null) {
                     jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", recebi seu convite para jogar " + jogo_convite + ", vamos lá?");
                 }
+                
+                if (titulo_publicacao != null) {
+                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", vi sua publicação sobre '" + titulo_publicacao + "', vamos lá?");
+                }
             }
         });
     }
@@ -42,6 +46,8 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
     MensagensDAO msgDAO = new MensagensDAO();
     String retorno;
     String jogo_convite;
+    String titulo_publicacao;
+    int id_publicacao;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -281,10 +287,29 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
-        TelaMensagens frame = new TelaMensagens();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.setVisible(true);
-        this.dispose();
+        if (retorno == "Tela Mensagens") {
+                TelaMensagens frame = new TelaMensagens();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.setVisible(true);
+                this.dispose();
+            } else if (retorno == "Tela Perfil") {
+                TelaPerfil frame = new TelaPerfil();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                frame.setVisible(true);
+                this.dispose();
+            } else if (retorno == "Tela Principal") {
+                TelaPrincipal frame = new TelaPrincipal();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.setVisible(true);
+                this.dispose();
+            } else if (retorno == "TelaVerPublicacao") {
+                TelaVerPublicacao frame = new TelaVerPublicacao();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.pub.setId_publicacao(id_publicacao);
+                frame.setVisible(true);
+                this.dispose();
+            }
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
@@ -344,7 +369,12 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             } else if (retorno == "Tela Principal") {
                 TelaPrincipal frame = new TelaPrincipal();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                frame.setVisible(true);
+                this.dispose();
+            } else if (retorno == "TelaVerPublicacao") {
+                TelaVerPublicacao frame = new TelaVerPublicacao();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.pub.setId_publicacao(id_publicacao);
                 frame.setVisible(true);
                 this.dispose();
             }
