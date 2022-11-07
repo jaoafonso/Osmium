@@ -17,6 +17,10 @@ public class PublicacoesDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
     
+    public void excluirPublicacao (int id_publicacao) {
+    
+    }
+    
     public void enviarPublicacao(Publicacoes objPublicacao) {
         try {
             String sql = "";
@@ -63,9 +67,9 @@ public class PublicacoesDAO {
             String sql = "";
             
             if (objetivo == "deOutros") {
-                sql = "SELECT * FROM publicacoes WHERE id_usuario IN (SELECT id_usuario FROM seguidores where id_seguidor= "+ id_usuario +")";
+                sql = "SELECT * FROM publicacoes WHERE id_usuario IN (SELECT id_usuario FROM seguidores where id_seguidor= "+ id_usuario +") ORDER BY id_publicacao DESC";
             } else if(objetivo == "doUsuario") {
-                sql = "SELECT * FROM publicacoes WHERE id_usuario = "+ id_usuario;
+                sql = "SELECT * FROM publicacoes WHERE id_usuario = "+ id_usuario +" ORDER BY id_publicacao DESC";
             }
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -87,6 +91,25 @@ public class PublicacoesDAO {
         } catch (SQLException e) {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "listarPublicacoes():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public String pegarNomeUsuario(int id_usuario) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_usuario);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            String nomeRemetente = rs.getString("nome_usuario");
+
+            ps.close();
+            rs.close();
+
+            return nomeRemetente;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarNomeUsuario():" + e.getMessage());
             return null;
         }
     }
