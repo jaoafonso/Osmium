@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/SeguidoresDAO.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/PublicacoesDAO.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPerfil.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaInicial.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/modelo/Publicacoes.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaNovaPublicacao.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPrincipal.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaMensagens.java</file>
+            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaMensagens.java</file>
+            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/factory/ConnectionFactory.java</file>
+            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaLerMensagem.java</file>
+            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaInicial.java</file>
+            <file>file:/C:/Users/senai/Downloads/Osmium/Java/src/gui/TelaPosCadastro.java</file>
         </group>
     </open-files>
 </project-private>

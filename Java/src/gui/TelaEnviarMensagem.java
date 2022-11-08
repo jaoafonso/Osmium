@@ -35,7 +35,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 }
                 
                 if (titulo_publicacao != null) {
-                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", vi sua publicação sobre '" + titulo_publicacao + "', vamos lá?");
+                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", vi sua publicação sobre '" + titulo_publicacao + "', ");
                 }
             }
         });
