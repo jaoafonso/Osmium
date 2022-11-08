@@ -34,6 +34,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
                 carregarPublicacao();
                 if (pub.getId_usuario() == usr.getId_usuario()) {
                     jLabel2.setText("Sua publicação");
+                    jPanel11.setVisible(false);
                 } else {
                     jLabel2.setText("Publicação de " + pubDAO.pegarNomeUsuario(pub.getId_usuario()));
                     jPanel12.setVisible(false);

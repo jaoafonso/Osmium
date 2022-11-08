@@ -47,17 +47,18 @@ public class TelaImagens extends javax.swing.JFrame {
             }
         });
     }
-    
+
     Usuario usr = new Usuario();
+    String retorno;
 
     public ImageIcon converterImagem(int num_img) {
         String Snum_img = String.valueOf(num_img);
         ImageIcon icon = new ImageIcon(getClass().getResource("/img/img" + Snum_img + ".png"));
-        icon.setImage(icon.getImage().getScaledInstance(100,100,Image.SCALE_SMOOTH));
-        
+        icon.setImage(icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+
         return icon;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -639,7 +640,7 @@ public class TelaImagens extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void limparBordas(){
+    public void limparBordas() {
         jPanel6.setBorder(null);
         jPanel4.setBorder(null);
         jPanel3.setBorder(null);
@@ -661,14 +662,24 @@ public class TelaImagens extends javax.swing.JFrame {
         jPanel21.setBorder(null);
         jPanel22.setBorder(null);
     }
-    
+
     private void jPanel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseClicked
         // TODO add your handling code here:
-        TelaPosCadastro frame = new TelaPosCadastro();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setFoto_usuario(usr.getFoto_usuario());
-        frame.setVisible(true);
-        this.dispose();
+        if (retorno == "TelaConfig") {
+            UsuarioDAO usrDAO = new UsuarioDAO();
+            usrDAO.alterarImagem(usr.getId_usuario(), usr.getFoto_usuario());
+            TelaConfig frame = new TelaConfig();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setFoto_usuario(usr.getFoto_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else {
+            TelaPosCadastro frame = new TelaPosCadastro();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setFoto_usuario(usr.getFoto_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jPanel23MouseClicked
 
     private void jPanel23MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseEntered

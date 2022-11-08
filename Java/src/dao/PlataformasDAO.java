@@ -73,8 +73,4 @@ public class PlataformasDAO {
             JOptionPane.showMessageDialog(null, "cadastrarPlataformas():" + e.getMessage());
         }
     }
-    
-    public void atualizarPlataformas(Plataformas objPlataforma) {
-        
-    }
 }

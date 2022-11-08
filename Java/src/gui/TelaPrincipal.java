@@ -2394,6 +2394,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaConfig frame = new TelaConfig();
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setId_usuario(usr.getId_usuario());
         frame.usr.setFoto_usuario(usr.getFoto_usuario());
         frame.setVisible(true);
         this.dispose();

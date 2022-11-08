@@ -15,6 +15,71 @@ public class UsuarioDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
     
+    public void excluirUsuario(int id_usuario) {
+        try {
+            String sql = "";
+            sql = "DELETE FROM usuario WHERE id_usuario = " + id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public void alterarEmail(int id_usuario, String novo_email) {
+        try {
+            String sql = "";
+            sql = "UPDATE usuario SET email_usuario = "+ novo_email +" WHERE id_usuario = "+ id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public void alterarDescricao(int id_usuario, String nova_descricao) {
+        try {
+            String sql = "";
+            sql = "UPDATE usuario SET desc_usuario = "+ nova_descricao +" WHERE id_usuario = "+ id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public void alterarNome(int id_usuario, String novo_nome) {
+        try {
+            String sql = "";
+            sql = "UPDATE usuario SET nome_usuario = "+ novo_nome +" WHERE id_usuario = "+ id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public void alterarImagem(int id_usuario, int imagem) {
+        try {
+            String sql = "";
+            sql = "UPDATE usuario SET foto_usuario = "+ imagem +" WHERE id_usuario = "+ id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public void preCadastrar(Usuario objUsuario) {
         try {
             String sql = "";
