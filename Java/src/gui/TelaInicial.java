@@ -143,7 +143,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         txtGithub.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         txtGithub.setForeground(new java.awt.Color(88, 166, 255));
-        txtGithub.setText("TCC-Osmium");
+        txtGithub.setText("Osmium");
         txtGithub.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtGithubMouseClicked(evt);
@@ -158,13 +158,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Um aplicativo para se conectar com outros usuários que jogam");
+        jLabel6.setText("Um aplicativo para se encontrar com novos amigos que");
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 401, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("seu jogo favorito.");
-        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 140, -1));
+        jLabel4.setText(" jogam seu jogo favorito!");
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, -1));
 
         imgStargazers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/star.png"))); // NOI18N
         imgStargazers.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,6 +177,11 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dot.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Java");
@@ -944,7 +949,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void txtGithubMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtGithubMouseClicked
         // TODO add your handling code here:
-        String url = "https://github.com/jaoafonsokkj/TCC-Osmium";
+        String url = "https://github.com/jaoafonso/Osmium";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
@@ -985,7 +990,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void imgStargazersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgStargazersMouseClicked
         // TODO add your handling code here:
-        String url = "https://github.com/jaoafonsokkj/TCC-Osmium/stargazers";
+        String url = "https://github.com/jaoafonso/Osmium/stargazers";
 
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
@@ -1140,7 +1145,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         // TODO add your handling code here:
-        String url = "https://jaoafonsokkj.github.io/TCC-Osmium/Web/";
+        String url = "https://jaoafonso.github.io/Osmium/Web/";
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
         UIManager.put("OptionPane.background", temaDark);
@@ -1240,6 +1245,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_panelBtnGithubMouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel7MouseClicked
 
     /**
      * @param args the command line arguments
