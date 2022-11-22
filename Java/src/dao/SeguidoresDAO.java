@@ -60,6 +60,31 @@ public class SeguidoresDAO {
             return null;
         }
     }
+    
+    public ArrayList listarSeguidoresRecentes(int id_usuario) {
+        try {
+            ArrayList dado = new ArrayList();
+
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM seguidores WHERE id_usuario = " + id_usuario + " ORDER BY id_interacao DESC");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                dado.add(new Object[]{
+                    pegarNomeSeguidor(rs.getInt("id_seguidor"))
+                });
+            }
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return dado;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "listarSeguidoresRecentes():" + e.getMessage());
+            return null;
+        }
+    }
 
     public ArrayList listarSeguidoresMutuos(int id_usuario) {
         try {

@@ -2,6 +2,7 @@ package modelo;
 
 public class Seguidores {
 
+    private int id_interacao;
     private int id_usuario;
     private int id_seguidor;
     private String[] colunas = new String[]{"Seguidores Mútuos"};
@@ -28,5 +29,13 @@ public class Seguidores {
 
     public void setColunas(String[] colunas) {
         this.colunas = colunas;
+    }
+
+    public int getId_interacao() {
+        return id_interacao;
+    }
+
+    public void setId_interacao(int id_interacao) {
+        this.id_interacao = id_interacao;
     }
 }

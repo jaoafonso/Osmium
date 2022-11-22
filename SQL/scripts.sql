@@ -84,10 +84,12 @@ CREATE TABLE convites (
 );
 
 CREATE TABLE seguidores (
+	id_interacao INTEGER(9) AUTO_INCREMENT,
 	id_usuario INTEGER(9),
 	id_seguidor INTEGER(9),
     FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY(id_seguidor) REFERENCES usuario(id_usuario)
+    FOREIGN KEY(id_seguidor) REFERENCES usuario(id_usuario),
+    PRIMARY KEY(id_interacao)
 );
 
 CREATE TABLE publicacoes (

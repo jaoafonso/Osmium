@@ -12,6 +12,8 @@ import dao.JogosDAO;
 import dao.JogosFavoritosDAO;
 import dao.PlataformasDAO;
 import dao.PublicacoesDAO;
+import dao.SeguidoresDAO;
+import dao.UsuarioDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
@@ -37,6 +39,7 @@ import modelo.JogosFavoritos;
 import modelo.ModelTable;
 import modelo.Plataformas;
 import modelo.Publicacoes;
+import modelo.Seguidores;
 
 /**
  *
@@ -59,6 +62,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private Publicacoes objPublicacoes;
     private PublicacoesDAO pubDAO;
 
+    private Seguidores objSeguidores;
+    private SeguidoresDAO segDAO;
+    
+    private Usuario objUsuario;
+    private UsuarioDAO usrDAO;
+
     public TelaPrincipal() {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -72,6 +81,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
                 carregarConvites(objConvites);
                 carregarPublicacoes(objPublicacoes, "deOutros");
+                carregarSeguidoresRecentes(objSeguidores);
+                carregarNovasAmizades(objUsuario);
 
                 if (usr.isPerfil_concluido() == true) {
                     jPanel50.setVisible(false);
@@ -107,7 +118,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.setShowHorizontalLines(true);
         jTable2.setShowVerticalLines(true);
         jTable2.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela dos seguidores recentes
         jScrollPane3.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header3 = jTable3.getTableHeader();
@@ -118,7 +129,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable3.setGridColor(new Color(18, 18, 18));
         jTable3.setShowHorizontalLines(true);
         jTable3.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela dos jogos recomendados
         jScrollPane6.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header6 = jTable6.getTableHeader();
@@ -129,7 +140,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable6.setGridColor(new Color(18, 18, 18));
         jTable6.setShowHorizontalLines(true);
         jTable6.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela faca novas amizades
         jScrollPane7.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header7 = jTable7.getTableHeader();
@@ -140,7 +151,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable7.setGridColor(new Color(18, 18, 18));
         jTable7.setShowHorizontalLines(true);
         jTable7.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela de categorias
         jScrollPane4.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header4 = jTable4.getTableHeader();
@@ -149,7 +160,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable4.setGridColor(new Color(18, 18, 18));
         jTable4.setShowHorizontalLines(true);
         jTable4.setRowSelectionAllowed(false);
-        
+
         // Configurações de aparência da tabela de jogos
         jScrollPane5.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header5 = jTable5.getTableHeader();
@@ -227,6 +238,43 @@ public class TelaPrincipal extends javax.swing.JFrame {
         frame.pub.setId_publicacao(Integer.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString()));
         frame.usr.setId_usuario(usr.getId_usuario());
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.setVisible(true);
+        this.dispose();
+    }
+
+    public void carregarNovasAmizades(Usuario objUsuario) {
+        usrDAO = new UsuarioDAO();
+        ArrayList dados = new ArrayList();
+        objUsuario = new Usuario();
+
+        dados = usrDAO.facaNovasAmizades(usr.getId_usuario());
+
+        String[] colunas = new String[]{"Faça Novas Amizades!"};
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+        jTable7.setModel(modelo);
+    }
+    
+    public void carregarSeguidoresRecentes(Seguidores objSeguidores) {
+
+        segDAO = new SeguidoresDAO();
+        ArrayList dados = new ArrayList();
+        objSeguidores = new Seguidores();
+
+        dados = segDAO.listarSeguidoresRecentes(usr.getId_usuario());
+
+        String[] colunas = new String[]{"Seguidores Recentes"};
+
+        ModelTable modelo = new ModelTable(dados, colunas);
+        jTable3.setModel(modelo);
+
+    }
+
+    public void abrirJogo() {
+        TelaInfoJogo frame = new TelaInfoJogo();
+        frame.jg.setNome_jogo(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString());
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.retorno = "Tela Principal";
         frame.setVisible(true);
         this.dispose();
     }
@@ -348,6 +396,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void abrirPerfil() {
+        TelaPerfil frame = new TelaPerfil();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setId_usuario(usr.getId_usuario());
+        frame.outroUsr.setNome_usuario(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
+        frame.setVisible(true);
+        this.dispose();
     }
 
     public void escreverMensagem() {
@@ -1314,6 +1371,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable3.setFocusable(false);
         jTable3.setOpaque(false);
         jTable3.setRowHeight(26);
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable3);
 
         jScrollPane6.setBorder(null);
@@ -1339,6 +1401,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable6.setFocusable(false);
         jTable6.setOpaque(false);
         jTable6.setRowHeight(26);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(jTable6);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -2129,6 +2196,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void btnExit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExit4ActionPerformed
+
+    private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
+        // TODO add your handling code here:
+        abrirJogo();
+    }//GEN-LAST:event_jTable6MouseClicked
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+        abrirPerfil();
+    }//GEN-LAST:event_jTable3MouseClicked
 
     /**
      * @param args the command line arguments
