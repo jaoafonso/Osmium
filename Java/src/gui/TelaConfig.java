@@ -502,6 +502,7 @@ public class TelaConfig extends javax.swing.JFrame {
         String nova_senha = null;
         String senha_atual = null;
         Boolean senhaValida = false;
+        Boolean senhaNovaValida = false;
 
         Color temaDark = new Color(18, 18, 18);
         UIManager.put("control", temaDark);
@@ -526,19 +527,25 @@ public class TelaConfig extends javax.swing.JFrame {
                     boolean senhaVazia = true;
                     do {
                         nova_senha = JOptionPane.showInputDialog("Digite sua nova senha: ");
-                        if (nova_senha == null || (nova_senha != null && ("".equals(nova_senha)))) {
-                            break;
+
+                        if (nova_senha.length() < 8) {
+                            JOptionPane.showMessageDialog(this, "Senha muito curta!");
                         } else {
-                            JOptionPane.showMessageDialog(null, "Salvo");
-                            usrDAO.alterarSenha(usr.getId_usuario(), nova_senha);
-                            senhaVazia = false;
-                            TelaConfig frame = new TelaConfig();
-                            frame.usr.setNome_usuario(usr.getNome_usuario());
-                            frame.usr.setId_usuario(usr.getId_usuario());
-                            frame.usr.setFoto_usuario(usr.getFoto_usuario());
-                            frame.setVisible(true);
-                            this.dispose();
+                            if (nova_senha == null || (nova_senha != null && ("".equals(nova_senha)))) {
+                                break;
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Salvo");
+                                usrDAO.alterarSenha(usr.getId_usuario(), nova_senha);
+                                senhaVazia = false;
+                                TelaConfig frame = new TelaConfig();
+                                frame.usr.setNome_usuario(usr.getNome_usuario());
+                                frame.usr.setId_usuario(usr.getId_usuario());
+                                frame.usr.setFoto_usuario(usr.getFoto_usuario());
+                                frame.setVisible(true);
+                                this.dispose();
+                            }
                         }
+
                     } while (senhaVazia == true);
                 } else {
                     break;
@@ -566,7 +573,7 @@ public class TelaConfig extends javax.swing.JFrame {
                 novo_nome = JOptionPane.showInputDialog("Digite seu novo nome: ");
                 if (novo_nome == null || (novo_nome != null && ("".equals(novo_nome)))) {
                     break;
-                } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+                } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true && novo_nome.length() < 20) {
                     if (verificarDisponibilidade(novo_nome) == true) {
                         JOptionPane.showMessageDialog(null, "Salvo");
                         usrDAO.alterarNome(usr.getId_usuario(), novo_nome);
@@ -583,8 +590,10 @@ public class TelaConfig extends javax.swing.JFrame {
                         break;
                     }
 
-                } else {
+                } else if (novo_nome.length() < 20){
                     JOptionPane.showMessageDialog(null, "Digite um nome válido");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
                 }
             } while (nomeValido == false);
         }
@@ -604,7 +613,7 @@ public class TelaConfig extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Adeus "+ usr.getNome_usuario() + ".");
+                JOptionPane.showMessageDialog(null, "Adeus " + usr.getNome_usuario() + ".");
                 usrDAO.excluirUsuario(usr.getId_usuario());
                 TelaInicial frame = new TelaInicial();
                 frame.setVisible(true);

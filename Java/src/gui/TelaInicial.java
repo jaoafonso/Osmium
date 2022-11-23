@@ -19,7 +19,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
+import java.util.Date;
 import dao.UsuarioDAO;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -36,6 +41,33 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         panelLogin.setVisible(true);
         panelCadastro.setVisible(false);
+    }
+
+    Usuario usr = new Usuario();
+    UsuarioDAO usrDAO = new UsuarioDAO();
+
+    public boolean verificarDisponibilidade(String nome_usuario) {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            boolean isDisponivel = false;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next() == false) {
+                isDisponivel = true;
+            }
+
+            ps.close();
+            rs.close();
+
+            return isDisponivel;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "verificarDisponibilidade():" + e.getMessage());
+            return false;
+        }
     }
 
     /**
@@ -1041,17 +1073,21 @@ public class TelaInicial extends javax.swing.JFrame {
             } else {
                 sql = "SELECT * FROM usuario WHERE nome_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
             }
-            
+
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 usr.setNome_usuario(rs.getString("nome_usuario"));
-                
+
                 TelaPrincipal frame = new TelaPrincipal();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
                 frame.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "E-mail ou Senha incorretos!");
+                Color temaDark = new Color(18, 18, 18);
+                UIManager.put("control", temaDark);
+                UIManager.put("OptionPane.background", temaDark);
+                UIManager.put("OptionPane.messageForeground", Color.white);
+                JOptionPane.showMessageDialog(this, "O usuário não existe ou as informações digitadas estão incorretas.");
                 txtEmail.setText("");
                 txtSenha.setText("");
             }
@@ -1093,24 +1129,103 @@ public class TelaInicial extends javax.swing.JFrame {
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         // TODO add your handling code here:
         Usuario usr = new Usuario();
-
-        usr.setEmail_usuario(jTextField1.getText());
-        usr.setNome_usuario(jTextField2.getText());
-        usr.setSenha_usuario(jPasswordField1.getText());
+        boolean nomeValido = false;
+        boolean dataValida = false;
+        boolean senhaValida = false;
+        String novo_nome = jTextField2.getText();
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
 
         String ano = jFormattedTextField1.getText().substring(6, 10);
         String mes = jFormattedTextField1.getText().substring(3, 5);
         String dia = jFormattedTextField1.getText().substring(0, 2);
-
         usr.setDataNasc_usuario(ano + "-" + mes + "-" + dia);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        String dataHoje = "";
+        dataHoje = dtf.format(now);
+        String anoHoje = dataHoje.substring(6, 10);
+        String mesHoje = dataHoje.substring(3, 5);
+        String diaHoje = dataHoje.substring(0, 2);
+
+        if ((Integer.valueOf(ano) == Integer.valueOf(anoHoje))) {
+
+            if (Integer.valueOf(mes) <= Integer.valueOf(mesHoje)) {
+
+                if (Integer.valueOf(dia) <= Integer.valueOf(diaHoje)) {
+
+                    dataValida = true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                    jFormattedTextField1.setText(null);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                jFormattedTextField1.setText(null);
+            }
+
+        } else if ((Integer.valueOf(ano) > 1900) && (Integer.valueOf(ano) < Integer.valueOf(anoHoje))) {
+
+            if (Integer.valueOf(mes) <= 12) {
+
+                if (Integer.valueOf(dia) <= Integer.valueOf(31)) {
+
+                    dataValida = true;
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                    jFormattedTextField1.setText(null);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                jFormattedTextField1.setText(null);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+            jFormattedTextField1.setText(null);
+        }
+
+        if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
+            JOptionPane.showMessageDialog(null, "Digite um nome!");
+            jTextField2.setText("");
+        } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+            if (jTextField2.getText().length() > 20) {
+
+                JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
+                jTextField2.setText(null);
+
+            } else if (verificarDisponibilidade(novo_nome) == true) {
+                usr.setNome_usuario(novo_nome);
+                nomeValido = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
+                jTextField2.setText(null);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Digite um nome válido.");
+            jTextField2.setText(null);
+        }
+        
+        if (jPasswordField1.getText().length() < 8) {
+            JOptionPane.showMessageDialog(this, "Senha muito curta!");
+            jPasswordField1.setText("");
+        } else {
+            senhaValida = true;
+        }
 
         if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
             JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
             jTextField1.setText("");
-        } else if (jTextField2.getText().contains("@")) {
-            JOptionPane.showMessageDialog(this, "Nomes de usuário não podem conter arrobas!");
-            jTextField2.setText("");
-        } else {
+        } else if (dataValida == true && nomeValido == true && senhaValida == true) {
+            usr.setEmail_usuario(jTextField1.getText());
 
             UsuarioDAO dao = new UsuarioDAO();
             dao.preCadastrar(usr);
