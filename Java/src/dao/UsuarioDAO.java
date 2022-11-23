@@ -17,11 +17,54 @@ public class UsuarioDAO {
 
     public void excluirUsuario(int id_usuario) {
         try {
-            String sql = "";
-            sql = "DELETE FROM usuario WHERE id_usuario = " + id_usuario;
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.execute();
-            stmt.close();
+            String sql1 = "DELETE FROM interesses_do_usuario WHERE id_usuario  = "+ id_usuario +"";
+            String sql2 = "DELETE FROM jogos_favoritos WHERE id_usuario  = "+ id_usuario +"";
+            String sql3 = "DELETE FROM plataformas WHERE id_usuario  = "+ id_usuario +"";
+            String sql4 = "DELETE FROM publicacoes WHERE id_usuario  = "+ id_usuario +"";
+            String sql5 = "DELETE FROM seguidores WHERE id_usuario  = "+ id_usuario +"";
+            String sql6 = "DELETE FROM seguidores WHERE id_seguidor  = "+ id_usuario +"";
+            String sql8 = "DELETE FROM convites WHERE remetente  = "+ id_usuario +"";
+            String sql9 = "DELETE FROM convites WHERE destinatario  = "+ id_usuario +"";
+            String sql10 = "DELETE FROM mensagens WHERE id_remetente  = "+ id_usuario +"";
+            String sql11 = "DELETE FROM mensagens WHERE id_destinatario  = "+ id_usuario +"";
+            String sql12 = "DELETE FROM usuario WHERE id_usuario  = " + id_usuario +"";
+            
+            
+            PreparedStatement stmt1 = connection.prepareStatement(sql1);
+            PreparedStatement stmt2 = connection.prepareStatement(sql2);
+            PreparedStatement stmt3 = connection.prepareStatement(sql3);
+            PreparedStatement stmt4 = connection.prepareStatement(sql4);
+            PreparedStatement stmt5 = connection.prepareStatement(sql5);
+            PreparedStatement stmt6 = connection.prepareStatement(sql6);
+            PreparedStatement stmt8 = connection.prepareStatement(sql8);
+            PreparedStatement stmt9 = connection.prepareStatement(sql9);
+            PreparedStatement stmt10 = connection.prepareStatement(sql10);
+            PreparedStatement stmt11 = connection.prepareStatement(sql11);
+            PreparedStatement stmt12 = connection.prepareStatement(sql12);
+            
+            stmt1.execute();
+            stmt2.execute();
+            stmt3.execute();
+            stmt4.execute();
+            stmt5.execute();
+            stmt6.execute();
+            stmt8.execute();
+            stmt9.execute();
+            stmt10.execute();
+            stmt11.execute();
+            stmt12.execute();
+            
+            stmt1.close();
+            stmt2.close();
+            stmt3.close();
+            stmt4.close();
+            stmt5.close();
+            stmt6.close();
+            stmt8.close();
+            stmt9.close();
+            stmt10.close();
+            stmt11.close();
+            stmt12.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -31,7 +74,7 @@ public class UsuarioDAO {
     public void alterarEmail(int id_usuario, String novo_email) {
         try {
             String sql = "";
-            sql = "UPDATE usuario SET email_usuario = " + novo_email + " WHERE id_usuario = " + id_usuario;
+            sql = "UPDATE usuario SET email_usuario = '" + novo_email + "' WHERE id_usuario = " + id_usuario;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
@@ -44,7 +87,7 @@ public class UsuarioDAO {
     public void alterarDescricao(int id_usuario, String nova_descricao) {
         try {
             String sql = "";
-            sql = "UPDATE usuario SET desc_usuario = " + nova_descricao + " WHERE id_usuario = " + id_usuario;
+            sql = "UPDATE usuario SET desc_usuario = '" + nova_descricao + "' WHERE id_usuario = " + id_usuario;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
@@ -57,7 +100,7 @@ public class UsuarioDAO {
     public void alterarNome(int id_usuario, String novo_nome) {
         try {
             String sql = "";
-            sql = "UPDATE usuario SET nome_usuario = " + novo_nome + " WHERE id_usuario = " + id_usuario;
+            sql = "UPDATE usuario SET nome_usuario = '" + novo_nome + "' WHERE id_usuario = " + id_usuario;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
@@ -71,6 +114,19 @@ public class UsuarioDAO {
         try {
             String sql = "";
             sql = "UPDATE usuario SET foto_usuario = " + imagem + " WHERE id_usuario = " + id_usuario;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+
+    public void alterarSenha(int id_usuario, String senha) {
+        try {
+            String sql = "";
+            sql = "UPDATE usuario SET senha_usuario = '" + senha + "' WHERE id_usuario = " + id_usuario;
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
@@ -137,11 +193,11 @@ public class UsuarioDAO {
     }
 
     public ArrayList facaNovasAmizades(int id_usuario) {
-        
+
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN ("+ id_usuario +", 1, 2) AND id_usuario NOT IN (SELECT id_usuario FROM seguidores WHERE id_seguidor = "+ id_usuario +") ORDER BY RAND() LIMIT 11");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usuario WHERE id_usuario NOT IN (" + id_usuario + ", 1, 2) AND id_usuario NOT IN (SELECT id_usuario FROM seguidores WHERE id_seguidor = " + id_usuario + ") ORDER BY RAND() LIMIT 11");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -1104,7 +1104,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         usr.setDataNasc_usuario(ano + "-" + mes + "-" + dia);
 
-        if (!jTextField1.getText().contains("@")) {
+        if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
             JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
             jTextField1.setText("");
         } else if (jTextField2.getText().contains("@")) {

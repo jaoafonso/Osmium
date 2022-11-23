@@ -5,9 +5,20 @@
  */
 package gui;
 
+import dao.UsuarioDAO;
+import factory.ConnectionFactory;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import modelo.Usuario;
 
 /**
@@ -23,6 +34,7 @@ public class TelaConfig extends javax.swing.JFrame {
         initComponents();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                carregarUsuarioPadrao();
                 ImageIcon fotoUsr = new ImageIcon(getClass().getResource("/img/img" + usr.getFoto_usuario() + ".png"));
                 jLabel3.setText(usr.getNome_usuario());
                 fotoUsr.setImage(fotoUsr.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
@@ -32,7 +44,57 @@ public class TelaConfig extends javax.swing.JFrame {
         });
     }
 
+    Connection connection;
     Usuario usr = new Usuario();
+    UsuarioDAO usrDAO = new UsuarioDAO();
+
+    public boolean verificarDisponibilidade(String nome_usuario) {
+        try {
+            boolean isDisponivel = false;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next() == false) {
+                isDisponivel = true;
+            }
+
+            ps.close();
+            rs.close();
+
+            return isDisponivel;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "verificarDisponibilidade():" + e.getMessage());
+            return false;
+        }
+    }
+
+    public void carregarUsuarioPadrao() {
+        try {
+            this.connection = new ConnectionFactory().getConnection();
+
+            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + usr.getNome_usuario() + "'";
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                usr.setId_usuario(rs.getInt("id_usuario"));
+                usr.setNome_usuario(rs.getString("nome_usuario"));
+                usr.setDesc_usuario(rs.getString("desc_usuario"));
+                usr.setEmail_usuario(rs.getString("email_usuario"));
+                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
+                usr.setFoto_usuario(rs.getInt("foto_usuario"));
+                usr.setAdministrador(rs.getBoolean("administrador"));
+                usr.setPerfil_concluido(rs.getBoolean("perfil_concluido"));
+                usr.setSenha_usuario(rs.getString("senha_usuario"));
+
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -403,22 +465,152 @@ public class TelaConfig extends javax.swing.JFrame {
 
     private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
         // TODO add your handling code here:
-        //Mudar Email
+        String novo_email = null;
+
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu E-Mail atual é " + usr.getEmail_usuario() + ", deseja alterar?", "Sair",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer
+            boolean emailValido = false;
+            do {
+                novo_email = JOptionPane.showInputDialog("Digite seu Novo E-Mail: ");
+                if (novo_email == null || (novo_email != null && ("".equals(novo_email)))) {
+                    break;
+                } else if (novo_email.contains("@") && novo_email.contains(".")) {
+                    JOptionPane.showMessageDialog(null, "Salvo");
+                    usrDAO.alterarEmail(usr.getId_usuario(), novo_email);
+                    emailValido = true;
+                    TelaConfig frame = new TelaConfig();
+                    frame.usr.setNome_usuario(usr.getNome_usuario());
+                    frame.usr.setId_usuario(usr.getId_usuario());
+                    frame.usr.setFoto_usuario(usr.getFoto_usuario());
+                    frame.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite um E-mail válido");
+                }
+            } while (emailValido == false);
+        }
     }//GEN-LAST:event_jPanel18MouseClicked
 
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
         // TODO add your handling code here:
-        //Mudar Senha
+        String nova_senha = null;
+        String senha_atual = null;
+        Boolean senhaValida = false;
+
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+
+        senha_atual = JOptionPane.showInputDialog("Digite sua senha atual: ");
+        if (senha_atual != null) {
+            if (senha_atual.equals(usr.getSenha_usuario())) {
+                senhaValida = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Senha incorreta");
+            }
+        }
+
+        if (senhaValida == true) {
+            do {
+                int resposta = JOptionPane.showOptionDialog(new JFrame(), "Sua senha atual é " + usr.getSenha_usuario() + ", deseja alterar?", "Sair",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+                if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer
+                    boolean senhaVazia = true;
+                    do {
+                        nova_senha = JOptionPane.showInputDialog("Digite sua nova senha: ");
+                        if (nova_senha == null || (nova_senha != null && ("".equals(nova_senha)))) {
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Salvo");
+                            usrDAO.alterarSenha(usr.getId_usuario(), nova_senha);
+                            senhaVazia = false;
+                            TelaConfig frame = new TelaConfig();
+                            frame.usr.setNome_usuario(usr.getNome_usuario());
+                            frame.usr.setId_usuario(usr.getId_usuario());
+                            frame.usr.setFoto_usuario(usr.getFoto_usuario());
+                            frame.setVisible(true);
+                            this.dispose();
+                        }
+                    } while (senhaVazia == true);
+                } else {
+                    break;
+                }
+
+            } while (nova_senha == null);
+        }
+
     }//GEN-LAST:event_jPanel17MouseClicked
 
     private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
         // TODO add your handling code here:
-        //Mudar Nome
+        String novo_nome = null;
+
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu nome atual é " + usr.getNome_usuario() + ", deseja alterar?", "Sair",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer
+            boolean nomeValido = false;
+            do {
+                novo_nome = JOptionPane.showInputDialog("Digite seu novo nome: ");
+                if (novo_nome == null || (novo_nome != null && ("".equals(novo_nome)))) {
+                    break;
+                } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+                    if (verificarDisponibilidade(novo_nome) == true) {
+                        JOptionPane.showMessageDialog(null, "Salvo");
+                        usrDAO.alterarNome(usr.getId_usuario(), novo_nome);
+                        usr.setNome_usuario(novo_nome);
+                        nomeValido = true;
+                        TelaConfig frame = new TelaConfig();
+                        frame.usr.setNome_usuario(usr.getNome_usuario());
+                        frame.usr.setId_usuario(usr.getId_usuario());
+                        frame.usr.setFoto_usuario(usr.getFoto_usuario());
+                        frame.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome");
+                        break;
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite um nome válido");
+                }
+            } while (nomeValido == false);
+        }
     }//GEN-LAST:event_jPanel19MouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
         // TODO add your handling code here:
-        //Apagar Conta
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "ATENÇÃO! A exclusão de sua conta será permanente, deseja continuar?", "Sair",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+        if (resposta == JOptionPane.NO_OPTION) {
+            int confirmacao = JOptionPane.showOptionDialog(new JFrame(), "Tem certeza? Isso não poderá ser desfeito!", "Sair",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                    new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+            if (confirmacao == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Adeus "+ usr.getNome_usuario() + ".");
+                usrDAO.excluirUsuario(usr.getId_usuario());
+                TelaInicial frame = new TelaInicial();
+                frame.setVisible(true);
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_jPanel14MouseClicked
 
     /**

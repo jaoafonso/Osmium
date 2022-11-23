@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/SeguidoresDAO.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/MensagensDAO.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/dao/UsuarioDAO.java</file>
+            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaConfig.java</file>
             <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaInicial.java</file>
-            <file>file:/C:/xampp/htdocs/Osmium/Java/src/gui/TelaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>

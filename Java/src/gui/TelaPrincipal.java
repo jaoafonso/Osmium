@@ -64,7 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private Seguidores objSeguidores;
     private SeguidoresDAO segDAO;
-    
+
     private Usuario objUsuario;
     private UsuarioDAO usrDAO;
 
@@ -254,7 +254,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable7.setModel(modelo);
     }
-    
+
     public void carregarSeguidoresRecentes(Seguidores objSeguidores) {
 
         segDAO = new SeguidoresDAO();
@@ -398,11 +398,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    public void abrirPerfil() {
+    public void abrirPerfil(String origem) {
         TelaPerfil frame = new TelaPerfil();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.usr.setId_usuario(usr.getId_usuario());
-        frame.outroUsr.setNome_usuario(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
+        if (origem == "jTable3") {
+            frame.outroUsr.setNome_usuario(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
+        } else if (origem == "jTable7") {
+            frame.outroUsr.setNome_usuario(jTable7.getValueAt(jTable7.getSelectedRow(), 0).toString());
+        }
+
         frame.setVisible(true);
         this.dispose();
     }
@@ -1652,6 +1657,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable7.setFocusable(false);
         jTable7.setOpaque(false);
         jTable7.setRowHeight(26);
+        jTable7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable7MouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(jTable7);
 
         jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 30, 140, 316));
@@ -2204,8 +2214,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
         // TODO add your handling code here:
-        abrirPerfil();
+        abrirPerfil("jTable3");
     }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
+        // TODO add your handling code here:
+        abrirPerfil("jTable7");
+    }//GEN-LAST:event_jTable7MouseClicked
 
     /**
      * @param args the command line arguments

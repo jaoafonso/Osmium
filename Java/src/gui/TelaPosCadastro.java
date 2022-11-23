@@ -12,7 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
 import dao.UsuarioDAO;
+import factory.ConnectionFactory;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
 /**
@@ -37,8 +42,32 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         });
     }
 
+    Connection connection;
     Usuario usr = new Usuario();
+    UsuarioDAO usrDAO = new UsuarioDAO();
 
+    public int pegarIdUsuario(String nome_usuario) {
+        this.connection = new ConnectionFactory().getConnection();
+        try {
+            int id_usuario = 0;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM usuario WHERE nome_usuario ='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            id_usuario = rs.getInt("id_usuario");
+
+            ps.close();
+            rs.close();
+
+            return id_usuario;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarIdCategoria():" + e.getMessage());
+            return 0;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -294,31 +323,6 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
-        // TODO add your handling code here:
-        btnVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnVoltarMouseEntered
-
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVoltarActionPerformed
-
-    private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
-        // TODO add your handling code here:
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu cadastro será deletado, deseja realmente voltar?", "Sair",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
-        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
-            TelaInicial frame = new TelaInicial();
-            frame.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnVoltarMouseClicked
-
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         // TODO add your handling code here:
         usr.setDesc_usuario(jTextArea2.getText());
@@ -365,6 +369,32 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         } catch (Exception w) {
         }
     }//GEN-LAST:event_jTextArea2KeyTyped
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
+        // TODO add your handling code here:
+        btnVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnVoltarMouseEntered
+
+    private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
+        // TODO add your handling code here:
+        Color temaDark = new Color(18, 18, 18);
+        UIManager.put("control", temaDark);
+        UIManager.put("OptionPane.background", temaDark);
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu cadastro será deletado, deseja realmente voltar?", "Sair",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+            new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
+            usrDAO.excluirUsuario(pegarIdUsuario(usr.getNome_usuario()));
+            TelaInicial frame = new TelaInicial();
+            frame.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnVoltarMouseClicked
 
     /**
      * @param args the command line arguments
