@@ -67,7 +67,6 @@ CREATE TABLE interesses_do_usuario (
 CREATE TABLE jogos_favoritos (
 	id_usuario INTEGER(9),
 	id_jogo INTEGER(9),
-	carac_jogabilidade VARCHAR(45),
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
 	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo)
 );
