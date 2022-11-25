@@ -131,6 +131,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable3.setRowSelectionAllowed(false);
 
         // Configurações de aparência da tabela dos jogos recomendados
+        DefaultTableCellRenderer centerRenderer1 = new DefaultTableCellRenderer();
+        centerRenderer1.setHorizontalAlignment(JLabel.CENTER);
+        jTable6.getColumnModel().getColumn(0).setCellRenderer(centerRenderer1);
         jScrollPane6.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header6 = jTable6.getTableHeader();
         header6.setPreferredSize(new Dimension(100, 30));
@@ -142,6 +145,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable6.setRowSelectionAllowed(false);
 
         // Configurações de aparência da tabela faca novas amizades
+        DefaultTableCellRenderer centerRenderer2 = new DefaultTableCellRenderer();
+        centerRenderer2.setHorizontalAlignment(JLabel.CENTER);
+        jTable3.getColumnModel().getColumn(0).setCellRenderer(centerRenderer2);
         jScrollPane7.getViewport().setBackground(new Color(60, 63, 64));
         JTableHeader header7 = jTable7.getTableHeader();
         header7.setPreferredSize(new Dimension(100, 30));
@@ -237,6 +243,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaVerPublicacao frame = new TelaVerPublicacao();
         frame.pub.setId_publicacao(Integer.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString()));
         frame.usr.setId_usuario(usr.getId_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();
@@ -253,6 +260,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable7.setModel(modelo);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable7.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
 
     public void carregarSeguidoresRecentes(Seguidores objSeguidores) {
@@ -267,6 +277,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable3.setModel(modelo);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable3.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 
     }
 
@@ -448,6 +461,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.getColumnModel().getColumn(1).setMinWidth(200);
         jTable2.getColumnModel().getColumn(1).setMaxWidth(200);
         jTable2.getColumnModel().getColumn(1).setWidth(200);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable2.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jTable2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        jTable2.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
     }
 
@@ -1852,12 +1870,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
         // TODO add your handling code here:
-        TelaConfig frame = new TelaConfig();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setId_usuario(usr.getId_usuario());
-        frame.usr.setFoto_usuario(usr.getFoto_usuario());
-        frame.setVisible(true);
-        this.dispose();
+        if (usr.isAdministrador() == true) {
+            Color temaDark = new Color(18, 18, 18);
+            UIManager.put("control", temaDark);
+            UIManager.put("OptionPane.background", temaDark);
+            UIManager.put("OptionPane.messageForeground", Color.white);
+            JOptionPane.showMessageDialog(null, "O Administrador não precisa alterar suas informações.");
+        } else {
+            TelaConfig frame = new TelaConfig();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setId_usuario(usr.getId_usuario());
+            frame.usr.setFoto_usuario(usr.getFoto_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_btnExit1MouseClicked
 
     private void btnExit1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseEntered
@@ -1873,6 +1900,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (jTextField1.getText().equals(usr.getNome_usuario())) {
             TelaPerfil frame = new TelaPerfil();
             frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setAdministrador(usr.isAdministrador());
             frame.setVisible(true);
             this.dispose();
         } else {
@@ -1880,6 +1908,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             frame.usr.setNome_usuario(usr.getNome_usuario());
             frame.usr.setId_usuario(usr.getId_usuario());
             frame.outroUsr.setNome_usuario(jTextField1.getText());
+            frame.usr.setAdministrador(usr.isAdministrador());
             frame.setVisible(true);
             this.dispose();
         }
@@ -1902,6 +1931,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaPerfil frame = new TelaPerfil();
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel48MouseClicked

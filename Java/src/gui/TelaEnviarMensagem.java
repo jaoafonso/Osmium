@@ -307,6 +307,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 TelaVerPublicacao frame = new TelaVerPublicacao();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
                 frame.pub.setId_publicacao(id_publicacao);
+                frame.usr.setAdministrador(usr.isAdministrador());
                 frame.setVisible(true);
                 this.dispose();
             }
@@ -375,6 +376,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 TelaVerPublicacao frame = new TelaVerPublicacao();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
                 frame.pub.setId_publicacao(id_publicacao);
+                frame.usr.setAdministrador(usr.isAdministrador());
                 frame.setVisible(true);
                 this.dispose();
             }

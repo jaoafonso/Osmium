@@ -1060,7 +1060,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
         // TODO add your handling code here:
-        Usuario usr = new Usuario();
+        String nome_usuario = "";
         try {
             this.connection = new ConnectionFactory().getConnection();
 
@@ -1068,7 +1068,7 @@ public class TelaInicial extends javax.swing.JFrame {
             String senha_usuario = txtSenha.getText();
             String sql = "";
             Statement stmt = connection.createStatement();
-            if (entrada_usuario.contains("@")) {
+            if (entrada_usuario.contains("@") || entrada_usuario.contains(".")) {
                 sql = "SELECT * FROM usuario WHERE email_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
             } else {
                 sql = "SELECT * FROM usuario WHERE nome_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
@@ -1076,10 +1076,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
-                usr.setNome_usuario(rs.getString("nome_usuario"));
+                nome_usuario = rs.getString("nome_usuario");
 
                 TelaPrincipal frame = new TelaPrincipal();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.usr.setNome_usuario(nome_usuario);
                 frame.setVisible(true);
                 this.dispose();
             } else {
@@ -1219,6 +1219,7 @@ public class TelaInicial extends javax.swing.JFrame {
             jPasswordField1.setText("");
         } else {
             senhaValida = true;
+            usr.setSenha_usuario(jPasswordField1.getText());
         }
 
         if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
