@@ -9,6 +9,7 @@ import dao.MensagensDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,6 +30,7 @@ public class TelaLerMensagem extends javax.swing.JFrame {
      */
     public TelaLerMensagem() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarMensagem();

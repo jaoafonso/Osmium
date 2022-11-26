@@ -11,6 +11,7 @@ import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,6 +42,7 @@ public class TelaMensagens extends javax.swing.JFrame {
 
     public TelaMensagens() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -264,6 +266,9 @@ public class TelaMensagens extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(jTable1);
 
@@ -290,6 +295,9 @@ public class TelaMensagens extends javax.swing.JFrame {
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable2MouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -477,6 +485,16 @@ public class TelaMensagens extends javax.swing.JFrame {
     private void btnVoltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltar1ActionPerformed
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        // TODO add your handling code here:
+        jTable1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jTable2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseEntered
+        // TODO add your handling code here:
+        jTable2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable2MouseEntered
 
     /**
      * @param args the command line arguments

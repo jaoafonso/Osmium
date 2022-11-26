@@ -15,6 +15,7 @@ import dao.CategoriasDAO;
 import dao.JogosDAO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
@@ -36,8 +37,12 @@ public class TelaJogos extends javax.swing.JFrame {
      */
     public TelaJogos() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                if (usr.isAdministrador() == true) {
+                    btnNovoJogo.setVisible(true);
+                }
             }
         });
         carregarJogos(objJogos, null);
@@ -65,6 +70,8 @@ public class TelaJogos extends javax.swing.JFrame {
         jTable2.setShowHorizontalLines(true);
         jTable2.setShowVerticalLines(true);
         jTable2.setRowSelectionAllowed(false);
+        
+        btnNovoJogo.setVisible(false);
     }
 
     Usuario usr = new Usuario();
@@ -107,6 +114,7 @@ public class TelaJogos extends javax.swing.JFrame {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.jg.setNome_jogo(jTable2.getValueAt(jTable2.getSelectedRow(), 0).toString());
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         frame.retorno = "Tela Jogos";
         frame.setVisible(true);
         this.dispose();
@@ -131,6 +139,7 @@ public class TelaJogos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnNovoJogo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
@@ -189,6 +198,9 @@ public class TelaJogos extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(jTable1);
 
@@ -235,6 +247,9 @@ public class TelaJogos extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable2MouseEntered(evt);
+            }
         });
         jScrollPane2.setViewportView(jTable2);
 
@@ -259,6 +274,23 @@ public class TelaJogos extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Jogos");
 
+        btnNovoJogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        btnNovoJogo.setBorderPainted(false);
+        btnNovoJogo.setContentAreaFilled(false);
+        btnNovoJogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNovoJogoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNovoJogoMouseEntered(evt);
+            }
+        });
+        btnNovoJogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoJogoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -270,12 +302,13 @@ public class TelaJogos extends javax.swing.JFrame {
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNovoJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(206, 206, 206))))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(206, 206, 206))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +316,8 @@ public class TelaJogos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNovoJogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -341,6 +375,34 @@ public class TelaJogos extends javax.swing.JFrame {
         abrirJogo();
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void btnNovoJogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoJogoMouseClicked
+        // TODO add your handling code here:
+        TelaNovoJogo frame = new TelaNovoJogo();
+        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnNovoJogoMouseClicked
+
+    private void btnNovoJogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoJogoMouseEntered
+        // TODO add your handling code here:
+        btnNovoJogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnNovoJogoMouseEntered
+
+    private void btnNovoJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoJogoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNovoJogoActionPerformed
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        // TODO add your handling code here:
+        jTable1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jTable2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseEntered
+        // TODO add your handling code here:
+        jTable2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable2MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -377,6 +439,7 @@ public class TelaJogos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNovoJogo;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

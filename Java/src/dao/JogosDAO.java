@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import modelo.Jogos;
 
 public class JogosDAO {
 
@@ -15,6 +16,34 @@ public class JogosDAO {
 
     public JogosDAO() {
         this.connection = new ConnectionFactory().getConnection();
+    }
+
+    public void excluirJogo(int id_jogo) {
+        try {
+            String sql1 = "DELETE FROM categorias_do_jogo WHERE id_jogo  = " + id_jogo + "";
+            String sql2 = "DELETE FROM jogos_favoritos WHERE id_jogo  = " + id_jogo + "";
+            String sql3 = "DELETE FROM convites WHERE id_jogo  = " + id_jogo + "";
+            String sql4 = "DELETE FROM jogos WHERE id_jogo  = " + id_jogo + "";
+
+            PreparedStatement stmt1 = connection.prepareStatement(sql1);
+            PreparedStatement stmt2 = connection.prepareStatement(sql2);
+            PreparedStatement stmt3 = connection.prepareStatement(sql3);
+            PreparedStatement stmt4 = connection.prepareStatement(sql4);
+
+            stmt1.execute();
+            stmt2.execute();
+            stmt3.execute();
+            stmt4.execute();
+
+            stmt1.close();
+            stmt2.close();
+            stmt3.close();
+            stmt4.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+
     }
 
     public int[] idCategoriasJogo(int id_jogo) {
@@ -48,7 +77,7 @@ public class JogosDAO {
         }
 
     }
-    
+
     public String nomeUsuario(int id_usuario) {
         try {
 
@@ -57,7 +86,7 @@ public class JogosDAO {
 
             rs.next();
             String nomeRemetente = rs.getString("nome_usuario");
-            
+
             ps.close();
             rs.close();
 
@@ -68,12 +97,12 @@ public class JogosDAO {
             return null;
         }
     }
-    
+
     public String encontrarParceiro(int id_jogo) {
         try {
             String nome_usuario = "";
 
-            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM jogos_favoritos ORDER BY RAND() LIMIT 1");
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM jogos_favoritos WHERE id_jogo = "+ id_jogo +" ORDER BY RAND() LIMIT 1");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -147,6 +176,19 @@ public class JogosDAO {
         }
     }
 
+    public void alterarDescricao(int id_jogo, String nova_descricao) {
+        try {
+            String sql = "";
+            sql = "UPDATE jogos SET desc_jogo = '" + nova_descricao + "' WHERE id_jogo = " + id_jogo;
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
     public ArrayList listarJogos() {
         try {
             ArrayList dado = new ArrayList();
@@ -172,6 +214,46 @@ public class JogosDAO {
             JOptionPane.showMessageDialog(null, "listarJogos():" + e.getMessage());
             return null;
         }
+    }
+    
+    public void adicionarJogo(Jogos objJogos) {
+        try {
+            String sql = "";
+            sql = "INSERT INTO jogos(nome_jogo, desc_jogo) VALUES(?,?)";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, objJogos.getNome_jogo());
+            stmt.setString(2, objJogos.getDesc_jogo());
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException u) {
+            throw new RuntimeException(u);
+        }
+    }
+    
+    public int pegarIdJogo(String nome_jogo) {
+
+        try {
+            int id_jogo = 0;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_jogo FROM jogos WHERE nome_jogo ='" + nome_jogo + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            id_jogo = rs.getInt("id_jogo");
+
+            ps.close();
+            rs.close();
+
+            return id_jogo;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarIdJogo():" + e.getMessage());
+            return 0;
+        }
+
     }
 
     public int pegarIdCategoria(String nome_categoria) {

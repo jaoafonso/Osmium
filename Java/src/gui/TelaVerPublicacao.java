@@ -9,6 +9,7 @@ import dao.PublicacoesDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,6 +30,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
      */
     public TelaVerPublicacao() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarPublicacao();
@@ -364,6 +366,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
 
     private void jPanel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel12MouseEntered
         // TODO add your handling code here:
+        jPanel12.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel12MouseEntered
 
     /**

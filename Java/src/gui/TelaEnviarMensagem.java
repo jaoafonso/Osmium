@@ -8,7 +8,8 @@ package gui;
 import dao.MensagensDAO;
 import java.awt.Color;
 import java.awt.Cursor;
-import javax.swing.JFrame;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Mensagens;
@@ -25,15 +26,16 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
      */
     public TelaEnviarMensagem() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 jLabel2.setText("Nova mensagem para " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
                 jLabel1.setText(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
-                
+
                 if (jogo_convite != null) {
                     jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", recebi seu convite para jogar " + jogo_convite + ", vamos lá?");
                 }
-                
+
                 if (titulo_publicacao != null) {
                     jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", vi sua publicação sobre '" + titulo_publicacao + "', ");
                 }
@@ -119,6 +121,9 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
         jTextArea2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jTextArea2.setHighlighter(null);
         jTextArea2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextArea2KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextArea2KeyTyped(evt);
             }
@@ -288,29 +293,29 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
     private void btnVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseClicked
         // TODO add your handling code here:
         if (retorno == "Tela Mensagens") {
-                TelaMensagens frame = new TelaMensagens();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.setVisible(true);
-                this.dispose();
-            } else if (retorno == "Tela Perfil") {
-                TelaPerfil frame = new TelaPerfil();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
-                frame.setVisible(true);
-                this.dispose();
-            } else if (retorno == "Tela Principal") {
-                TelaPrincipal frame = new TelaPrincipal();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.setVisible(true);
-                this.dispose();
-            } else if (retorno == "TelaVerPublicacao") {
-                TelaVerPublicacao frame = new TelaVerPublicacao();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.pub.setId_publicacao(id_publicacao);
-                frame.usr.setAdministrador(usr.isAdministrador());
-                frame.setVisible(true);
-                this.dispose();
-            }
+            TelaMensagens frame = new TelaMensagens();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "Tela Perfil") {
+            TelaPerfil frame = new TelaPerfil();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "Tela Principal") {
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "TelaVerPublicacao") {
+            TelaVerPublicacao frame = new TelaVerPublicacao();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.pub.setId_publicacao(id_publicacao);
+            frame.usr.setAdministrador(usr.isAdministrador());
+            frame.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnVoltarMouseClicked
 
     private void btnVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVoltarMouseEntered
@@ -356,6 +361,52 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
         UIManager.put("OptionPane.background", temaDark);
         UIManager.put("OptionPane.messageForeground", Color.white);
         JOptionPane.showMessageDialog(null, "Mensagem Enviada!");
+        if (retorno == "Tela Mensagens") {
+            TelaMensagens frame = new TelaMensagens();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "Tela Perfil") {
+            TelaPerfil frame = new TelaPerfil();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.usr.setAdministrador(usr.isAdministrador());
+            frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "Tela Principal") {
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        } else if (retorno == "TelaVerPublicacao") {
+            TelaVerPublicacao frame = new TelaVerPublicacao();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.pub.setId_publicacao(id_publicacao);
+            frame.usr.setAdministrador(usr.isAdministrador());
+            frame.setVisible(true);
+            this.dispose();
+        }
+
+    }//GEN-LAST:event_jPanel11MouseClicked
+
+    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
+        // TODO add your handling code here:
+        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel11MouseEntered
+
+    private void jTextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            MensagensDAO msgDAO = new MensagensDAO();
+
+            msg.setMensagem(jTextArea2.getText());
+            msgDAO.enviarMensagem(msg);
+
+            Color temaDark = new Color(18, 18, 18);
+            UIManager.put("control", temaDark);
+            UIManager.put("OptionPane.background", temaDark);
+            UIManager.put("OptionPane.messageForeground", Color.white);
+            JOptionPane.showMessageDialog(null, "Mensagem Enviada!");
             if (retorno == "Tela Mensagens") {
                 TelaMensagens frame = new TelaMensagens();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
@@ -364,6 +415,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             } else if (retorno == "Tela Perfil") {
                 TelaPerfil frame = new TelaPerfil();
                 frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.usr.setAdministrador(usr.isAdministrador());
                 frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
                 frame.setVisible(true);
                 this.dispose();
@@ -380,13 +432,8 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 frame.setVisible(true);
                 this.dispose();
             }
-        
-    }//GEN-LAST:event_jPanel11MouseClicked
-
-    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
-        // TODO add your handling code here:
-        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jPanel11MouseEntered
+        }
+    }//GEN-LAST:event_jTextArea2KeyPressed
 
     /**
      * @param args the command line arguments

@@ -19,8 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
-import java.util.Date;
 import dao.UsuarioDAO;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -39,8 +40,10 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         panelLogin.setVisible(true);
         panelCadastro.setVisible(false);
+        txtEmail.requestFocus();
     }
 
     Usuario usr = new Usuario();
@@ -336,6 +339,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         jLabel19.setForeground(new java.awt.Color(186, 186, 186));
         jLabel19.setText("NOME *");
@@ -344,6 +352,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
 
         jLabel20.setForeground(new java.awt.Color(186, 186, 186));
         jLabel20.setText("SENHA *");
@@ -387,6 +400,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
+        });
 
         jFormattedTextField1.setBackground(new java.awt.Color(69, 73, 73));
         jFormattedTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -397,6 +415,16 @@ public class TelaInicial extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jFormattedTextField1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jFormattedTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jFormattedTextField1MouseClicked(evt);
+            }
+        });
+        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -540,11 +568,21 @@ public class TelaInicial extends javax.swing.JFrame {
         txtEmail.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(255, 255, 255));
         txtEmail.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
 
         txtSenha.setBackground(new java.awt.Color(69, 73, 73));
         txtSenha.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtSenha.setForeground(new java.awt.Color(255, 255, 255));
         txtSenha.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         labelEmail.setForeground(new java.awt.Color(186, 186, 186));
         labelEmail.setText("USUÁRIO OU E-MAIL *");
@@ -1047,6 +1085,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelLogin.setVisible(true);
         panelCadastro.setVisible(false);
+        txtEmail.requestFocus();
     }//GEN-LAST:event_panelBtnEntrarMouseClicked
 
     private void panelBtnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseEntered
@@ -1108,6 +1147,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelCadastro.setVisible(true);
         panelLogin.setVisible(false);
+        jTextField1.requestFocus();
     }//GEN-LAST:event_labelBtnRegistreseMouseClicked
 
     private void labelBtnRegistreseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistreseMouseEntered
@@ -1124,6 +1164,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelCadastro.setVisible(true);
         panelLogin.setVisible(false);
+        jTextField1.requestFocus();
     }//GEN-LAST:event_panelBtnRegistroMouseClicked
 
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
@@ -1213,7 +1254,7 @@ public class TelaInicial extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite um nome válido.");
             jTextField2.setText(null);
         }
-        
+
         if (jPasswordField1.getText().length() < 8) {
             JOptionPane.showMessageDialog(this, "Senha muito curta!");
             jPasswordField1.setText("");
@@ -1247,6 +1288,7 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelCadastro.setVisible(false);
         panelLogin.setVisible(true);
+        txtEmail.requestFocus();
     }//GEN-LAST:event_labelBtnRegistrese1MouseClicked
 
     private void labelBtnRegistrese1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBtnRegistrese1MouseEntered
@@ -1365,6 +1407,195 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jTextField2.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jPasswordField1.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jFormattedTextField1.requestFocus();
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jFormattedTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Usuario usr = new Usuario();
+            boolean nomeValido = false;
+            boolean dataValida = false;
+            boolean senhaValida = false;
+            String novo_nome = jTextField2.getText();
+            Color temaDark = new Color(18, 18, 18);
+            UIManager.put("control", temaDark);
+            UIManager.put("OptionPane.background", temaDark);
+            UIManager.put("OptionPane.messageForeground", Color.white);
+
+            String ano = jFormattedTextField1.getText().substring(6, 10);
+            String mes = jFormattedTextField1.getText().substring(3, 5);
+            String dia = jFormattedTextField1.getText().substring(0, 2);
+            usr.setDataNasc_usuario(ano + "-" + mes + "-" + dia);
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            String dataHoje = "";
+            dataHoje = dtf.format(now);
+            String anoHoje = dataHoje.substring(6, 10);
+            String mesHoje = dataHoje.substring(3, 5);
+            String diaHoje = dataHoje.substring(0, 2);
+
+            if ((Integer.valueOf(ano) == Integer.valueOf(anoHoje))) {
+
+                if (Integer.valueOf(mes) <= Integer.valueOf(mesHoje)) {
+
+                    if (Integer.valueOf(dia) <= Integer.valueOf(diaHoje)) {
+
+                        dataValida = true;
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                        jFormattedTextField1.setText(null);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                    jFormattedTextField1.setText(null);
+                }
+
+            } else if ((Integer.valueOf(ano) > 1900) && (Integer.valueOf(ano) < Integer.valueOf(anoHoje))) {
+
+                if (Integer.valueOf(mes) <= 12) {
+
+                    if (Integer.valueOf(dia) <= Integer.valueOf(31)) {
+
+                        dataValida = true;
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                        jFormattedTextField1.setText(null);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                    jFormattedTextField1.setText(null);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite uma data válida.");
+                jFormattedTextField1.setText(null);
+            }
+
+            if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
+                JOptionPane.showMessageDialog(null, "Digite um nome!");
+                jTextField2.setText("");
+            } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+                if (jTextField2.getText().length() > 20) {
+
+                    JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
+                    jTextField2.setText(null);
+
+                } else if (verificarDisponibilidade(novo_nome) == true) {
+                    usr.setNome_usuario(novo_nome);
+                    nomeValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
+                    jTextField2.setText(null);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite um nome válido.");
+                jTextField2.setText(null);
+            }
+
+            if (jPasswordField1.getText().length() < 8) {
+                JOptionPane.showMessageDialog(this, "Senha muito curta!");
+                jPasswordField1.setText("");
+            } else {
+                senhaValida = true;
+                usr.setSenha_usuario(jPasswordField1.getText());
+            }
+
+            if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
+                JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
+                jTextField1.setText("");
+            } else if (dataValida == true && nomeValido == true && senhaValida == true) {
+                usr.setEmail_usuario(jTextField1.getText());
+
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.preCadastrar(usr);
+
+                TelaPosCadastro frame = new TelaPosCadastro();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jFormattedTextField1KeyPressed
+
+    private void jFormattedTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jFormattedTextField1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1MouseClicked
+
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txtSenha.requestFocus();
+        }
+    }//GEN-LAST:event_txtEmailKeyPressed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String nome_usuario = "";
+            try {
+                this.connection = new ConnectionFactory().getConnection();
+
+                String entrada_usuario = txtEmail.getText();
+                String senha_usuario = txtSenha.getText();
+                String sql = "";
+                Statement stmt = connection.createStatement();
+                if (entrada_usuario.contains("@") || entrada_usuario.contains(".")) {
+                    sql = "SELECT * FROM usuario WHERE email_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
+                } else {
+                    sql = "SELECT * FROM usuario WHERE nome_usuario='" + entrada_usuario + "' and senha_usuario='" + senha_usuario + "'";
+                }
+
+                ResultSet rs = stmt.executeQuery(sql);
+                if (rs.next()) {
+                    nome_usuario = rs.getString("nome_usuario");
+
+                    TelaPrincipal frame = new TelaPrincipal();
+                    frame.usr.setNome_usuario(nome_usuario);
+                    frame.setVisible(true);
+                    this.dispose();
+                } else {
+                    Color temaDark = new Color(18, 18, 18);
+                    UIManager.put("control", temaDark);
+                    UIManager.put("OptionPane.background", temaDark);
+                    UIManager.put("OptionPane.messageForeground", Color.white);
+                    JOptionPane.showMessageDialog(this, "O usuário não existe ou as informações digitadas estão incorretas.");
+                    txtEmail.setText("");
+                    txtSenha.setText("");
+                }
+
+                connection.close();
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     /**
      * @param args the command line arguments

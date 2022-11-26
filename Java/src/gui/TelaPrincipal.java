@@ -23,6 +23,8 @@ import modelo.Usuario;
 import factory.ConnectionFactory;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -70,6 +72,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarUsuarioPadrao();
@@ -287,6 +290,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.jg.setNome_jogo(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString());
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         frame.retorno = "Tela Principal";
         frame.setVisible(true);
         this.dispose();
@@ -415,6 +419,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         TelaPerfil frame = new TelaPerfil();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.usr.setId_usuario(usr.getId_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         if (origem == "jTable3") {
             frame.outroUsr.setNome_usuario(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
         } else if (origem == "jTable7") {
@@ -557,11 +562,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         panelBtnEntrar2 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
-        btnExit1 = new javax.swing.JButton();
+        btnConfig = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         btnExit2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        btnExit3 = new javax.swing.JButton();
+        btnNovoPost = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -755,20 +760,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnExit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings.png"))); // NOI18N
-        btnExit1.setBorderPainted(false);
-        btnExit1.setContentAreaFilled(false);
-        btnExit1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/settings.png"))); // NOI18N
+        btnConfig.setBorderPainted(false);
+        btnConfig.setContentAreaFilled(false);
+        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExit1MouseClicked(evt);
+                btnConfigMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExit1MouseEntered(evt);
+                btnConfigMouseEntered(evt);
             }
         });
-        btnExit1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfig.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit1ActionPerformed(evt);
+                btnConfigActionPerformed(evt);
             }
         });
 
@@ -808,6 +813,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -829,20 +839,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnExit2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        btnExit3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        btnExit3.setBorderPainted(false);
-        btnExit3.setContentAreaFilled(false);
-        btnExit3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnNovoPost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        btnNovoPost.setBorderPainted(false);
+        btnNovoPost.setContentAreaFilled(false);
+        btnNovoPost.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExit3MouseClicked(evt);
+                btnNovoPostMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExit3MouseEntered(evt);
+                btnNovoPostMouseEntered(evt);
             }
         });
-        btnExit3.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoPost.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit3ActionPerformed(evt);
+                btnNovoPostActionPerformed(evt);
             }
         });
 
@@ -881,9 +891,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNovoPost, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExit1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -897,8 +907,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnExit1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExit3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConfig, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovoPost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -930,6 +940,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel44MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel44MouseEntered(evt);
             }
         });
         jPanel14.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 20, 20));
@@ -971,6 +984,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jCheckBox1.setBackground(new java.awt.Color(60, 63, 64));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setText("PC");
+        jCheckBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jCheckBox1MouseEntered(evt);
+            }
+        });
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -981,11 +999,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jCheckBox2.setBackground(new java.awt.Color(60, 63, 64));
         jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox2.setText("Console");
+        jCheckBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jCheckBox2MouseEntered(evt);
+            }
+        });
         jPanel14.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
         jCheckBox3.setBackground(new java.awt.Color(60, 63, 64));
         jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox3.setText("Mobile");
+        jCheckBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jCheckBox3MouseEntered(evt);
+            }
+        });
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox3ActionPerformed(evt);
@@ -1010,6 +1038,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel47.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel47MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel47MouseEntered(evt);
             }
         });
         jPanel8.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
@@ -1072,6 +1103,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable4MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable4MouseEntered(evt);
+            }
         });
         jScrollPane4.setViewportView(jTable4);
 
@@ -1102,6 +1136,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel52.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel52MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel52MouseEntered(evt);
             }
         });
         jPanel15.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
@@ -1164,6 +1201,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable5MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable5MouseEntered(evt);
+            }
         });
         jScrollPane5.setViewportView(jTable5);
 
@@ -1199,6 +1239,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
         jPanel15.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 30));
 
         jPanel2.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, 570));
@@ -1238,6 +1283,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jTable1MouseExited(evt);
@@ -1284,6 +1332,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel9MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel9MouseEntered(evt);
+            }
         });
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -1315,6 +1366,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel10MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel10MouseEntered(evt);
+            }
         });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -1345,6 +1399,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel11MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel11MouseEntered(evt);
             }
         });
 
@@ -1398,6 +1455,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable3MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable3MouseEntered(evt);
+            }
         });
         jScrollPane3.setViewportView(jTable3);
 
@@ -1409,7 +1469,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable6.setForeground(new java.awt.Color(255, 255, 255));
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Grand Theft Auto 5"},
+                {"Grand Theft Auto V"},
                 {"Minecraft"},
                 {"Forza Horizon 5"},
                 {"FIFA 22"},
@@ -1427,6 +1487,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable6MouseEntered(evt);
             }
         });
         jScrollPane6.setViewportView(jTable6);
@@ -1464,6 +1527,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel48.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel48MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel48MouseEntered(evt);
             }
         });
 
@@ -1679,6 +1745,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable7MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable7MouseEntered(evt);
+            }
         });
         jScrollPane7.setViewportView(jTable7);
 
@@ -1711,6 +1780,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable2MouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -1844,12 +1916,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         TelaJogos frame = new TelaJogos();
         frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr.setAdministrador(usr.isAdministrador());
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_panelBtnEntrar1MouseClicked
 
     private void panelBtnEntrar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar1MouseEntered
         // TODO add your handling code here:
+        panelBtnEntrar1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrar1MouseEntered
 
     private void panelBtnEntrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseClicked
@@ -1866,9 +1940,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void panelBtnEntrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseEntered
         // TODO add your handling code here:
+        panelBtnEntrar2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrar2MouseEntered
 
-    private void btnExit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseClicked
+    private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
         // TODO add your handling code here:
         if (usr.isAdministrador() == true) {
             Color temaDark = new Color(18, 18, 18);
@@ -1885,15 +1960,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.dispose();
         }
 
-    }//GEN-LAST:event_btnExit1MouseClicked
+    }//GEN-LAST:event_btnConfigMouseClicked
 
-    private void btnExit1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit1MouseEntered
+    private void btnConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit1MouseEntered
+        btnConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnConfigMouseEntered
 
-    private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
+    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit1ActionPerformed
+    }//GEN-LAST:event_btnConfigActionPerformed
 
     private void btnExit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseClicked
         // TODO add your handling code here:
@@ -1917,6 +1993,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void btnExit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseEntered
         // TODO add your handling code here:
+        btnExit2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExit2MouseEntered
 
     private void btnExit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit2ActionPerformed
@@ -1995,21 +2072,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1FocusLost
 
-    private void btnExit3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit3MouseClicked
+    private void btnNovoPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoPostMouseClicked
         // TODO add your handling code here:
         TelaNovaPublicacao frame = new TelaNovaPublicacao();
         frame.usr.setNome_usuario(usr.getNome_usuario());
         frame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnExit3MouseClicked
+    }//GEN-LAST:event_btnNovoPostMouseClicked
 
-    private void btnExit3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit3MouseEntered
+    private void btnNovoPostMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoPostMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit3MouseEntered
+        btnNovoPost.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnNovoPostMouseEntered
 
-    private void btnExit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit3ActionPerformed
+    private void btnNovoPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPostActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit3ActionPerformed
+    }//GEN-LAST:event_btnNovoPostActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
@@ -2030,7 +2108,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseEntered
         // TODO add your handling code here:
-        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        jPanel13.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel13MouseEntered
 
     private void btnAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseClicked
@@ -2065,6 +2143,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel16MouseEntered
         // TODO add your handling code here:
+        jPanel16.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel16MouseEntered
 
     private void jPanel45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseClicked
@@ -2077,6 +2156,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel45MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseEntered
         // TODO add your handling code here:
+        jPanel45.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel45MouseEntered
 
     private void jPanel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseClicked
@@ -2089,6 +2169,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel46MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseEntered
         // TODO add your handling code here:
+        jPanel46.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel46MouseEntered
 
     private void jLabel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseClicked
@@ -2124,6 +2205,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel47MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel47MouseEntered
         // TODO add your handling code here:
+        jPanel47.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel47MouseEntered
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -2169,6 +2251,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel51MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseEntered
         // TODO add your handling code here:
+        jPanel51.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel51MouseEntered
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
@@ -2216,21 +2299,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel52MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel52MouseEntered
         // TODO add your handling code here:
+        jPanel52.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel52MouseEntered
 
     private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
         // TODO add your handling code here:
-
         selecionarJogos(jTable5.getSelectedRow());
     }//GEN-LAST:event_jTable5MouseClicked
 
     private void btnExit4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit4MouseClicked
         // TODO add your handling code here:
-        carregarJogosPorPesquisa(objJogos, jTextField1.getText(), "favoritos");
+        carregarJogosPorPesquisa(objJogos, jTextField2.getText(), "favoritos");
     }//GEN-LAST:event_btnExit4MouseClicked
 
     private void btnExit4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit4MouseEntered
         // TODO add your handling code here:
+        btnExit4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExit4MouseEntered
 
     private void btnExit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit4ActionPerformed
@@ -2251,6 +2335,119 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         abrirPerfil("jTable7");
     }//GEN-LAST:event_jTable7MouseClicked
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (jTextField1.getText().equals(usr.getNome_usuario())) {
+                TelaPerfil frame = new TelaPerfil();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.usr.setAdministrador(usr.isAdministrador());
+                frame.setVisible(true);
+                this.dispose();
+            } else {
+                TelaPerfil frame = new TelaPerfil();
+                frame.usr.setNome_usuario(usr.getNome_usuario());
+                frame.usr.setId_usuario(usr.getId_usuario());
+                frame.outroUsr.setNome_usuario(jTextField1.getText());
+                frame.usr.setAdministrador(usr.isAdministrador());
+                frame.setVisible(true);
+                this.dispose();
+            }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTable6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseEntered
+        // TODO add your handling code here:
+        jTable6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable6MouseEntered
+
+    private void jTable3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseEntered
+        // TODO add your handling code here:
+        jTable3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable3MouseEntered
+
+    private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
+        // TODO add your handling code here:
+        jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel11MouseEntered
+
+    private void jPanel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseEntered
+        // TODO add your handling code here:
+        jPanel9.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel9MouseEntered
+
+    private void jPanel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseEntered
+        // TODO add your handling code here:
+        jPanel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel10MouseEntered
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+        // TODO add your handling code here:
+        jTable1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jPanel48MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseEntered
+        // TODO add your handling code here:
+        jPanel48.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jPanel48MouseEntered
+
+    private void jTable7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseEntered
+        // TODO add your handling code here:
+        jTable7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable7MouseEntered
+
+    private void jLabel44MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseEntered
+        // TODO add your handling code here:
+        jLabel44.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel44MouseEntered
+
+    private void jTable4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseEntered
+        // TODO add your handling code here:
+        jTable4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable4MouseEntered
+
+    private void jLabel47MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MouseEntered
+        // TODO add your handling code here:
+        jLabel47.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel47MouseEntered
+
+    private void jLabel52MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseEntered
+        // TODO add your handling code here:
+        jLabel52.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel52MouseEntered
+
+    private void jTable5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseEntered
+        // TODO add your handling code here:
+        jTable5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable5MouseEntered
+
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            carregarJogosPorPesquisa(objJogos, jTextField2.getText(), "favoritos");
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
+
+    private void jTable2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseEntered
+        // TODO add your handling code here:
+        jTable2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jTable2MouseEntered
+
+    private void jCheckBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox1MouseEntered
+        // TODO add your handling code here:
+        jCheckBox1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jCheckBox1MouseEntered
+
+    private void jCheckBox2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox2MouseEntered
+        // TODO add your handling code here:
+        jCheckBox2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jCheckBox2MouseEntered
+
+    private void jCheckBox3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox3MouseEntered
+        // TODO add your handling code here:
+        jCheckBox3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jCheckBox3MouseEntered
 
     /**
      * @param args the command line arguments
@@ -2289,11 +2486,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnConfig;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnExit1;
     private javax.swing.JButton btnExit2;
-    private javax.swing.JButton btnExit3;
     private javax.swing.JButton btnExit4;
+    private javax.swing.JButton btnNovoPost;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;

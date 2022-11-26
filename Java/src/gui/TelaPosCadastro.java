@@ -14,6 +14,8 @@ import modelo.Usuario;
 import dao.UsuarioDAO;
 import factory.ConnectionFactory;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +33,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
      */
     public TelaPosCadastro() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 if (usr.getFoto_usuario() != 0) {
@@ -67,7 +70,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
             return 0;
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,6 +160,9 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         jTextArea2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jTextArea2.setHighlighter(null);
         jTextArea2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextArea2KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextArea2KeyTyped(evt);
             }
@@ -386,8 +392,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         UIManager.put("OptionPane.background", temaDark);
         UIManager.put("OptionPane.messageForeground", Color.white);
         int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu cadastro será deletado, deseja realmente voltar?", "Sair",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-            new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
             usrDAO.excluirUsuario(pegarIdUsuario(usr.getNome_usuario()));
             TelaInicial frame = new TelaInicial();
@@ -395,6 +401,22 @@ public class TelaPosCadastro extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnVoltarMouseClicked
+
+    private void jTextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            usr.setDesc_usuario(jTextArea2.getText());
+            usr.setFoto_usuario(usr.getFoto_usuario());
+
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.posCadastrar(usr, usr.getNome_usuario());
+
+            TelaPrincipal frame = new TelaPrincipal();
+            frame.usr.setNome_usuario(usr.getNome_usuario());
+            frame.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_jTextArea2KeyPressed
 
     /**
      * @param args the command line arguments
