@@ -85,6 +85,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                     btnEdit2.setVisible(true);
                     btnEdit3.setVisible(true);
                     btnEdit4.setVisible(true);
+                    excluirUsuario.setVisible(true);
                     if (estaSeguindo() == true) {
                         jLabel12.setText("Seguindo");
                     }
@@ -129,6 +130,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         btnEdit2.setVisible(false);
         btnEdit3.setVisible(false);
         btnEdit4.setVisible(false);
+        excluirUsuario.setVisible(false);
 
         jPanel13.setVisible(false);
         jPanel7.setVisible(false);
