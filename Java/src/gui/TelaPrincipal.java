@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import dao.CategoriasDAO;
@@ -22,6 +17,7 @@ import javax.swing.UIManager;
 import modelo.Usuario;
 import factory.ConnectionFactory;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -43,15 +39,8 @@ import modelo.Plataformas;
 import modelo.Publicacoes;
 import modelo.Seguidores;
 
-/**
- *
- * @author Usuario
- */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPrincipal
-     */
     private Categorias objCategorias;
     private CategoriasDAO categDAO;
 
@@ -73,6 +62,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
+        
+        // Configurações de aparência para os JOptionPane
+        UIManager.put("control", new Color(18, 18, 18));
+        UIManager.put("OptionPane.background", new Color(18, 18, 18));
+        UIManager.put("OptionPane.messageForeground", Color.white);
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
+        UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 12));
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarUsuarioPadrao();
@@ -90,7 +87,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 if (usr.isPerfil_concluido() == true) {
                     jPanel50.setVisible(false);
                 }
-
+                
                 isPerfilConcluido();
             }
         });
@@ -186,6 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel14.setVisible(false);
         jPanel15.setVisible(false);
     }
+    
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
@@ -245,9 +243,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public void abrirPublicacao() {
         TelaVerPublicacao frame = new TelaVerPublicacao();
         frame.pub.setId_publicacao(Integer.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(), 3).toString()));
-        frame.usr.setId_usuario(usr.getId_usuario());
-        frame.usr.setAdministrador(usr.isAdministrador());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }
@@ -256,11 +252,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         usrDAO = new UsuarioDAO();
         ArrayList dados = new ArrayList();
         objUsuario = new Usuario();
-
         dados = usrDAO.facaNovasAmizades(usr.getId_usuario());
-
         String[] colunas = new String[]{"Faça Novas Amizades!"};
-
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable7.setModel(modelo);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -269,61 +262,48 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void carregarSeguidoresRecentes(Seguidores objSeguidores) {
-
         segDAO = new SeguidoresDAO();
         ArrayList dados = new ArrayList();
         objSeguidores = new Seguidores();
-
         dados = segDAO.listarSeguidoresRecentes(usr.getId_usuario());
-
         String[] colunas = new String[]{"Seguidores Recentes"};
-
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable3.setModel(modelo);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTable3.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-
     }
 
     public void abrirJogo() {
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.jg.setNome_jogo(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setAdministrador(usr.isAdministrador());
+        frame.usr = usr;
         frame.retorno = "Tela Principal";
         frame.setVisible(true);
         this.dispose();
     }
 
     public void carregarJogos(Jogos objJogos, String nome_categoria) {
-
         jogoDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
-
         if (nome_categoria == null) {
             dados = jogoDAO.listarJogos();
         } else {
             dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
         }
+        
         String[] colunas = new String[]{"Nome do Jogo"};
-
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable5.setModel(modelo);
-
     }
 
     public void carregarJogosPorPesquisa(Jogos objJogos, String pesquisa, String localizacao) {
-
         jogoDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
-
         dados = jogoDAO.listarJogosPorPesquisa(pesquisa);
-
         String[] colunas = new String[]{"Nome do Jogo"};
-
         ModelTable modelo = new ModelTable(dados, colunas);
 
         if (localizacao == "favoritos") {
@@ -332,25 +312,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void carregarCategorias(Categorias objCategorias) {
-
         categDAO = new CategoriasDAO();
         ArrayList dados = new ArrayList();
-
         objCategorias = new Categorias();
         dados = categDAO.listarCategorias();
         String[] colunas = objCategorias.getColunas();
-
         ModelTable modelo = new ModelTable(dados, colunas);
-
         jTable4.setModel(modelo);
-
     }
 
     ArrayList<Integer> linhasSelecionadasCateg = new ArrayList<Integer>();
     ArrayList<Integer> linhasSelecionadasJogos = new ArrayList<Integer>();
-
     public void selecionarCategoria(int linha) {
-
         if (linhasSelecionadasCateg.contains(linha)) {
             linhasSelecionadasCateg.remove(Integer.valueOf(linha));
         } else if (linhasSelecionadasCateg.size() >= 10) {
@@ -370,7 +343,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
 
         jLabel50.setText("<html>" + stringCategorias);
-
     }
 
     public void selecionarJogos(int linha) {
@@ -417,9 +389,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public void abrirPerfil(String origem) {
         TelaPerfil frame = new TelaPerfil();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setId_usuario(usr.getId_usuario());
-        frame.usr.setAdministrador(usr.isAdministrador());
+        frame.usr = usr;
         if (origem == "jTable3") {
             frame.outroUsr.setNome_usuario(jTable3.getValueAt(jTable3.getSelectedRow(), 0).toString());
         } else if (origem == "jTable7") {
@@ -437,24 +407,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
         frame.msg.setId_destinatario(cvt.getRemetente());
         frame.msg.setId_remetente(usr.getId_usuario());
         frame.jogo_convite = cvtDAO.nomeJogo(cvt.getId_jogo());
-        frame.usr.setId_usuario(usr.getId_usuario());
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.retorno = "Tela Principal";
         frame.setVisible(true);
         this.dispose();
     }
 
     public void carregarPublicacoes(Publicacoes objPublicacoes, String objetivo) {
-
         pubDAO = new PublicacoesDAO();
         ArrayList dados = new ArrayList();
-
         objPublicacoes = new Publicacoes();
         dados = pubDAO.listarPublicacoes(usr.getId_usuario(), objetivo);
         String[] colunas = objPublicacoes.getColunas();
-
         ModelTable modelo = new ModelTable(dados, colunas);
-
         jTable2.setModel(modelo);
 
         jTable2.getColumnModel().getColumn(3).setMinWidth(0);
@@ -471,26 +436,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable2.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         jTable2.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         jTable2.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-
     }
 
     public void carregarConvites(Convites objConvites) {
-
         convitesDAO = new ConvitesDAO();
         ArrayList dados = new ArrayList();
-
         objConvites = new Convites();
         dados = convitesDAO.listarConvites(usr.getId_usuario());
         String[] colunas = objConvites.getColunas();
-
         ModelTable modelo = new ModelTable(dados, colunas);
-
+        
         jTable1.setModel(modelo);
-
         jTable1.getColumnModel().getColumn(1).setMinWidth(0);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
         jTable1.getColumnModel().getColumn(1).setWidth(0);
-
     }
 
     public void carregarOutroUsuario(String nome_usuario) {
@@ -543,11 +502,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -654,11 +608,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnExitMouseEntered(evt);
-            }
-        });
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
             }
         });
 
@@ -771,11 +720,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnConfigMouseEntered(evt);
             }
         });
-        btnConfig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfigActionPerformed(evt);
-            }
-        });
 
         jPanel12.setOpaque(false);
 
@@ -790,11 +734,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnExit2MouseEntered(evt);
             }
         });
-        btnExit2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit2ActionPerformed(evt);
-            }
-        });
 
         jTextField1.setBackground(new java.awt.Color(69, 73, 73));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
@@ -803,14 +742,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -850,11 +781,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnNovoPostMouseEntered(evt);
             }
         });
-        btnNovoPost.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoPostActionPerformed(evt);
-            }
-        });
 
         btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/reload.png"))); // NOI18N
         btnAtualizar.setBorderPainted(false);
@@ -865,11 +791,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAtualizarMouseEntered(evt);
-            }
-        });
-        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtualizarActionPerformed(evt);
             }
         });
 
@@ -989,11 +910,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jCheckBox1MouseEntered(evt);
             }
         });
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
         jPanel14.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
 
         jCheckBox2.setBackground(new java.awt.Color(60, 63, 64));
@@ -1012,11 +928,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jCheckBox3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jCheckBox3MouseEntered(evt);
-            }
-        });
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
             }
         });
         jPanel14.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
@@ -1224,11 +1135,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 btnExit4MouseEntered(evt);
             }
         });
-        btnExit4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit4ActionPerformed(evt);
-            }
-        });
         jPanel15.add(btnExit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 30, 30));
 
         jLabel55.setForeground(new java.awt.Color(255, 255, 255));
@@ -1250,16 +1156,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
         jScrollPane1.setOpaque(false);
-        jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jScrollPane1FocusLost(evt);
-            }
-        });
-        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jScrollPane1MouseExited(evt);
-            }
-        });
 
         jTable1.setBackground(new java.awt.Color(60, 63, 64));
         jTable1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -1286,9 +1182,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jTable1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jTable1MouseExited(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -1891,44 +1784,32 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseEntered
-        // TODO add your handling code here:
         btnExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExitMouseEntered
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void panelBtnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseClicked
-        // TODO add your handling code here:
         TelaMensagens frame = new TelaMensagens();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_panelBtnEntrarMouseClicked
 
     private void panelBtnEntrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrarMouseEntered
-        // TODO add your handling code here:
         panelBtnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrarMouseEntered
 
     private void panelBtnEntrar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar1MouseClicked
-        // TODO add your handling code here:
         TelaJogos frame = new TelaJogos();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setAdministrador(usr.isAdministrador());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_panelBtnEntrar1MouseClicked
 
     private void panelBtnEntrar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar1MouseEntered
-        // TODO add your handling code here:
         panelBtnEntrar1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrar1MouseEntered
 
     private void panelBtnEntrar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseClicked
-        // TODO add your handling code here:
-
         if (jPanel49.isVisible()) {
             jScrollPane1.setVisible(false);
             jPanel49.setVisible(false);
@@ -1939,105 +1820,62 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_panelBtnEntrar2MouseClicked
 
     private void panelBtnEntrar2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnEntrar2MouseEntered
-        // TODO add your handling code here:
         panelBtnEntrar2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_panelBtnEntrar2MouseEntered
 
     private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
-        // TODO add your handling code here:
         if (usr.isAdministrador() == true) {
-            Color temaDark = new Color(18, 18, 18);
-            UIManager.put("control", temaDark);
-            UIManager.put("OptionPane.background", temaDark);
-            UIManager.put("OptionPane.messageForeground", Color.white);
             JOptionPane.showMessageDialog(null, "O Administrador não precisa alterar suas informações.");
         } else {
             TelaConfig frame = new TelaConfig();
-            frame.usr.setNome_usuario(usr.getNome_usuario());
-            frame.usr.setId_usuario(usr.getId_usuario());
-            frame.usr.setFoto_usuario(usr.getFoto_usuario());
+            frame.usr = usr;
             frame.setVisible(true);
             this.dispose();
         }
-
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnConfigMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseEntered
-        // TODO add your handling code here:
         btnConfig.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnConfigMouseEntered
 
-    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfigActionPerformed
-
     private void btnExit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseClicked
-        // TODO add your handling code here:
         if (jTextField1.getText().equals(usr.getNome_usuario())) {
             TelaPerfil frame = new TelaPerfil();
-            frame.usr.setNome_usuario(usr.getNome_usuario());
-            frame.usr.setAdministrador(usr.isAdministrador());
+            frame.usr = usr;
             frame.setVisible(true);
             this.dispose();
         } else {
             TelaPerfil frame = new TelaPerfil();
-            frame.usr.setNome_usuario(usr.getNome_usuario());
-            frame.usr.setId_usuario(usr.getId_usuario());
+            frame.usr = usr;
             frame.outroUsr.setNome_usuario(jTextField1.getText());
-            frame.usr.setAdministrador(usr.isAdministrador());
             frame.setVisible(true);
             this.dispose();
         }
-
     }//GEN-LAST:event_btnExit2MouseClicked
 
     private void btnExit2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseEntered
-        // TODO add your handling code here:
         btnExit2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExit2MouseEntered
 
-    private void btnExit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
-        // TODO add your handling code here:
         TelaPerfil frame = new TelaPerfil();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setAdministrador(usr.isAdministrador());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel48MouseClicked
 
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
         jTextField1.setText("");
     }//GEN-LAST:event_jTextField1FocusGained
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1FocusLost
-
     private void jPanel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseClicked
-        // TODO add your handling code here:
         TelaConfig frame = new TelaConfig();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
-        frame.usr.setId_usuario(usr.getId_usuario());
-        frame.usr.setFoto_usuario(usr.getFoto_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel9MouseClicked
 
     private void jPanel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseClicked
-        // TODO add your handling code here:
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
         int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja realmente sair do sistema?", "Sair",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
@@ -2047,59 +1885,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel10MouseClicked
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        // TODO add your handling code here:
         TelaPerfil frame = new TelaPerfil();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel11MouseClicked
 
-    private void jTable1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTable1MouseExited
-
     private void jPanel49MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseExited
-        // TODO add your handling code here:
         jPanel49.setVisible(false);
         jScrollPane1.setVisible(false);
     }//GEN-LAST:event_jPanel49MouseExited
 
-    private void jScrollPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane1MouseExited
-
-    private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jScrollPane1FocusLost
-
     private void btnNovoPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoPostMouseClicked
-        // TODO add your handling code here:
         TelaNovaPublicacao frame = new TelaNovaPublicacao();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnNovoPostMouseClicked
 
     private void btnNovoPostMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoPostMouseEntered
-        // TODO add your handling code here:
         btnNovoPost.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnNovoPostMouseEntered
 
-    private void btnNovoPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPostActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNovoPostActionPerformed
-
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
         escreverMensagem();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jPanel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseClicked
-        // TODO add your handling code here:
         if (jLabel31.getText() == "Suas Publicações") {
             jLabel31.setText("Publicações de Outros");
             carregarPublicacoes(objPublicacoes, "doUsuario");
-
         } else if (jLabel31.getText() == "Publicações de Outros") {
             jLabel31.setText("Suas Publicações");
             carregarPublicacoes(objPublicacoes, "deOutros");
@@ -2107,34 +1922,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel13MouseClicked
 
     private void jPanel13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel13MouseEntered
-        // TODO add your handling code here:
         jPanel13.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel13MouseEntered
 
     private void btnAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseClicked
-        // TODO add your handling code here:
         TelaPrincipal frame = new TelaPrincipal();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAtualizarMouseClicked
 
     private void btnAtualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseEntered
-        // TODO add your handling code here:
         btnAtualizar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnAtualizarMouseEntered
 
-    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAtualizarActionPerformed
-
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        // TODO add your handling code here:
         abrirPublicacao();
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jPanel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel16MouseClicked
-        // TODO add your handling code here:
         jPanel8.setVisible(true);
         jPanel14.setVisible(false);
         jPanel15.setVisible(false);
@@ -2142,12 +1948,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel16MouseClicked
 
     private void jPanel16MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel16MouseEntered
-        // TODO add your handling code here:
         jPanel16.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel16MouseEntered
 
     private void jPanel45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseClicked
-        // TODO add your handling code here:
         jPanel15.setVisible(true);
         jPanel8.setVisible(false);
         jPanel14.setVisible(false);
@@ -2155,12 +1959,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel45MouseClicked
 
     private void jPanel45MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseEntered
-        // TODO add your handling code here:
         jPanel45.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel45MouseEntered
 
     private void jPanel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseClicked
-        // TODO add your handling code here:
         jPanel14.setVisible(true);
         jPanel8.setVisible(false);
         jPanel15.setVisible(false);
@@ -2168,18 +1970,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel46MouseClicked
 
     private void jPanel46MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseEntered
-        // TODO add your handling code here:
         jPanel46.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel46MouseEntered
 
     private void jLabel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseClicked
-        // TODO add your handling code here:
         jPanel14.setVisible(false);
         jPanel7.setVisible(true);
     }//GEN-LAST:event_jLabel44MouseClicked
 
     private void jPanel47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel47MouseClicked
-        // TODO add your handling code here:
         Plataformas pla = new Plataformas();
 
         pla.setPc(jCheckBox1.isSelected());
@@ -2188,43 +1987,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pla.setId_usuario(usr.getId_usuario());
 
         PlataformasDAO plaDAO = new PlataformasDAO();
-
+        
         plaDAO.limparPlataformas(pla.getId_usuario());
         plaDAO.cadastrarPlataformas(pla);
-
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
+        
         JOptionPane.showMessageDialog(null, "Concluido!");
         TelaPrincipal frame = new TelaPrincipal();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel47MouseClicked
 
     private void jPanel47MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel47MouseEntered
-        // TODO add your handling code here:
         jPanel47.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel47MouseEntered
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
     private void jLabel47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MouseClicked
-        // TODO add your handling code here:
         jPanel8.setVisible(false);
         jPanel7.setVisible(true);
     }//GEN-LAST:event_jLabel47MouseClicked
 
     private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
-        // TODO add your handling code here:
-
         Interesses in = new Interesses();
         InteressesDAO inDAO = new InteressesDAO();
 
@@ -2233,46 +2016,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         inDAO.limparInteresses(in.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
-
             in.setId_categoria(inDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
             inDAO.favoritarCategoria(in);
         }
-
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
         JOptionPane.showMessageDialog(null, "Concluido!");
         TelaPrincipal frame = new TelaPrincipal();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel51MouseClicked
 
     private void jPanel51MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseEntered
-        // TODO add your handling code here:
         jPanel51.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel51MouseEntered
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-        // TODO add your handling code here
-
         selecionarCategoria(jTable4.getSelectedRow());
-        /* esse metodo ira adicionar o index da linha à um array, sempre que um numero for
-        repetido, ou seja, um usuario clicar naquela linha novamente, o metodo devera desamrcar
-        aquela linha e remover aquele numero do array. no final ele converterá os indexs
-        salvos no array para o nome da categoria e ira adiciona-las na tabela de interesses */
-        // usar o jTable4.getValueAt([numero da linha], 0) para pegar o nome da categoria
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jLabel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseClicked
-        // TODO add your handling code here:
         jPanel15.setVisible(false);
         jPanel7.setVisible(true);
     }//GEN-LAST:event_jLabel52MouseClicked
 
     private void jPanel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel52MouseClicked
-        // TODO add your handling code here:
         JogosFavoritos jf = new JogosFavoritos();
         JogosFavoritosDAO jfDAO = new JogosFavoritosDAO();
 
@@ -2281,76 +2048,55 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jfDAO.limparJogosFavoritos(jf.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
-
             jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));
             jfDAO.favoritarJogo(jf);
         }
-
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
         JOptionPane.showMessageDialog(null, "Concluido!");
         TelaPrincipal frame = new TelaPrincipal();
-        frame.usr.setNome_usuario(usr.getNome_usuario());
+        frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel52MouseClicked
 
     private void jPanel52MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel52MouseEntered
-        // TODO add your handling code here:
         jPanel52.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel52MouseEntered
 
     private void jTable5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseClicked
-        // TODO add your handling code here:
         selecionarJogos(jTable5.getSelectedRow());
     }//GEN-LAST:event_jTable5MouseClicked
 
     private void btnExit4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit4MouseClicked
-        // TODO add your handling code here:
         carregarJogosPorPesquisa(objJogos, jTextField2.getText(), "favoritos");
     }//GEN-LAST:event_btnExit4MouseClicked
 
     private void btnExit4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit4MouseEntered
-        // TODO add your handling code here:
         btnExit4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnExit4MouseEntered
 
-    private void btnExit4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExit4ActionPerformed
-
     private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
-        // TODO add your handling code here:
         abrirJogo();
     }//GEN-LAST:event_jTable6MouseClicked
 
     private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
-        // TODO add your handling code here:
         abrirPerfil("jTable3");
     }//GEN-LAST:event_jTable3MouseClicked
 
     private void jTable7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseClicked
-        // TODO add your handling code here:
         abrirPerfil("jTable7");
     }//GEN-LAST:event_jTable7MouseClicked
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (jTextField1.getText().equals(usr.getNome_usuario())) {
                 TelaPerfil frame = new TelaPerfil();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.usr.setAdministrador(usr.isAdministrador());
+                frame.usr = usr;
                 frame.setVisible(true);
                 this.dispose();
             } else {
                 TelaPerfil frame = new TelaPerfil();
-                frame.usr.setNome_usuario(usr.getNome_usuario());
-                frame.usr.setId_usuario(usr.getId_usuario());
+                frame.usr = usr;
                 frame.outroUsr.setNome_usuario(jTextField1.getText());
-                frame.usr.setAdministrador(usr.isAdministrador());
                 frame.setVisible(true);
                 this.dispose();
             }
@@ -2358,100 +2104,79 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jTable6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseEntered
-        // TODO add your handling code here:
         jTable6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable6MouseEntered
 
     private void jTable3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseEntered
-        // TODO add your handling code here:
         jTable3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable3MouseEntered
 
     private void jPanel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseEntered
-        // TODO add your handling code here:
         jPanel11.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel11MouseEntered
 
     private void jPanel9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel9MouseEntered
-        // TODO add your handling code here:
         jPanel9.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel9MouseEntered
 
     private void jPanel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel10MouseEntered
-        // TODO add your handling code here:
         jPanel10.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel10MouseEntered
 
     private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
-        // TODO add your handling code here:
         jTable1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable1MouseEntered
 
     private void jPanel48MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseEntered
-        // TODO add your handling code here:
         jPanel48.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jPanel48MouseEntered
 
     private void jTable7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable7MouseEntered
-        // TODO add your handling code here:
         jTable7.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable7MouseEntered
 
     private void jLabel44MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseEntered
-        // TODO add your handling code here:
         jLabel44.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jLabel44MouseEntered
 
     private void jTable4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseEntered
-        // TODO add your handling code here:
         jTable4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable4MouseEntered
 
     private void jLabel47MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MouseEntered
-        // TODO add your handling code here:
         jLabel47.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jLabel47MouseEntered
 
     private void jLabel52MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseEntered
-        // TODO add your handling code here:
         jLabel52.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jLabel52MouseEntered
 
     private void jTable5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable5MouseEntered
-        // TODO add your handling code here:
         jTable5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable5MouseEntered
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
-        // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             carregarJogosPorPesquisa(objJogos, jTextField2.getText(), "favoritos");
         }
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jTable2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseEntered
-        // TODO add your handling code here:
         jTable2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jTable2MouseEntered
 
     private void jCheckBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox1MouseEntered
-        // TODO add your handling code here:
         jCheckBox1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jCheckBox1MouseEntered
 
     private void jCheckBox2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox2MouseEntered
-        // TODO add your handling code here:
         jCheckBox2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jCheckBox2MouseEntered
 
     private void jCheckBox3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox3MouseEntered
-        // TODO add your handling code here:
         jCheckBox3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_jCheckBox3MouseEntered
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

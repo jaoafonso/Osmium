@@ -14,6 +14,28 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
+    
+    public boolean verificarDisponibilidade(String nome_usuario) {
+        try {
+            boolean isDisponivel = false;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next() == false) {
+                isDisponivel = true;
+            }
+
+            ps.close();
+            rs.close();
+
+            return isDisponivel;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "verificarDisponibilidade():" + e.getMessage());
+            return false;
+        }
+    }
 
     public void excluirUsuario(int id_usuario) {
         try {
@@ -179,16 +201,37 @@ public class UsuarioDAO {
             ResultSet rs = ps.executeQuery();
 
             rs.next();
-            String nomeRemetente = rs.getString("nome_usuario");
+            String nome_usuario = rs.getString("nome_usuario");
 
             ps.close();
             rs.close();
 
-            return nomeRemetente;
+            return nome_usuario;
         } catch (SQLException e) {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "pegarNomeUsuario():" + e.getMessage());
             return null;
+        }
+    }
+    
+    public int pegarIdUsuario(String nome_usuario) {
+        try {
+            int id_usuario = 0;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM usuario WHERE nome_usuario ='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            id_usuario = rs.getInt("id_usuario");
+
+            ps.close();
+            rs.close();
+
+            return id_usuario;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarIdUsuario():" + e.getMessage());
+            return 0;
         }
     }
 

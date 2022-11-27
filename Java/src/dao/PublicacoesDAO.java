@@ -5,8 +5,6 @@ import modelo.Publicacoes;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class PublicacoesDAO {
@@ -49,26 +47,6 @@ public class PublicacoesDAO {
         }
     }
     
-    public String nomeUsuario(int id_usuario) {
-        try {
-
-            PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_usuario);
-            ResultSet rs = ps.executeQuery();
-
-            rs.next();
-            String nomeRemetente = rs.getString("nome_usuario");
-            
-            ps.close();
-            rs.close();
-
-            return nomeRemetente;
-        } catch (SQLException e) {
-            e.getMessage();
-            JOptionPane.showMessageDialog(null, "nomeUsuario():" + e.getMessage());
-            return null;
-        }
-    }
-    
     public ArrayList listarPublicacoes(int id_usuario, String objetivo) {
         try {
             ArrayList dado = new ArrayList();
@@ -86,7 +64,7 @@ public class PublicacoesDAO {
             while (rs.next()) {
                 dado.add(new Object[]{
                     rs.getString("assunto"),
-                    nomeUsuario(rs.getInt("id_usuario")),
+                    pegarNomeUsuario(rs.getInt("id_usuario")),
                     rs.getString("titulo"),
                     rs.getInt("id_publicacao")
                 });

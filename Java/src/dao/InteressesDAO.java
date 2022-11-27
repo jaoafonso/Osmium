@@ -116,6 +116,5 @@ public class InteressesDAO {
             JOptionPane.showMessageDialog(null, "pegarIdCategoria():" + e.getMessage());
             return 0;
         }
-
     }
 }

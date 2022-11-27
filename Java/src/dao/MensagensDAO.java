@@ -5,8 +5,6 @@ import modelo.Mensagens;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class MensagensDAO {
@@ -16,7 +14,6 @@ public class MensagensDAO {
     public MensagensDAO() {
         this.connection = new ConnectionFactory().getConnection();
     }
-    
     
     public void excluirMensagem(int id_mensagem) {
         try {

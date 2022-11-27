@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import modelo.Jogos;
 
@@ -43,7 +42,6 @@ public class JogosDAO {
         } catch (SQLException u) {
             throw new RuntimeException(u);
         }
-
     }
 
     public int[] idCategoriasJogo(int id_jogo) {
@@ -75,7 +73,6 @@ public class JogosDAO {
             JOptionPane.showMessageDialog(null, "Erro preencher o ArrayList");
             return null;
         }
-
     }
 
     public String nomeUsuario(int id_usuario) {
@@ -253,7 +250,6 @@ public class JogosDAO {
             JOptionPane.showMessageDialog(null, "pegarIdJogo():" + e.getMessage());
             return 0;
         }
-
     }
 
     public int pegarIdCategoria(String nome_categoria) {
@@ -276,7 +272,6 @@ public class JogosDAO {
             JOptionPane.showMessageDialog(null, "pegarIdCategoria():" + e.getMessage());
             return 0;
         }
-
     }
 
     public int[] filtrarJogosPorCategoria(int id_categoria) {
@@ -384,7 +379,7 @@ public class JogosDAO {
             return dado;
         } catch (SQLException e) {
             e.getMessage();
-            JOptionPane.showMessageDialog(null, "listarJogosPorCategoria():" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "listarJogosPorPesquisa():" + e.getMessage());
             return null;
         }
     }
