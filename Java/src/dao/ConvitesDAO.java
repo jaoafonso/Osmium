@@ -99,7 +99,6 @@ public class ConvitesDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {

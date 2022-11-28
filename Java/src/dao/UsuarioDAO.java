@@ -251,7 +251,6 @@ public class UsuarioDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -276,7 +275,6 @@ public class UsuarioDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {

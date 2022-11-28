@@ -12,8 +12,7 @@ CREATE TABLE usuario (
 	administrador BOOLEAN,
 	perfil_concluido BOOLEAN,
 	PRIMARY KEY(id_usuario),
-	UNIQUE(nome_usuario),
-	UNIQUE(email_usuario)
+	UNIQUE(nome_usuario)
 );
 
 CREATE TABLE mensagens (

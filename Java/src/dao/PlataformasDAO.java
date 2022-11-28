@@ -31,7 +31,6 @@ public class PlataformasDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {

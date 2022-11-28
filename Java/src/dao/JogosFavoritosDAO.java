@@ -53,7 +53,6 @@ public class JogosFavoritosDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {

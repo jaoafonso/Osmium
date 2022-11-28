@@ -62,14 +62,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
-        
+
         // Configurações de aparência para os JOptionPane
         UIManager.put("control", new Color(18, 18, 18));
         UIManager.put("OptionPane.background", new Color(18, 18, 18));
         UIManager.put("OptionPane.messageForeground", Color.white);
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
         UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 12));
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 carregarUsuarioPadrao();
@@ -87,7 +87,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 if (usr.isPerfil_concluido() == true) {
                     jPanel50.setVisible(false);
                 }
-                
+
                 isPerfilConcluido();
             }
         });
@@ -183,7 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel14.setVisible(false);
         jPanel15.setVisible(false);
     }
-    
+
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
@@ -292,7 +292,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } else {
             dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
         }
-        
+
         String[] colunas = new String[]{"Nome do Jogo"};
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable5.setModel(modelo);
@@ -323,6 +323,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     ArrayList<Integer> linhasSelecionadasCateg = new ArrayList<Integer>();
     ArrayList<Integer> linhasSelecionadasJogos = new ArrayList<Integer>();
+
     public void selecionarCategoria(int linha) {
         if (linhasSelecionadasCateg.contains(linha)) {
             linhasSelecionadasCateg.remove(Integer.valueOf(linha));
@@ -445,7 +446,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dados = convitesDAO.listarConvites(usr.getId_usuario());
         String[] colunas = objConvites.getColunas();
         ModelTable modelo = new ModelTable(dados, colunas);
-        
+
         jTable1.setModel(modelo);
         jTable1.getColumnModel().getColumn(1).setMinWidth(0);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
@@ -1845,11 +1846,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             frame.setVisible(true);
             this.dispose();
         } else {
-            TelaPerfil frame = new TelaPerfil();
-            frame.usr = usr;
-            frame.outroUsr.setNome_usuario(jTextField1.getText());
-            frame.setVisible(true);
-            this.dispose();
+            if (usrDAO.verificarDisponibilidade(jTextField1.getText()) == true) {
+                JOptionPane.showMessageDialog(null, "O usuário digitado não existe.");
+                jTextField1.setText("");
+            } else {
+                TelaPerfil frame = new TelaPerfil();
+                frame.usr = usr;
+                frame.outroUsr.setNome_usuario(jTextField1.getText());
+                frame.setVisible(true);
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_btnExit2MouseClicked
 
@@ -1987,10 +1993,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pla.setId_usuario(usr.getId_usuario());
 
         PlataformasDAO plaDAO = new PlataformasDAO();
-        
+
         plaDAO.limparPlataformas(pla.getId_usuario());
         plaDAO.cadastrarPlataformas(pla);
-        
+
         JOptionPane.showMessageDialog(null, "Concluido!");
         TelaPrincipal frame = new TelaPrincipal();
         frame.usr = usr;
@@ -2094,11 +2100,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 frame.setVisible(true);
                 this.dispose();
             } else {
-                TelaPerfil frame = new TelaPerfil();
-                frame.usr = usr;
-                frame.outroUsr.setNome_usuario(jTextField1.getText());
-                frame.setVisible(true);
-                this.dispose();
+                if (usrDAO.verificarDisponibilidade(jTextField1.getText()) == true) {
+                    JOptionPane.showMessageDialog(null, "O usuário digitado não existe.");
+                    jTextField1.setText("");
+                } else {
+                    TelaPerfil frame = new TelaPerfil();
+                    frame.usr = usr;
+                    frame.outroUsr.setNome_usuario(jTextField1.getText());
+                    frame.setVisible(true);
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_jTextField1KeyPressed

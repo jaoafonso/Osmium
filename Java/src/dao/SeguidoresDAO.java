@@ -51,7 +51,6 @@ public class SeguidoresDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -76,7 +75,6 @@ public class SeguidoresDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -101,7 +99,6 @@ public class SeguidoresDAO {
             }
             ps.close();
             rs.close();
-            connection.close();
 
             return dado;
         } catch (SQLException e) {
