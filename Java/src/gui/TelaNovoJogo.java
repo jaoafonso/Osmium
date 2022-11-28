@@ -56,8 +56,8 @@ public class TelaNovoJogo extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
-    private JogosDAO jgDAO;
     CategoriasDoJogo cj = new CategoriasDoJogo();
+    private JogosDAO jgDAO;
     private CategoriasDoJogoDAO cjDAO;
 
     public void selecionarCategoria(int linha) {

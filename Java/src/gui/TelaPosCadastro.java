@@ -321,10 +321,17 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     private void jTextArea2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyTyped
         String s = jTextArea2.getText();
         int l = s.length();
+        if (jTextArea2.getText().length() > 301) {
+            evt.consume();
+            String shortened = jTextArea2.getText().substring(0, 300);
+            jTextArea2.setText(shortened);
+        } else if (jTextArea2.getText().length() >= 300) {
+            evt.consume();
+        }
         try {
             if (l >= 300) {
                 evt.consume();
-                jLabel6.setText("Máximo 300 Caracteres!");
+                jLabel6.setText("Máximo 300 Caracteres");
             } else {
                 jLabel6.setText("");
             }

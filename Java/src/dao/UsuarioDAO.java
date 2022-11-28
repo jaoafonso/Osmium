@@ -264,6 +264,28 @@ public class UsuarioDAO {
             return 0;
         }
     }
+    
+    public int pegarIdUsuarioCC(String nome_usuario) {
+        try {
+            int id_usuario = 0;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM usuario WHERE nome_usuario ='" + nome_usuario + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            id_usuario = rs.getInt("id_usuario");
+
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return id_usuario;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarIdUsuario():" + e.getMessage());
+            return 0;
+        }
+    }
 
     public ArrayList facaNovasAmizades(int id_usuario) {
 

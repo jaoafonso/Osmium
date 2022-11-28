@@ -40,24 +40,13 @@ import modelo.Publicacoes;
 import modelo.Seguidores;
 
 public class TelaPrincipal extends javax.swing.JFrame {
-
+    
     private Categorias objCategorias;
-    private CategoriasDAO categDAO;
-
     private Jogos objJogos;
-    private JogosDAO jgDAO;
-
     private Convites objConvites;
-    private ConvitesDAO cvtDAO;
-
     private Publicacoes objPublicacoes;
-    private PublicacoesDAO pubDAO;
-
     private Seguidores objSeguidores;
-    private SeguidoresDAO segDAO;
-
     private Usuario objUsuario;
-    private UsuarioDAO usrDAO;
 
     public TelaPrincipal() {
         initComponents();
@@ -191,6 +180,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private JogosFavoritosDAO jfDAO;
     private PlataformasDAO plaDAO;
     private InteressesDAO inDAO;
+    private CategoriasDAO categDAO;
+    private JogosDAO jgDAO;
+    private ConvitesDAO cvtDAO;
+    private PublicacoesDAO pubDAO;
+    private SeguidoresDAO segDAO;
+    private UsuarioDAO usrDAO;
 
     public void isPerfilConcluido() {
         ImageIcon xIcon = new ImageIcon(getClass().getResource("/img/marca-x.png"));

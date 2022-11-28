@@ -37,9 +37,9 @@ public class TelaImagens extends javax.swing.JFrame {
             }
         });
     }
-
-    Usuario usr = new Usuario();
+    
     private UsuarioDAO usrDAO;
+    Usuario usr = new Usuario();
     String retorno;
 
     public ImageIcon converterImagem(int num_img) {

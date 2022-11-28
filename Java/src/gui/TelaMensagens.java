@@ -2,6 +2,7 @@ package gui;
 
 import dao.MensagensDAO;
 import dao.SeguidoresDAO;
+import dao.UsuarioDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -32,7 +33,6 @@ public class TelaMensagens extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                carregarUsuarioPadrao();
                 carregarSeguidoresMutuos(objSeguidores);
                 carregarMensagens(objMensagens, "recebidas");
             }
@@ -64,33 +64,13 @@ public class TelaMensagens extends javax.swing.JFrame {
     }
 
     Usuario usr = new Usuario();
+    private UsuarioDAO usrDAO;
     Connection connection;
 
-    public int pegarIdUsuario(String nome_usuario) {
-        try {
-            int id_usuario = 0;
-
-            this.connection = new ConnectionFactory().getConnection();
-
-            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + nome_usuario + "'";
-            Statement stmt = connection.createStatement();
-
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()) {
-                id_usuario = rs.getInt("id_usuario");
-            }
-            connection.close();
-            return id_usuario;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return 0;
-        }
-    }
-
     public void escreverMensagem() {
+        usrDAO = new UsuarioDAO();
         TelaEnviarMensagem frame = new TelaEnviarMensagem();
-        frame.msg.setId_destinatario(pegarIdUsuario(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+        frame.msg.setId_destinatario(usrDAO.pegarIdUsuarioCC(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString()));
         frame.msg.setId_remetente(usr.getId_usuario());
         frame.usr = usr;
         frame.retorno = "Tela Mensagens";
@@ -140,31 +120,6 @@ public class TelaMensagens extends javax.swing.JFrame {
         String[] colunas = objSeguidores.getColunas();
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable1.setModel(modelo);
-    }
-
-    public void carregarUsuarioPadrao() {
-        try {
-            this.connection = new ConnectionFactory().getConnection();
-
-            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + usr.getNome_usuario() + "'";
-            Statement stmt = connection.createStatement();
-
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()) {
-                usr.setId_usuario(rs.getInt("id_usuario"));
-                usr.setNome_usuario(rs.getString("nome_usuario"));
-                usr.setDesc_usuario(rs.getString("desc_usuario"));
-                usr.setEmail_usuario(rs.getString("email_usuario"));
-                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
-                usr.setFoto_usuario(rs.getInt("foto_usuario"));
-                usr.setAdministrador(rs.getBoolean("administrador"));
-
-            }
-            connection.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     @SuppressWarnings("unchecked")

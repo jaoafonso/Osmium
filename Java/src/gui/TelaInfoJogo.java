@@ -29,10 +29,7 @@ import modelo.Usuario;
 public class TelaInfoJogo extends javax.swing.JFrame {
 
     private Categorias objCategorias;
-    private CategoriasDAO categDAO;
-
     private Usuario objUsuario;
-    private UsuarioDAO usrDAO;
 
     public TelaInfoJogo() {
         initComponents();
@@ -98,10 +95,12 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         carregarCategorias(objCategorias);
     }
     Connection connection;
-    Usuario usr = new Usuario();
-    Jogos jg = new Jogos();
     private JogosDAO jgDAO;
     private CategoriasDoJogoDAO cjDAO;
+    private CategoriasDAO categDAO;
+    private UsuarioDAO usrDAO;
+    Usuario usr = new Usuario();
+    Jogos jg = new Jogos();
     String retorno;
 
     public void carregarCategorias(Categorias objCategorias) {
@@ -763,8 +762,6 @@ public class TelaInfoJogo extends javax.swing.JFrame {
         frame.usr = usr;
         frame.setVisible(true);
         this.dispose();
-
-
     }//GEN-LAST:event_jPanel17MouseClicked
 
     private void jPanel17MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseEntered

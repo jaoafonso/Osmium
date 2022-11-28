@@ -44,9 +44,9 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
     }
 
     Usuario usr = new Usuario();
+    private UsuarioDAO usrDAO;
     Mensagens msg = new Mensagens();
     private MensagensDAO msgDAO;
-    private UsuarioDAO usrDAO;
     String retorno;
     String jogo_convite;
     String titulo_publicacao;

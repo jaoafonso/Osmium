@@ -513,7 +513,8 @@ public class TelaConfig extends javax.swing.JFrame {
                     break;
                 } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true && novo_nome.length() < 20) {
                     usrDAO = new UsuarioDAO();
-                    if (usrDAO.verificarDisponibilidade(novo_nome) == true) {
+                    boolean disponibilidade = usrDAO.verificarDisponibilidade(novo_nome);
+                    if (disponibilidade == true) {
                         JOptionPane.showMessageDialog(null, "Salvo");
                         usrDAO.alterarNome(usr.getId_usuario(), novo_nome);
                         usr.setNome_usuario(novo_nome);

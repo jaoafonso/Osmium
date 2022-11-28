@@ -39,19 +39,11 @@ import modelo.Usuario;
 public class TelaPerfil extends javax.swing.JFrame {
 
     private Categorias objCategorias;
-    private CategoriasDAO categDAO;
-
     private Jogos objJogos;
-    private JogosDAO jgDAO;
-
     private Plataformas objPlataformas;
-    private PlataformasDAO plaDAO;
-
     private Interesses objInteresses;
-    private InteressesDAO inDAO;
-
     private JogosFavoritos objJF;
-    private JogosFavoritosDAO jfDAO;
+   
 
     public TelaPerfil() {
         initComponents();
@@ -202,11 +194,16 @@ public class TelaPerfil extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
-    private UsuarioDAO usrDAO;
     Convites cvt = new Convites();
-    private ConvitesDAO cvtDAO;
     Seguidores seg = new Seguidores();
+    private UsuarioDAO usrDAO;
+    private ConvitesDAO cvtDAO;
     private SeguidoresDAO segDAO;
+    private InteressesDAO inDAO;
+    private JogosFavoritosDAO jfDAO;
+    private PlataformasDAO plaDAO;
+    private JogosDAO jgDAO;
+    private CategoriasDAO categDAO;
     String retorno;
     String outroRetorno;
     String nome_jogo_retorno;

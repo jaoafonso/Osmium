@@ -1,13 +1,10 @@
 package gui;
 
 import dao.PublicacoesDAO;
-import factory.ConnectionFactory;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import modelo.Publicacoes;
 import modelo.Usuario;
 
@@ -17,12 +14,6 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                carregarUsuarioPadrao();
-            }
-        });
-        
         jTextArea3.requestFocus();
         jPanel5.setVisible(false);
     }
@@ -31,31 +22,6 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
     Usuario usr = new Usuario();
     Publicacoes pub = new Publicacoes();
     private PublicacoesDAO pubDAO;
-
-    public void carregarUsuarioPadrao() {
-        try {
-            this.connection = new ConnectionFactory().getConnection();
-
-            String sql = "SELECT * FROM usuario WHERE nome_usuario='" + usr.getNome_usuario() + "'";
-            Statement stmt = connection.createStatement();
-
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()) {
-                usr.setId_usuario(rs.getInt("id_usuario"));
-                usr.setNome_usuario(rs.getString("nome_usuario"));
-                usr.setDesc_usuario(rs.getString("desc_usuario"));
-                usr.setEmail_usuario(rs.getString("email_usuario"));
-                usr.setDataNasc_usuario(rs.getString("dataNasc_usuario"));
-                usr.setFoto_usuario(rs.getInt("foto_usuario"));
-                usr.setAdministrador(rs.getBoolean("administrador"));
-
-            }
-            connection.close();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

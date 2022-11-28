@@ -19,10 +19,7 @@ import javax.swing.table.JTableHeader;
 public class TelaJogos extends javax.swing.JFrame {
 
     private Categorias objCategorias;
-    private CategoriasDAO categDAO;
-
     private Jogos objJogos;
-    private JogosDAO jgDAO;
 
     public TelaJogos() {
         initComponents();
@@ -63,6 +60,8 @@ public class TelaJogos extends javax.swing.JFrame {
         btnNovoJogo.setVisible(false);
     }
 
+    private JogosDAO jgDAO;
+    private CategoriasDAO categDAO;
     Usuario usr = new Usuario();
     Categorias categ = new Categorias();
 
