@@ -1,6 +1,7 @@
 package gui;
 
 import dao.MensagensDAO;
+import dao.UsuarioDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -32,10 +33,12 @@ public class TelaLerMensagem extends javax.swing.JFrame {
             public void run() {
                 carregarMensagem();
                 if (msg.getId_remetente() == usr.getId_usuario()) {
-                    jLabel2.setText("Mensagem para " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                    usrDAO = new UsuarioDAO();
+                    jLabel2.setText("Mensagem para " + usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario()));
                     jLabel8.setText("Excluir");
                 } else {
-                    jLabel2.setText("Mensagem de " + msgDAO.pegarNomeUsuario(msg.getId_remetente()));
+                    usrDAO = new UsuarioDAO();
+                    jLabel2.setText("Mensagem de " + usrDAO.pegarNomeUsuarioCC(msg.getId_remetente()));
                 }
             }
         });
@@ -44,7 +47,8 @@ public class TelaLerMensagem extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Mensagens msg = new Mensagens();
-    MensagensDAO msgDAO = new MensagensDAO();
+    private MensagensDAO msgDAO;
+    private UsuarioDAO usrDAO;
 
     public void carregarMensagem() {
         try {
@@ -241,10 +245,12 @@ public class TelaLerMensagem extends javax.swing.JFrame {
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         if (msg.getId_remetente() == usr.getId_usuario()) {
-            int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja excluir essa mensagem? " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + " não poderá mais vê-la!", "Apagar Mensagem",
+            usrDAO = new UsuarioDAO();
+            int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja excluir essa mensagem? " + usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario()) + " não poderá mais vê-la!", "Apagar Mensagem",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em excluir
+                msgDAO = new MensagensDAO();
                 msgDAO.excluirMensagem(msg.getId_mensagem());
                 TelaMensagens frame = new TelaMensagens();
                 frame.usr = usr;

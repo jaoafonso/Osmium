@@ -38,6 +38,7 @@ public class JogosDAO {
             stmt2.close();
             stmt3.close();
             stmt4.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -109,6 +110,7 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return nome_usuario;
         } catch (SQLException e) {
@@ -150,7 +152,6 @@ public class JogosDAO {
                     } else {
                         nomeCategorias += categorias[i];
                     }
-                    //nomeCategorias = nomeCategorias + ", " + categorias[i];
                 }
                 nomeCategorias = nomeCategorias + " e outras " + outras + " categorias";
             } else {
@@ -160,7 +161,6 @@ public class JogosDAO {
                     } else {
                         nomeCategorias += categorias[i];
                     }
-                    //nomeCategorias = nomeCategorias + ", " + categorias[i];
                 }
             }
 
@@ -180,6 +180,7 @@ public class JogosDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -204,11 +205,35 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "listarJogos():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public String pegarNomeJogoCC(int id_jogo) {
+
+        try {
+            String nome_jogo = "";
+
+            PreparedStatement ps = connection.prepareStatement("SELECT nome_jogo FROM jogos WHERE id_jogo =" + id_jogo);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            nome_jogo = rs.getString("nome_jogo");
+
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return nome_jogo;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarNomeJogoCC():" + e.getMessage());
             return null;
         }
     }
@@ -243,6 +268,29 @@ public class JogosDAO {
 
             ps.close();
             rs.close();
+
+            return id_jogo;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarIdJogo():" + e.getMessage());
+            return 0;
+        }
+    }
+    
+    public int pegarIdJogoCC(String nome_jogo) {
+
+        try {
+            int id_jogo = 0;
+
+            PreparedStatement ps = connection.prepareStatement("SELECT id_jogo FROM jogos WHERE nome_jogo ='" + nome_jogo + "'");
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            id_jogo = rs.getInt("id_jogo");
+
+            ps.close();
+            rs.close();
+            connection.close();
 
             return id_jogo;
         } catch (SQLException e) {
@@ -320,6 +368,7 @@ public class JogosDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -371,10 +420,10 @@ public class JogosDAO {
                         });
                     }
                 }
-
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {

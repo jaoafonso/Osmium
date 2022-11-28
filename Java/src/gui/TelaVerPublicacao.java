@@ -1,6 +1,7 @@
 package gui;
 
 import dao.PublicacoesDAO;
+import dao.UsuarioDAO;
 import factory.ConnectionFactory;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -32,12 +33,14 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
             public void run() {
                 carregarPublicacao();
                 if (usr.isAdministrador() == true) {
-                    jLabel2.setText("Publicação de " + pubDAO.pegarNomeUsuario(pub.getId_usuario()));
+                    usrDAO = new UsuarioDAO();
+                    jLabel2.setText("Publicação de " + usrDAO.pegarNomeUsuarioCC(pub.getId_usuario()));
                 } else if (pub.getId_usuario() == usr.getId_usuario()) {
                     jLabel2.setText("Sua publicação");
                     jPanel11.setVisible(false);
                 } else {
-                    jLabel2.setText("Publicação de " + pubDAO.pegarNomeUsuario(pub.getId_usuario()));
+                    usrDAO = new UsuarioDAO();
+                    jLabel2.setText("Publicação de " + usrDAO.pegarNomeUsuarioCC(pub.getId_usuario()));
                     jPanel12.setVisible(false);
                 }
             }
@@ -47,7 +50,8 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Publicacoes pub = new Publicacoes();
-    PublicacoesDAO pubDAO = new PublicacoesDAO();
+    private PublicacoesDAO pubDAO;
+    private UsuarioDAO usrDAO;
 
     public void carregarPublicacao() {
         try {
@@ -328,6 +332,7 @@ public class TelaVerPublicacao extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em excluir
+            pubDAO = new PublicacoesDAO();
             pubDAO.excluirPublicacao(pub.getId_publicacao());
             TelaPrincipal frame = new TelaPrincipal();
             frame.usr = usr;

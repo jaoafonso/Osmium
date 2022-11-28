@@ -22,6 +22,7 @@ public class PublicacoesDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -41,6 +42,7 @@ public class PublicacoesDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -72,6 +74,7 @@ public class PublicacoesDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {

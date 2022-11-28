@@ -42,10 +42,10 @@ public class TelaPerfil extends javax.swing.JFrame {
     private CategoriasDAO categDAO;
 
     private Jogos objJogos;
-    private JogosDAO jogoDAO;
+    private JogosDAO jgDAO;
 
     private Plataformas objPlataformas;
-    private PlataformasDAO platDAO;
+    private PlataformasDAO plaDAO;
 
     private Interesses objInteresses;
     private InteressesDAO inDAO;
@@ -202,11 +202,11 @@ public class TelaPerfil extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
-    UsuarioDAO usrDAO = new UsuarioDAO();
+    private UsuarioDAO usrDAO;
     Convites cvt = new Convites();
-    ConvitesDAO ConvitesDAO = new ConvitesDAO();
+    private ConvitesDAO cvtDAO;
     Seguidores seg = new Seguidores();
-    SeguidoresDAO segDAO = new SeguidoresDAO();
+    private SeguidoresDAO segDAO;
     String retorno;
     String outroRetorno;
     String nome_jogo_retorno;
@@ -253,10 +253,10 @@ public class TelaPerfil extends javax.swing.JFrame {
     }
 
     public void carregarPlataformas(Plataformas objPlataformas, int id_usuario) {
-        platDAO = new PlataformasDAO();
+        plaDAO = new PlataformasDAO();
         ArrayList dados = new ArrayList();
         objPlataformas = new Plataformas();
-        dados = platDAO.listarPlataformas(id_usuario);
+        dados = plaDAO.listarPlataformas(id_usuario);
         String[] colunas = new String[]{"Plataformas Jogadas"};
         ModelTable modelo = new ModelTable(dados, colunas);
         jTable3.setModel(modelo);
@@ -310,13 +310,13 @@ public class TelaPerfil extends javax.swing.JFrame {
     }
 
     public void carregarJogos(Jogos objJogos, String nome_categoria) {
-        jogoDAO = new JogosDAO();
+        jgDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
         if (nome_categoria == null) {
-            dados = jogoDAO.listarJogos();
+            dados = jgDAO.listarJogos();
         } else {
-            dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
+            dados = jgDAO.listarJogosPorCategoria(nome_categoria);
         }
 
         String[] colunas = new String[]{"Nome do Jogo"};
@@ -327,10 +327,10 @@ public class TelaPerfil extends javax.swing.JFrame {
     }
 
     public void carregarJogosPorPesquisa(Jogos objJogos, String pesquisa, String localizacao) {
-        jogoDAO = new JogosDAO();
+        jgDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
-        dados = jogoDAO.listarJogosPorPesquisa(pesquisa);
+        dados = jgDAO.listarJogosPorPesquisa(pesquisa);
         String[] colunas = new String[]{"Nome do Jogo"};
         ModelTable modelo = new ModelTable(dados, colunas);
 
@@ -406,17 +406,6 @@ public class TelaPerfil extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        btnExit2 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -428,6 +417,17 @@ public class TelaPerfil extends javax.swing.JFrame {
         btnExit3 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        btnExit2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -497,125 +497,6 @@ public class TelaPerfil extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(18, 18, 18));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel5.setBackground(new java.awt.Color(60, 63, 64));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Selecione um jogo para o convite");
-        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 320, -1));
-
-        jPanel16.setBackground(new java.awt.Color(60, 63, 64));
-        jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel16MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jPanel16MouseEntered(evt);
-            }
-        });
-
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Convidar");
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel5.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, -1, -1));
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("X");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
-        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
-
-        jScrollPane6.setBorder(null);
-        jScrollPane6.setOpaque(false);
-
-        jTable6.setBackground(new java.awt.Color(60, 63, 64));
-        jTable6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jTable6.setForeground(new java.awt.Color(255, 255, 255));
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Nome do Jogo"
-            }
-        ));
-        jTable6.setFocusable(false);
-        jTable6.setOpaque(false);
-        jTable6.setRowHeight(26);
-        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable6MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jTable6MouseEntered(evt);
-            }
-        });
-        jScrollPane6.setViewportView(jTable6);
-
-        jPanel5.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 280, 210));
-
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("Jogo Selecionado:");
-        jPanel5.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 280, -1));
-
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("Nenhum");
-        jPanel5.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 280, 30));
-
-        btnExit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/magnifying-glass.png"))); // NOI18N
-        btnExit2.setBorderPainted(false);
-        btnExit2.setContentAreaFilled(false);
-        btnExit2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnExit2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExit2MouseEntered(evt);
-            }
-        });
-        jPanel5.add(btnExit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 30, 30));
-
-        jTextField2.setBackground(new java.awt.Color(69, 73, 73));
-        jTextField2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField2KeyPressed(evt);
-            }
-        });
-        jPanel5.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 30));
-
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, 490));
 
         jPanel8.setBackground(new java.awt.Color(60, 63, 64));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
@@ -738,6 +619,125 @@ public class TelaPerfil extends javax.swing.JFrame {
         jPanel8.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 30));
 
         jPanel2.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, 560));
+
+        jPanel5.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Selecione um jogo para o convite");
+        jPanel5.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 320, -1));
+
+        jPanel16.setBackground(new java.awt.Color(60, 63, 64));
+        jPanel16.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel16MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel16MouseEntered(evt);
+            }
+        });
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Convidar");
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel5.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, -1, -1));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("X");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        jPanel5.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 20, 20));
+
+        jScrollPane6.setBorder(null);
+        jScrollPane6.setOpaque(false);
+
+        jTable6.setBackground(new java.awt.Color(60, 63, 64));
+        jTable6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jTable6.setForeground(new java.awt.Color(255, 255, 255));
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Nome do Jogo"
+            }
+        ));
+        jTable6.setFocusable(false);
+        jTable6.setOpaque(false);
+        jTable6.setRowHeight(26);
+        jTable6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable6MouseEntered(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTable6);
+
+        jPanel5.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 280, 210));
+
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Jogo Selecionado:");
+        jPanel5.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 280, -1));
+
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Nenhum");
+        jPanel5.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 280, 30));
+
+        btnExit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/magnifying-glass.png"))); // NOI18N
+        btnExit2.setBorderPainted(false);
+        btnExit2.setContentAreaFilled(false);
+        btnExit2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExit2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnExit2MouseEntered(evt);
+            }
+        });
+        jPanel5.add(btnExit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 30, 30));
+
+        jTextField2.setBackground(new java.awt.Color(69, 73, 73));
+        jTextField2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
+        jPanel5.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 30));
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, 490));
 
         jPanel7.setBackground(new java.awt.Color(60, 63, 64));
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
@@ -1498,6 +1498,7 @@ public class TelaPerfil extends javax.swing.JFrame {
         seg.setId_usuario(outroUsr.getId_usuario());
 
         if (estaSeguindo() == false) {
+            segDAO = new SeguidoresDAO();
             segDAO.seguir(seg);
             TelaPerfil frame = new TelaPerfil();
             frame.usr = usr;
@@ -1509,6 +1510,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em "Seguindo"
+                segDAO = new SeguidoresDAO();
                 segDAO.deixarDeSeguir(seg);
                 TelaPerfil frame = new TelaPerfil();
                 frame.usr = usr;
@@ -1527,7 +1529,8 @@ public class TelaPerfil extends javax.swing.JFrame {
         cvt.setRemetente(usr.getId_usuario());
         cvt.setDestinatario(outroUsr.getId_usuario());
 
-        ConvitesDAO.enviarConvite(cvt);
+        cvtDAO = new ConvitesDAO();
+        cvtDAO.enviarConvite(cvt);
         JOptionPane.showMessageDialog(null, "Concluido!");
 
         jPanel5.setVisible(false);
@@ -1554,12 +1557,13 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
         Interesses in = new Interesses();
-        InteressesDAO inDAO = new InteressesDAO();
 
         if (usr.isAdministrador() == true && !(outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario()))) {
             in.setId_usuario(outroUsr.getId_usuario());
+            inDAO = new InteressesDAO();
             inDAO.limparInteresses(in.getId_usuario());
             for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
+                inDAO = new InteressesDAO();
                 in.setId_categoria(inDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
                 inDAO.favoritarCategoria(in);
             }
@@ -1572,8 +1576,10 @@ public class TelaPerfil extends javax.swing.JFrame {
 
         } else {
             in.setId_usuario(usr.getId_usuario());
+            inDAO = new InteressesDAO();
             inDAO.limparInteresses(in.getId_usuario());
             for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
+                inDAO = new InteressesDAO();
                 in.setId_categoria(inDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
                 inDAO.favoritarCategoria(in);
             }
@@ -1582,7 +1588,6 @@ public class TelaPerfil extends javax.swing.JFrame {
             frame.usr = usr;
             frame.setVisible(true);
             this.dispose();
-
         }
     }//GEN-LAST:event_jPanel17MouseClicked
 
@@ -1597,11 +1602,12 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
         JogosFavoritos jf = new JogosFavoritos();
-        JogosFavoritosDAO jfDAO = new JogosFavoritosDAO();
         if (usr.isAdministrador() == true && !(outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario()))) {
             jf.setId_usuario(outroUsr.getId_usuario());
+            jfDAO = new JogosFavoritosDAO();
             jfDAO.limparJogosFavoritos(jf.getId_usuario());
             for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
+                jfDAO = new JogosFavoritosDAO();
                 jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));
                 jfDAO.favoritarJogo(jf);
             }
@@ -1613,8 +1619,10 @@ public class TelaPerfil extends javax.swing.JFrame {
             this.dispose();
         } else {
             jf.setId_usuario(usr.getId_usuario());
+            jfDAO = new JogosFavoritosDAO();
             jfDAO.limparJogosFavoritos(jf.getId_usuario());
             for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
+                jfDAO = new JogosFavoritosDAO();
                 jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));
                 jfDAO.favoritarJogo(jf);
             }
@@ -1623,7 +1631,6 @@ public class TelaPerfil extends javax.swing.JFrame {
             frame.usr = usr;
             frame.setVisible(true);
             this.dispose();
-
         }
     }//GEN-LAST:event_jPanel18MouseClicked
 
@@ -1642,10 +1649,10 @@ public class TelaPerfil extends javax.swing.JFrame {
         pla.setPc(jCheckBox1.isSelected());
         pla.setConsole(jCheckBox2.isSelected());
         pla.setMobile(jCheckBox3.isSelected());
-        PlataformasDAO plaDAO = new PlataformasDAO();
 
         if (usr.isAdministrador() == true && !(outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario()))) {
             pla.setId_usuario(outroUsr.getId_usuario());
+            plaDAO = new PlataformasDAO();
             plaDAO.limparPlataformas(pla.getId_usuario());
             plaDAO.cadastrarPlataformas(pla);
             JOptionPane.showMessageDialog(null, "Concluido!");
@@ -1656,6 +1663,7 @@ public class TelaPerfil extends javax.swing.JFrame {
             this.dispose();
         } else {
             pla.setId_usuario(usr.getId_usuario());
+            plaDAO = new PlataformasDAO();
             plaDAO.limparPlataformas(pla.getId_usuario());
             plaDAO.cadastrarPlataformas(pla);
             JOptionPane.showMessageDialog(null, "Concluido!");
@@ -1675,7 +1683,8 @@ public class TelaPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable5MouseClicked
 
     private void jTable6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable6MouseClicked
-        cvt.setId_jogo(ConvitesDAO.idJogo(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString()));
+        jgDAO = new JogosDAO();
+        cvt.setId_jogo(jgDAO.pegarIdJogoCC(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString()));
         jLabel28.setText(jTable6.getValueAt(jTable6.getSelectedRow(), 0).toString());
     }//GEN-LAST:event_jTable6MouseClicked
 
@@ -1729,6 +1738,7 @@ public class TelaPerfil extends javax.swing.JFrame {
 
     private void jPanel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseClicked
         if (usr.isAdministrador() == true && !(outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario()))) {
+            usrDAO = new UsuarioDAO();
             usrDAO.alterarDescricao(outroUsr.getId_usuario(), jTextArea2.getText());
             JOptionPane.showMessageDialog(null, "Concluido!");
             TelaPerfil frame = new TelaPerfil();
@@ -1737,6 +1747,7 @@ public class TelaPerfil extends javax.swing.JFrame {
             frame.setVisible(true);
             this.dispose();
         } else {
+            usrDAO = new UsuarioDAO();
             usrDAO.alterarDescricao(usr.getId_usuario(), jTextArea2.getText());
             JOptionPane.showMessageDialog(null, "Concluido!");
             TelaPerfil frame = new TelaPerfil();
@@ -1783,6 +1794,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "Usuário " + outroUsr.getNome_usuario() + " excluído.");
+                usrDAO = new UsuarioDAO();
                 usrDAO.excluirUsuario(outroUsr.getId_usuario());
                 if (retorno == null) {
                     TelaPrincipal frame = new TelaPrincipal();
@@ -1804,6 +1816,7 @@ public class TelaPerfil extends javax.swing.JFrame {
     private void jTextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             if (usr.isAdministrador() == true && !(outroUsr.getNome_usuario() == null || outroUsr.getNome_usuario().equals(usr.getNome_usuario()))) {
+                usrDAO = new UsuarioDAO();
                 usrDAO.alterarDescricao(outroUsr.getId_usuario(), jTextArea2.getText());
                 JOptionPane.showMessageDialog(null, "Concluido!");
                 TelaPerfil frame = new TelaPerfil();
@@ -1812,6 +1825,7 @@ public class TelaPerfil extends javax.swing.JFrame {
                 frame.setVisible(true);
                 this.dispose();
             } else {
+                usrDAO = new UsuarioDAO();
                 usrDAO.alterarDescricao(usr.getId_usuario(), jTextArea2.getText());
                 JOptionPane.showMessageDialog(null, "Concluido!");
                 TelaPerfil frame = new TelaPerfil();

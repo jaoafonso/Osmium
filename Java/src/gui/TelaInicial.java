@@ -40,7 +40,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     Connection connection;
     Usuario usr = new Usuario();
-    UsuarioDAO usrDAO = new UsuarioDAO();
+    private UsuarioDAO usrDAO;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -943,7 +943,6 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseEntered
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-
         int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja realmente sair do sistema?", "Sair",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
@@ -1077,9 +1076,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         Usuario usr = new Usuario();
+        usrDAO = new UsuarioDAO();
         boolean nomeValido = false;
         boolean dataValida = false;
         boolean senhaValida = false;
+        boolean emailValido = false;
         String novo_nome = jTextField2.getText();
 
         String ano = jFormattedTextField1.getText().substring(6, 10);
@@ -1136,28 +1137,6 @@ public class TelaInicial extends javax.swing.JFrame {
             jFormattedTextField1.setText(null);
         }
 
-        if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
-            JOptionPane.showMessageDialog(null, "Digite um nome!");
-            jTextField2.setText("");
-        } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
-            if (jTextField2.getText().length() > 20) {
-
-                JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
-                jTextField2.setText(null);
-
-            } else if (usrDAO.verificarDisponibilidade(novo_nome) == true) {
-                usr.setNome_usuario(novo_nome);
-                nomeValido = true;
-            } else {
-                JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
-                jTextField2.setText(null);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Digite um nome válido.");
-            jTextField2.setText(null);
-        }
-
         if (jPasswordField1.getText().length() < 8) {
             JOptionPane.showMessageDialog(this, "Senha muito curta!");
             jPasswordField1.setText("");
@@ -1169,11 +1148,37 @@ public class TelaInicial extends javax.swing.JFrame {
         if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
             JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
             jTextField1.setText("");
-        } else if (dataValida == true && nomeValido == true && senhaValida == true) {
-            usr.setEmail_usuario(jTextField1.getText());
+        } else {
+            emailValido = true;
+        }
 
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.preCadastrar(usr);
+        if (dataValida == true && emailValido == true && senhaValida) {
+            if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
+                JOptionPane.showMessageDialog(null, "Digite um nome!");
+                jTextField2.setText("");
+            } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+                boolean disponibilidade = usrDAO.verificarDisponibilidade(novo_nome);
+                if (jTextField2.getText().length() > 20) {
+
+                    JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
+                    jTextField2.setText(null);
+
+                } else if (disponibilidade == true) {
+                    usr.setNome_usuario(novo_nome);
+                    nomeValido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
+                    jTextField2.setText(null);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite um nome válido.");
+                jTextField2.setText(null);
+            }
+        }
+
+        if (dataValida == true && nomeValido == true && senhaValida == true && emailValido == true) {
+            usr.setEmail_usuario(jTextField1.getText());
+            usrDAO.preCadastrar(usr);
 
             TelaPosCadastro frame = new TelaPosCadastro();
             frame.usr.setNome_usuario(usr.getNome_usuario());
@@ -1304,9 +1309,11 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jFormattedTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Usuario usr = new Usuario();
+            usrDAO = new UsuarioDAO();
             boolean nomeValido = false;
             boolean dataValida = false;
             boolean senhaValida = false;
+            boolean emailValido = false;
             String novo_nome = jTextField2.getText();
 
             String ano = jFormattedTextField1.getText().substring(6, 10);
@@ -1363,28 +1370,6 @@ public class TelaInicial extends javax.swing.JFrame {
                 jFormattedTextField1.setText(null);
             }
 
-            if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
-                JOptionPane.showMessageDialog(null, "Digite um nome!");
-                jTextField2.setText("");
-            } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
-                if (jTextField2.getText().length() > 20) {
-
-                    JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
-                    jTextField2.setText(null);
-
-                } else if (usrDAO.verificarDisponibilidade(novo_nome) == true) {
-                    usr.setNome_usuario(novo_nome);
-                    nomeValido = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
-                    jTextField2.setText(null);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Digite um nome válido.");
-                jTextField2.setText(null);
-            }
-
             if (jPasswordField1.getText().length() < 8) {
                 JOptionPane.showMessageDialog(this, "Senha muito curta!");
                 jPasswordField1.setText("");
@@ -1396,11 +1381,37 @@ public class TelaInicial extends javax.swing.JFrame {
             if (!jTextField1.getText().contains("@") || !jTextField1.getText().contains(".")) {
                 JOptionPane.showMessageDialog(this, "Digite um E-Mail válido!");
                 jTextField1.setText("");
-            } else if (dataValida == true && nomeValido == true && senhaValida == true) {
-                usr.setEmail_usuario(jTextField1.getText());
+            } else {
+                emailValido = true;
+            }
 
-                UsuarioDAO dao = new UsuarioDAO();
-                dao.preCadastrar(usr);
+            if (dataValida == true && emailValido == true && senhaValida) {
+                if (jTextField2 == null || (jTextField2 != null && ("".equals(jTextField2)))) {
+                    JOptionPane.showMessageDialog(null, "Digite um nome!");
+                    jTextField2.setText("");
+                } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true) {
+                    boolean disponibilidade = usrDAO.verificarDisponibilidade(novo_nome);
+                    if (jTextField2.getText().length() > 20) {
+
+                        JOptionPane.showMessageDialog(null, "Nome de usuário muito grande!");
+                        jTextField2.setText(null);
+
+                    } else if (disponibilidade == true) {
+                        usr.setNome_usuario(novo_nome);
+                        nomeValido = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Já existe um usuário com esse nome.");
+                        jTextField2.setText(null);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Digite um nome válido.");
+                    jTextField2.setText(null);
+                }
+            }
+
+            if (dataValida == true && nomeValido == true && senhaValida == true && emailValido == true) {
+                usr.setEmail_usuario(jTextField1.getText());
+                usrDAO.preCadastrar(usr);
 
                 TelaPosCadastro frame = new TelaPosCadastro();
                 frame.usr.setNome_usuario(usr.getNome_usuario());

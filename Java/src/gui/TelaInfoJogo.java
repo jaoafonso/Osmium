@@ -100,7 +100,8 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
-    JogosDAO jgDAO = new JogosDAO();
+    private JogosDAO jgDAO;
+    private CategoriasDoJogoDAO cjDAO;
     String retorno;
 
     public void carregarCategorias(Categorias objCategorias) {
@@ -659,12 +660,14 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarMouseEntered
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        if (jgDAO.encontrarParceiro(jg.getId_jogo()) == "" || jgDAO.encontrarParceiro(jg.getId_jogo()).equals(usr.getNome_usuario())) {
+        jgDAO = new JogosDAO();
+        String parceiro = jgDAO.encontrarParceiro(jg.getId_jogo());
+        if (parceiro == "" || parceiro.equals(usr.getNome_usuario())) {
             JOptionPane.showMessageDialog(null, "Não encontramos nenhum companheiro compatível. :(");
         } else {
             TelaPerfil frame = new TelaPerfil();
             frame.usr = usr;
-            frame.outroUsr.setNome_usuario(jgDAO.encontrarParceiro(jg.getId_jogo()));
+            frame.outroUsr.setNome_usuario(parceiro);
             frame.retorno = "TelaInfoJogo";
             frame.outroRetorno = retorno;
             frame.nome_jogo_retorno = jg.getNome_jogo();
@@ -708,6 +711,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.NO_OPTION) {
+                jgDAO = new JogosDAO();
                 JOptionPane.showMessageDialog(null, "Jogo " + jg.getNome_jogo() + " excluído.");
                 jgDAO.excluirJogo(jg.getId_jogo());
                 if (retorno == "Tela Principal") {
@@ -742,13 +746,13 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     ArrayList<Integer> linhasSelecionadasCateg = new ArrayList<Integer>();
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
         CategoriasDoJogo cj = new CategoriasDoJogo();
-        CategoriasDoJogoDAO cjDAO = new CategoriasDoJogoDAO();
+        cjDAO = new CategoriasDoJogoDAO();
 
         cj.setId_jogo(jg.getId_jogo());
         cjDAO.limparCategorias(cj.getId_jogo());
 
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
-
+            cjDAO = new CategoriasDoJogoDAO();
             cj.setId_categoria(cjDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
             cjDAO.adicionarCategoria(cj);
         }
@@ -777,6 +781,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel26MouseClicked
 
     private void jPanel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel20MouseClicked
+        jgDAO = new JogosDAO();
         jgDAO.alterarDescricao(jg.getId_jogo(), jTextArea2.getText());
         JOptionPane.showMessageDialog(null, "Concluido!");
         TelaInfoJogo frame = new TelaInfoJogo();
@@ -806,6 +811,7 @@ public class TelaInfoJogo extends javax.swing.JFrame {
 
     private void jTextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jgDAO = new JogosDAO();
             jgDAO.alterarDescricao(jg.getId_jogo(), jTextArea2.getText());
             JOptionPane.showMessageDialog(null, "Concluido!");
             TelaInfoJogo frame = new TelaInfoJogo();

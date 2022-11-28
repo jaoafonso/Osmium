@@ -33,6 +33,7 @@ public class CategoriasDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -83,6 +84,7 @@ public class CategoriasDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {

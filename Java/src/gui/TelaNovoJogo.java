@@ -56,9 +56,9 @@ public class TelaNovoJogo extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Jogos jg = new Jogos();
-    JogosDAO jgDAO = new JogosDAO();
+    private JogosDAO jgDAO;
     CategoriasDoJogo cj = new CategoriasDoJogo();
-    CategoriasDoJogoDAO cjDAO = new CategoriasDoJogoDAO();
+    private CategoriasDoJogoDAO cjDAO;
 
     public void selecionarCategoria(int linha) {
         if (linhasSelecionadasCateg.contains(linha)) {
@@ -545,11 +545,12 @@ public class TelaNovoJogo extends javax.swing.JFrame {
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
         jg.setNome_jogo(jTextArea3.getText());
         jg.setDesc_jogo(jTextArea2.getText());
+        jgDAO = new JogosDAO();
         jgDAO.adicionarJogo(jg);
-        cj.setId_jogo(jgDAO.pegarIdJogo(jg.getNome_jogo()));
+        cj.setId_jogo(jgDAO.pegarIdJogoCC(jg.getNome_jogo()));
 
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
-
+            cjDAO = new CategoriasDoJogoDAO();
             cj.setId_categoria(cjDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
             cjDAO.adicionarCategoria(cj);
         }

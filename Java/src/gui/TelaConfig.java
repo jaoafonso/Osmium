@@ -43,7 +43,7 @@ public class TelaConfig extends javax.swing.JFrame {
 
     Connection connection;
     Usuario usr = new Usuario();
-    UsuarioDAO usrDAO = new UsuarioDAO();
+    private UsuarioDAO usrDAO;
 
     public void carregarUsuarioPadrao() {
         try {
@@ -434,6 +434,7 @@ public class TelaConfig extends javax.swing.JFrame {
                 if (novo_email == null || (novo_email != null && ("".equals(novo_email)))) {
                     break;
                 } else if (novo_email.contains("@") && novo_email.contains(".")) {
+                    usrDAO = new UsuarioDAO();
                     JOptionPane.showMessageDialog(null, "Salvo");
                     usrDAO.alterarEmail(usr.getId_usuario(), novo_email);
                     emailValido = true;
@@ -478,6 +479,7 @@ public class TelaConfig extends javax.swing.JFrame {
                             if (nova_senha == null || (nova_senha != null && ("".equals(nova_senha)))) {
                                 break;
                             } else {
+                                usrDAO = new UsuarioDAO();
                                 JOptionPane.showMessageDialog(null, "Salvo");
                                 usrDAO.alterarSenha(usr.getId_usuario(), nova_senha);
                                 senhaVazia = false;
@@ -510,6 +512,7 @@ public class TelaConfig extends javax.swing.JFrame {
                 if (novo_nome == null || (novo_nome != null && ("".equals(novo_nome)))) {
                     break;
                 } else if (novo_nome.matches("[a-zA-Z0-9 ]*") == true && novo_nome.length() < 20) {
+                    usrDAO = new UsuarioDAO();
                     if (usrDAO.verificarDisponibilidade(novo_nome) == true) {
                         JOptionPane.showMessageDialog(null, "Salvo");
                         usrDAO.alterarNome(usr.getId_usuario(), novo_nome);
@@ -542,6 +545,7 @@ public class TelaConfig extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.NO_OPTION) {
+                usrDAO = new UsuarioDAO();
                 JOptionPane.showMessageDialog(null, "Adeus " + usr.getNome_usuario() + ".");
                 usrDAO.excluirUsuario(usr.getId_usuario());
                 TelaInicial frame = new TelaInicial();

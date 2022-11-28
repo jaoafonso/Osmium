@@ -53,6 +53,7 @@ public class JogosFavoritosDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -90,6 +91,7 @@ public class JogosFavoritosDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -107,6 +109,7 @@ public class JogosFavoritosDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.getMessage();

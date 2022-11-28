@@ -53,6 +53,7 @@ public class InteressesDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -69,6 +70,7 @@ public class InteressesDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -87,6 +89,7 @@ public class InteressesDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.getMessage();

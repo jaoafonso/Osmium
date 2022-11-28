@@ -30,7 +30,7 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
     Connection connection;
     Usuario usr = new Usuario();
     Publicacoes pub = new Publicacoes();
-    PublicacoesDAO pubDAO = new PublicacoesDAO();
+    private PublicacoesDAO pubDAO;
 
     public void carregarUsuarioPadrao() {
         try {
@@ -463,6 +463,7 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
             pub.setAssunto(jComboBox4.getSelectedItem().toString());
         }
 
+        pubDAO = new PublicacoesDAO();
         pubDAO.enviarPublicacao(pub);
 
         TelaPrincipal frame = new TelaPrincipal();
@@ -514,6 +515,7 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
                 pub.setAssunto(jComboBox4.getSelectedItem().toString());
             }
 
+            pubDAO = new PublicacoesDAO();
             pubDAO.enviarPublicacao(pub);
 
             TelaPrincipal frame = new TelaPrincipal();

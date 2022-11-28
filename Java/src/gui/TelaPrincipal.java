@@ -45,10 +45,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private CategoriasDAO categDAO;
 
     private Jogos objJogos;
-    private JogosDAO jogoDAO;
+    private JogosDAO jgDAO;
 
     private Convites objConvites;
-    private ConvitesDAO convitesDAO;
+    private ConvitesDAO cvtDAO;
 
     private Publicacoes objPublicacoes;
     private PublicacoesDAO pubDAO;
@@ -188,6 +188,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     Usuario usr = new Usuario();
     Usuario outroUsr = new Usuario();
     Convites cvt = new Convites();
+    private JogosFavoritosDAO jfDAO;
+    private PlataformasDAO plaDAO;
+    private InteressesDAO inDAO;
 
     public void isPerfilConcluido() {
         ImageIcon xIcon = new ImageIcon(getClass().getResource("/img/marca-x.png"));
@@ -220,6 +223,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             if (rs3.next() == false) {
                 plataformas = false;
             }
+
+            connection.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -284,13 +289,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void carregarJogos(Jogos objJogos, String nome_categoria) {
-        jogoDAO = new JogosDAO();
+        jgDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
         if (nome_categoria == null) {
-            dados = jogoDAO.listarJogos();
+            dados = jgDAO.listarJogos();
         } else {
-            dados = jogoDAO.listarJogosPorCategoria(nome_categoria);
+            dados = jgDAO.listarJogosPorCategoria(nome_categoria);
         }
 
         String[] colunas = new String[]{"Nome do Jogo"};
@@ -299,10 +304,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void carregarJogosPorPesquisa(Jogos objJogos, String pesquisa, String localizacao) {
-        jogoDAO = new JogosDAO();
+        jgDAO = new JogosDAO();
         ArrayList dados = new ArrayList();
         objJogos = new Jogos();
-        dados = jogoDAO.listarJogosPorPesquisa(pesquisa);
+        dados = jgDAO.listarJogosPorPesquisa(pesquisa);
         String[] colunas = new String[]{"Nome do Jogo"};
         ModelTable modelo = new ModelTable(dados, colunas);
 
@@ -402,12 +407,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void escreverMensagem() {
-        ConvitesDAO cvtDAO = new ConvitesDAO();
+        jgDAO = new JogosDAO();
         infoConvite(Integer.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString()));
         TelaEnviarMensagem frame = new TelaEnviarMensagem();
         frame.msg.setId_destinatario(cvt.getRemetente());
         frame.msg.setId_remetente(usr.getId_usuario());
-        frame.jogo_convite = cvtDAO.nomeJogo(cvt.getId_jogo());
+        frame.jogo_convite = jgDAO.pegarNomeJogoCC(cvt.getId_jogo());
         frame.usr = usr;
         frame.retorno = "Tela Principal";
         frame.setVisible(true);
@@ -440,10 +445,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     public void carregarConvites(Convites objConvites) {
-        convitesDAO = new ConvitesDAO();
+        cvtDAO = new ConvitesDAO();
         ArrayList dados = new ArrayList();
         objConvites = new Convites();
-        dados = convitesDAO.listarConvites(usr.getId_usuario());
+        dados = cvtDAO.listarConvites(usr.getId_usuario());
         String[] colunas = objConvites.getColunas();
         ModelTable modelo = new ModelTable(dados, colunas);
 
@@ -1771,15 +1776,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        // TODO add your handling code here:
-        Color temaDark = new Color(18, 18, 18);
-        UIManager.put("control", temaDark);
-        UIManager.put("OptionPane.background", temaDark);
-        UIManager.put("OptionPane.messageForeground", Color.white);
         int resposta = JOptionPane.showOptionDialog(new JFrame(), "Deseja realmente sair do sistema?", "Sair",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
-        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
+        if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para o Netbeans focar no "Não" caso o usuario clique sem querer em sair
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitMouseClicked
@@ -1840,13 +1840,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseEntered
 
     private void btnExit2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExit2MouseClicked
+        usrDAO = new UsuarioDAO();
+        boolean disponibilidade = usrDAO.verificarDisponibilidade(jTextField1.getText());
         if (jTextField1.getText().equals(usr.getNome_usuario())) {
             TelaPerfil frame = new TelaPerfil();
             frame.usr = usr;
             frame.setVisible(true);
             this.dispose();
         } else {
-            if (usrDAO.verificarDisponibilidade(jTextField1.getText()) == true) {
+            if (disponibilidade == true) {
+                String gambiarra_para_fechar_conexao = usrDAO.pegarNomeUsuarioCC(1);
                 JOptionPane.showMessageDialog(null, "O usuário digitado não existe.");
                 jTextField1.setText("");
             } else {
@@ -1992,7 +1995,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         pla.setMobile(jCheckBox3.isSelected());
         pla.setId_usuario(usr.getId_usuario());
 
-        PlataformasDAO plaDAO = new PlataformasDAO();
+        plaDAO = new PlataformasDAO();
 
         plaDAO.limparPlataformas(pla.getId_usuario());
         plaDAO.cadastrarPlataformas(pla);
@@ -2015,13 +2018,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
         Interesses in = new Interesses();
-        InteressesDAO inDAO = new InteressesDAO();
+        inDAO = new InteressesDAO();
 
         in.setId_usuario(usr.getId_usuario());
 
         inDAO.limparInteresses(in.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasCateg.size(); i++) {
+            inDAO = new InteressesDAO();
             in.setId_categoria(inDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
             inDAO.favoritarCategoria(in);
         }
@@ -2047,13 +2051,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jPanel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel52MouseClicked
         JogosFavoritos jf = new JogosFavoritos();
-        JogosFavoritosDAO jfDAO = new JogosFavoritosDAO();
+        jfDAO = new JogosFavoritosDAO();
 
         jf.setId_usuario(usr.getId_usuario());
 
         jfDAO.limparJogosFavoritos(jf.getId_usuario());
 
         for (int i = 0; i < linhasSelecionadasJogos.size(); i++) {
+            jfDAO = new JogosFavoritosDAO();
             jf.setId_jogo(jfDAO.pegarIdJogo(String.valueOf(jTable5.getValueAt(linhasSelecionadasJogos.get(i), 0))));
             jfDAO.favoritarJogo(jf);
         }
@@ -2094,13 +2099,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            usrDAO = new UsuarioDAO();
+            boolean disponibilidade = usrDAO.verificarDisponibilidade(jTextField1.getText());
             if (jTextField1.getText().equals(usr.getNome_usuario())) {
                 TelaPerfil frame = new TelaPerfil();
                 frame.usr = usr;
                 frame.setVisible(true);
                 this.dispose();
             } else {
-                if (usrDAO.verificarDisponibilidade(jTextField1.getText()) == true) {
+                if (disponibilidade == true) {
+                    String gambiarra_para_fechar_conexao = usrDAO.pegarNomeUsuarioCC(1);
                     JOptionPane.showMessageDialog(null, "O usuário digitado não existe.");
                     jTextField1.setText("");
                 } else {

@@ -24,6 +24,8 @@ public class UsuarioDAO {
 
             if (rs.next() == false) {
                 isDisponivel = true;
+            } else {
+                connection.close();
             }
 
             ps.close();
@@ -87,6 +89,7 @@ public class UsuarioDAO {
             stmt10.close();
             stmt11.close();
             stmt12.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -100,6 +103,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -113,6 +117,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -126,6 +131,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -139,6 +145,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -152,6 +159,7 @@ public class UsuarioDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -171,6 +179,7 @@ public class UsuarioDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -189,6 +198,7 @@ public class UsuarioDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -210,6 +220,26 @@ public class UsuarioDAO {
         } catch (SQLException e) {
             e.getMessage();
             JOptionPane.showMessageDialog(null, "pegarNomeUsuario():" + e.getMessage());
+            return null;
+        }
+    }
+    
+    public String pegarNomeUsuarioCC(int id_usuario) { // Pega o nome do usuário e fecha a conexão
+        try {
+            PreparedStatement ps = connection.prepareStatement("SELECT nome_usuario FROM usuario WHERE id_usuario=" + id_usuario);
+            ResultSet rs = ps.executeQuery();
+
+            rs.next();
+            String nome_usuario = rs.getString("nome_usuario");
+
+            ps.close();
+            rs.close();
+            connection.close();
+
+            return nome_usuario;
+        } catch (SQLException e) {
+            e.getMessage();
+            JOptionPane.showMessageDialog(null, "pegarNomeUsuarioCC():" + e.getMessage());
             return null;
         }
     }
@@ -251,6 +281,7 @@ public class UsuarioDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -275,6 +306,7 @@ public class UsuarioDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {

@@ -39,6 +39,7 @@ public class TelaImagens extends javax.swing.JFrame {
     }
 
     Usuario usr = new Usuario();
+    private UsuarioDAO usrDAO;
     String retorno;
 
     public ImageIcon converterImagem(int num_img) {
@@ -710,7 +711,7 @@ public class TelaImagens extends javax.swing.JFrame {
 
     private void jPanel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel23MouseClicked
         if (retorno == "TelaConfig") {
-            UsuarioDAO usrDAO = new UsuarioDAO();
+            usrDAO = new UsuarioDAO();
             usrDAO.alterarImagem(usr.getId_usuario(), usr.getFoto_usuario());
             TelaConfig frame = new TelaConfig();
             frame.usr = usr;

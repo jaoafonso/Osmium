@@ -1,6 +1,7 @@
 package gui;
 
 import dao.MensagensDAO;
+import dao.UsuarioDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -26,15 +27,17 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                jLabel2.setText("Nova mensagem para " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
-                jLabel1.setText(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                usrDAO = new UsuarioDAO();
+                String nome_destinatario = usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario());
+                jLabel2.setText("Nova mensagem para " + nome_destinatario);
+                jLabel1.setText(nome_destinatario);
 
                 if (jogo_convite != null) {
-                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", recebi seu convite para jogar " + jogo_convite + ", vamos lá?");
+                    jTextArea2.setText("Oii " + nome_destinatario + ", recebi seu convite para jogar " + jogo_convite + ", vamos lá?");
                 }
 
                 if (titulo_publicacao != null) {
-                    jTextArea2.setText("Oii " + msgDAO.pegarNomeUsuario(msg.getId_destinatario()) + ", vi sua publicação sobre '" + titulo_publicacao + "', ");
+                    jTextArea2.setText("Oii " + nome_destinatario + ", vi sua publicação sobre '" + titulo_publicacao + "', ");
                 }
             }
         });
@@ -42,7 +45,8 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
     Usuario usr = new Usuario();
     Mensagens msg = new Mensagens();
-    MensagensDAO msgDAO = new MensagensDAO();
+    private MensagensDAO msgDAO;
+    private UsuarioDAO usrDAO;
     String retorno;
     String jogo_convite;
     String titulo_publicacao;
@@ -284,9 +288,10 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             frame.setVisible(true);
             this.dispose();
         } else if (retorno == "Tela Perfil") {
+            usrDAO = new UsuarioDAO();
             TelaPerfil frame = new TelaPerfil();
             frame.usr = usr;
-            frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+            frame.outroUsr.setNome_usuario(usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario()));
             frame.setVisible(true);
             this.dispose();
         } else if (retorno == "Tela Principal") {
@@ -329,7 +334,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextArea2KeyTyped
 
     private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
-        MensagensDAO msgDAO = new MensagensDAO();
+        msgDAO = new MensagensDAO();
 
         msg.setMensagem(jTextArea2.getText());
         msgDAO.enviarMensagem(msg);
@@ -341,9 +346,10 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             frame.setVisible(true);
             this.dispose();
         } else if (retorno == "Tela Perfil") {
+            usrDAO = new UsuarioDAO();
             TelaPerfil frame = new TelaPerfil();
             frame.usr = usr;
-            frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+            frame.outroUsr.setNome_usuario(usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario()));
             frame.setVisible(true);
             this.dispose();
         } else if (retorno == "Tela Principal") {
@@ -367,7 +373,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
     private void jTextArea2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea2KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            MensagensDAO msgDAO = new MensagensDAO();
+            msgDAO = new MensagensDAO();
 
             msg.setMensagem(jTextArea2.getText());
             msgDAO.enviarMensagem(msg);
@@ -379,9 +385,10 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 frame.setVisible(true);
                 this.dispose();
             } else if (retorno == "Tela Perfil") {
+                usrDAO = new UsuarioDAO();
                 TelaPerfil frame = new TelaPerfil();
                 frame.usr = usr;
-                frame.outroUsr.setNome_usuario(msgDAO.pegarNomeUsuario(msg.getId_destinatario()));
+                frame.outroUsr.setNome_usuario(usrDAO.pegarNomeUsuarioCC(msg.getId_destinatario()));
                 frame.setVisible(true);
                 this.dispose();
             } else if (retorno == "Tela Principal") {

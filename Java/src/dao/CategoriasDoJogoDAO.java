@@ -23,6 +23,7 @@ public class CategoriasDoJogoDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -64,6 +65,7 @@ public class CategoriasDoJogoDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.getMessage();

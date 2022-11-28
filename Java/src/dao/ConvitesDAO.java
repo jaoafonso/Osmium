@@ -99,6 +99,7 @@ public class ConvitesDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -120,6 +121,7 @@ public class ConvitesDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);

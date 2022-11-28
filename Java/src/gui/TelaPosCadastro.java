@@ -7,15 +7,11 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import modelo.Usuario;
 import dao.UsuarioDAO;
-import factory.ConnectionFactory;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.ImageIcon;
 
 public class TelaPosCadastro extends javax.swing.JFrame {
@@ -44,29 +40,7 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
     Connection connection;
     Usuario usr = new Usuario();
-    UsuarioDAO usrDAO = new UsuarioDAO();
-
-    public int pegarIdUsuario(String nome_usuario) {
-        this.connection = new ConnectionFactory().getConnection();
-        try {
-            int id_usuario = 0;
-
-            PreparedStatement ps = connection.prepareStatement("SELECT id_usuario FROM usuario WHERE nome_usuario ='" + nome_usuario + "'");
-            ResultSet rs = ps.executeQuery();
-
-            rs.next();
-            id_usuario = rs.getInt("id_usuario");
-
-            ps.close();
-            rs.close();
-
-            return id_usuario;
-        } catch (SQLException e) {
-            e.getMessage();
-            JOptionPane.showMessageDialog(null, "pegarIdCategoria():" + e.getMessage());
-            return 0;
-        }
-    }
+    private UsuarioDAO usrDAO;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -320,8 +294,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
         usr.setDesc_usuario(jTextArea2.getText());
         usr.setFoto_usuario(usr.getFoto_usuario());
         
-        UsuarioDAO dao = new UsuarioDAO();
-        dao.posCadastrar(usr, usr.getNome_usuario());
+        usrDAO = new UsuarioDAO();
+        usrDAO.posCadastrar(usr, usr.getNome_usuario());
         
         TelaPrincipal frame = new TelaPrincipal();
         frame.usr = usr;
@@ -367,7 +341,9 @@ public class TelaPosCadastro extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para facilitar, para o Netbeans focar no "Não", caso o usuario clique sem querer em sair
-            usrDAO.excluirUsuario(pegarIdUsuario(usr.getNome_usuario()));
+            usrDAO = new UsuarioDAO();
+            int id_usuario = usrDAO.pegarIdUsuario(usr.getNome_usuario());
+            usrDAO.excluirUsuario(id_usuario);
             TelaInicial frame = new TelaInicial();
             frame.setVisible(true);
             this.dispose();
@@ -379,8 +355,8 @@ public class TelaPosCadastro extends javax.swing.JFrame {
             usr.setDesc_usuario(jTextArea2.getText());
             usr.setFoto_usuario(usr.getFoto_usuario());
 
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.posCadastrar(usr, usr.getNome_usuario());
+            usrDAO = new UsuarioDAO();
+            usrDAO.posCadastrar(usr, usr.getNome_usuario());
 
             TelaPrincipal frame = new TelaPrincipal();
             frame.usr = usr;

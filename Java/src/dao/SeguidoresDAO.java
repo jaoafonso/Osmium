@@ -75,6 +75,7 @@ public class SeguidoresDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -99,6 +100,7 @@ public class SeguidoresDAO {
             }
             ps.close();
             rs.close();
+            connection.close();
 
             return dado;
         } catch (SQLException e) {
@@ -119,6 +121,7 @@ public class SeguidoresDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
@@ -136,6 +139,7 @@ public class SeguidoresDAO {
 
             stmt.execute();
             stmt.close();
+            connection.close();
 
         } catch (SQLException u) {
             throw new RuntimeException(u);
