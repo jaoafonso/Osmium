@@ -10,7 +10,7 @@ CREATE TABLE usuario (
 	dataNasc_usuario DATE,
 	foto_usuario INTEGER(2),
 	administrador BOOLEAN,
-    perfil_concluido BOOLEAN,
+	perfil_concluido BOOLEAN,
 	PRIMARY KEY(id_usuario),
 	UNIQUE(nome_usuario),
 	UNIQUE(email_usuario)
@@ -19,19 +19,19 @@ CREATE TABLE usuario (
 CREATE TABLE mensagens (
 	id_mensagem INTEGER(9) AUTO_INCREMENT,
 	id_remetente INTEGER(9),
-    id_destinatario INTEGER(9),
+	id_destinatario INTEGER(9),
 	mensagem VARCHAR(300),
-    lida BOOLEAN,
+	lida BOOLEAN,
 	FOREIGN KEY(id_remetente) REFERENCES usuario(id_usuario),
 	FOREIGN KEY(id_destinatario) REFERENCES usuario(id_usuario),
-    PRIMARY KEY(id_mensagem)
+	PRIMARY KEY(id_mensagem)
 );
 
 CREATE TABLE plataformas (
 	id_usuario INTEGER(9) UNIQUE,
 	pc BOOLEAN,
 	console BOOLEAN,
-    mobile BOOLEAN,
+	mobile BOOLEAN,
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
 );
 
@@ -76,19 +76,19 @@ CREATE TABLE convites (
 	remetente INTEGER(9),
 	destinatario INTEGER(9),
 	id_jogo INTEGER(9),
-    FOREIGN KEY(remetente) REFERENCES usuario(id_usuario),
-    FOREIGN KEY(destinatario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(remetente) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(destinatario) REFERENCES usuario(id_usuario),
 	FOREIGN KEY(id_jogo) REFERENCES jogos(id_jogo),
-    PRIMARY KEY(id_convite)
+	PRIMARY KEY(id_convite)
 );
 
 CREATE TABLE seguidores (
 	id_interacao INTEGER(9) AUTO_INCREMENT,
 	id_usuario INTEGER(9),
 	id_seguidor INTEGER(9),
-    FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-    FOREIGN KEY(id_seguidor) REFERENCES usuario(id_usuario),
-    PRIMARY KEY(id_interacao)
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+	FOREIGN KEY(id_seguidor) REFERENCES usuario(id_usuario),
+	PRIMARY KEY(id_interacao)
 );
 
 CREATE TABLE publicacoes (
@@ -98,7 +98,7 @@ CREATE TABLE publicacoes (
 	titulo VARCHAR(40),
 	descricao VARCHAR(300),
 	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
-    PRIMARY KEY(id_publicacao)
+	PRIMARY KEY(id_publicacao)
 );
 
 #Administradores
