@@ -7,7 +7,7 @@ function loadHTML(page) {
 loadHTML("home.html");
 
 current_page = 1;
-total_pages = 5;
+total_pages = 4;
 document.getElementById("paginas").innerHTML = "Página " + current_page + " de " + total_pages;
 
 function irPara(pagina, numpag) {
@@ -37,17 +37,14 @@ function lastPage() {
 			case 4:
 			loadHTML("atualizacoes.html")
 			break;
-			case 5:
-			loadHTML("equipe.html")
-			break;
 		}
 	}
 }
 
 
 function nextPage() {
-	if(current_page < 5) {
-		if(current_page < 5){
+	if(current_page < 4) {
+		if(current_page < 4){
 			current_page = current_page + 1;
 		}
 		console.log(current_page);
@@ -64,9 +61,6 @@ function nextPage() {
 			break;
 			case 4:
 			loadHTML("atualizacoes.html")
-			break;
-			case 5:
-			loadHTML("equipe.html")
 			break;
 		}
 	}
