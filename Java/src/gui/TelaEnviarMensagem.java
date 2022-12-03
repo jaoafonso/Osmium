@@ -104,7 +104,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
         jTextArea2.setBackground(new java.awt.Color(69, 73, 73));
         jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextArea2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
@@ -121,6 +121,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextArea2);
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("MENSAGEM *");
 
@@ -138,6 +139,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Enviar");
@@ -159,9 +161,11 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("REMETENTE *");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(186, 186, 186));
         jLabel1.setText("jLabel1");
 
@@ -209,7 +213,7 @@ public class TelaEnviarMensagem extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(18, 18, 18));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nova mensagem para [nome_remetente]");

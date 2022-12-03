@@ -139,6 +139,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(122, 105, 190), 2));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Selecione as Categorias do Jogo");
@@ -223,10 +224,12 @@ public class TelaNovoJogo extends javax.swing.JFrame {
 
         jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 280, 230));
 
+        jLabel24.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
         jLabel24.setText("Categorias Selecionadas:");
         jPanel7.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 280, -1));
 
+        jLabel26.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Nenhuma");
         jPanel7.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 280, 80));
@@ -253,7 +256,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(18, 18, 18));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Adicione um novo jogo");
@@ -287,7 +290,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
 
         jTextArea2.setBackground(new java.awt.Color(69, 73, 73));
         jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextArea2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTextArea2.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
@@ -310,7 +313,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
 
         jTextArea3.setBackground(new java.awt.Color(69, 73, 73));
         jTextArea3.setColumns(20);
-        jTextArea3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextArea3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jTextArea3.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea3.setLineWrap(true);
         jTextArea3.setRows(5);
@@ -327,18 +330,23 @@ public class TelaNovoJogo extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTextArea3);
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("NOME *");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DESCRIÇÃO *");
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("CATEGORIAS *");
 
@@ -353,6 +361,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Adicionar");
@@ -382,6 +391,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Selecionar Categorias");
@@ -403,6 +413,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Nenhuma Categoria Selecionada");
 
@@ -455,7 +466,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
                 .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 95, -1, -1));
@@ -554,7 +565,7 @@ public class TelaNovoJogo extends javax.swing.JFrame {
             cj.setId_categoria(cjDAO.pegarIdCategoria(String.valueOf(jTable4.getValueAt(linhasSelecionadasCateg.get(i), 0))));
             cjDAO.adicionarCategoria(cj);
         }
-
+        JOptionPane.showMessageDialog(null, "Concluido!");
         TelaInfoJogo frame = new TelaInfoJogo();
         frame.usr = usr;
         frame.jg.setNome_jogo(jg.getNome_jogo());

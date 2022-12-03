@@ -191,7 +191,7 @@ public class JogosDAO {
         try {
             ArrayList dado = new ArrayList();
 
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM jogos");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM jogos ORDER BY nome_jogo");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

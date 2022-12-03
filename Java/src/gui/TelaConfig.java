@@ -181,7 +181,7 @@ public class TelaConfig extends javax.swing.JFrame {
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("username");
@@ -424,7 +424,7 @@ public class TelaConfig extends javax.swing.JFrame {
     private void jPanel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel18MouseClicked
         String novo_email = null;
 
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu E-Mail atual é " + usr.getEmail_usuario() + ", deseja alterar?", "Sair",
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu E-Mail atual é " + usr.getEmail_usuario() + ", deseja alterar?", "Alterar E-Mail",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para o Netbeans focar no "Não" caso o usuario clique sem querer
@@ -465,7 +465,7 @@ public class TelaConfig extends javax.swing.JFrame {
 
         if (senhaValida == true) {
             do {
-                int resposta = JOptionPane.showOptionDialog(new JFrame(), "Sua senha atual é " + usr.getSenha_usuario() + ", deseja alterar?", "Sair",
+                int resposta = JOptionPane.showOptionDialog(new JFrame(), "Sua senha atual é " + usr.getSenha_usuario() + ", deseja alterar?", "Alterar Senha",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                         new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
                 if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para o Netbeans focar no "Não" caso o usuario clique sem querer
@@ -502,7 +502,7 @@ public class TelaConfig extends javax.swing.JFrame {
     private void jPanel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel19MouseClicked
         String novo_nome = null;
         
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu nome atual é " + usr.getNome_usuario() + ", deseja alterar?", "Sair",
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "Seu nome atual é " + usr.getNome_usuario() + ", deseja alterar?", "Alterar Nome",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) { //Inverti a opção para o Netbeans focar no "Não" caso o usuario clique sem querer
@@ -538,11 +538,11 @@ public class TelaConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel19MouseClicked
 
     private void jPanel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel14MouseClicked
-        int resposta = JOptionPane.showOptionDialog(new JFrame(), "ATENÇÃO! A exclusão de sua conta será permanente, deseja continuar?", "Sair",
+        int resposta = JOptionPane.showOptionDialog(new JFrame(), "ATENÇÃO! A exclusão de sua conta será permanente, deseja continuar?", "Excluir sua Conta",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
         if (resposta == JOptionPane.NO_OPTION) {
-            int confirmacao = JOptionPane.showOptionDialog(new JFrame(), "Tem certeza? Isso não poderá ser desfeito!", "Sair",
+            int confirmacao = JOptionPane.showOptionDialog(new JFrame(), "Tem certeza? Isso não poderá ser desfeito!", "Excluir sua Conta",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                     new Object[]{"Não", "Sim"}, JOptionPane.YES_OPTION);
             if (confirmacao == JOptionPane.NO_OPTION) {

@@ -150,14 +150,14 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Um aplicativo para se encontrar com novos amigos que");
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 401, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 13)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText(" jogam seu jogo favorito!");
+        jLabel4.setText("jogam seu jogo favorito!");
         jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 170, -1));
 
         imgStargazers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/star.png"))); // NOI18N
@@ -172,11 +172,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/dot.png"))); // NOI18N
 
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Java");
 
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("1");
+        jLabel9.setText("2");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -218,13 +220,13 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(imgStargazers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(33, 37, 41));
         jPanel7.setOpaque(false);
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Visite nosso repositório no GitHub para atualizações!");
@@ -286,6 +288,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jPanel12.setOpaque(false);
 
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(186, 186, 186));
         jLabel18.setText("E-MAIL *");
 
@@ -297,8 +300,12 @@ public class TelaInicial extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
         });
 
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(186, 186, 186));
         jLabel19.setText("NOME *");
 
@@ -310,11 +317,16 @@ public class TelaInicial extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField2KeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
         });
 
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(186, 186, 186));
         jLabel20.setText("SENHA *");
 
+        jLabel21.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(186, 186, 186));
         jLabel21.setText("DATA DE NASCIMENTO *");
 
@@ -329,9 +341,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("REGISTRAR");
+        jLabel25.setText("Registrar");
 
         javax.swing.GroupLayout panelBtnRegistrarLayout = new javax.swing.GroupLayout(panelBtnRegistrar);
         panelBtnRegistrar.setLayout(panelBtnRegistrarLayout);
@@ -357,6 +370,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyTyped(evt);
             }
         });
 
@@ -426,9 +442,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         panelTxtRegistro1.setBackground(new java.awt.Color(33, 37, 41));
 
+        jLabel26.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(186, 186, 186));
         jLabel26.setText("Já tem uma conta?");
 
+        labelBtnRegistrese1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labelBtnRegistrese1.setForeground(new java.awt.Color(88, 166, 255));
         labelBtnRegistrese1.setText("Entre");
         labelBtnRegistrese1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -501,7 +519,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(panelCadastroLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel1.add(panelCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 590, 580));
@@ -533,9 +551,11 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        labelEmail.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labelEmail.setForeground(new java.awt.Color(186, 186, 186));
         labelEmail.setText("USUÁRIO OU E-MAIL *");
 
+        labelSenha.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labelSenha.setForeground(new java.awt.Color(186, 186, 186));
         labelSenha.setText("SENHA *");
 
@@ -550,9 +570,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("ENTRAR");
+        jLabel15.setText("Entrar");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -611,9 +632,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         panelTxtRegistro.setBackground(new java.awt.Color(33, 37, 41));
 
+        jLabel16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(186, 186, 186));
         jLabel16.setText("Precisando de uma conta?");
 
+        labelBtnRegistrese.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         labelBtnRegistrese.setForeground(new java.awt.Color(88, 166, 255));
         labelBtnRegistrese.setText("Registre-se");
         labelBtnRegistrese.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -685,7 +708,7 @@ public class TelaInicial extends javax.swing.JFrame {
         panelLoginLayout.setVerticalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+                .addContainerGap(122, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(120, 120, 120))
         );
@@ -694,7 +717,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("<html>Percebemos que muitas pessoas tem a dificuldade de encontrar parceiros para jogos online, nosso aplicativo resolverá esse problema, proporcionando uma plataforma para nossos usuários encontrarem facilmente outros usuários com os mesmos interesses para jogos.<html>");
+        jLabel14.setText("<html>Percebemos que muitas pessoas estão tendo dificuldade de encontrar parceiros para jogos online, nosso aplicativo resolverá esse problema! Proporcionamos uma plataforma para nossos usuários encontrarem facilmente outros usuários com os mesmos interesses para jogos.<html>");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 510, 100));
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -746,7 +769,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Entre");
@@ -778,7 +801,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Registre-se");
@@ -810,7 +833,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("WebSite");
@@ -842,7 +865,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("GitHub");
 
@@ -1465,6 +1488,69 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtSenhaKeyPressed
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        String s = jTextField2.getText();
+        int l = s.length();
+        if (jTextField2.getText().length() > 21) {
+            evt.consume();
+            String shortened = jTextField2.getText().substring(0, 20);
+            jTextField2.setText(shortened);
+        } else if (jTextField2.getText().length() >= 20) {
+            evt.consume();
+        }
+        try {
+            if (l >= 20) {
+                evt.consume();
+                jLabel19.setText("NOME * -  Máximo 20 Caracteres");
+            } else {
+                jLabel19.setText("NOME *");
+            }
+        } catch (Exception w) {
+        }
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        String s = jTextField1.getText();
+        int l = s.length();
+        if (jTextField1.getText().length() > 257) {
+            evt.consume();
+            String shortened = jTextField1.getText().substring(0, 256);
+            jTextField1.setText(shortened);
+        } else if (jTextField1.getText().length() >= 256) {
+            evt.consume();
+        }
+        try {
+            if (l >= 256) {
+                evt.consume();
+                jLabel18.setText("E-MAIL * -  Máximo 256 Caracteres");
+            } else {
+                jLabel18.setText("E-MAIL *");
+            }
+        } catch (Exception w) {
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+        String s = jTextField2.getText();
+        int l = s.length();
+        if (jTextField2.getText().length() > 129) {
+            evt.consume();
+            String shortened = jTextField2.getText().substring(0, 128);
+            jTextField2.setText(shortened);
+        } else if (jTextField2.getText().length() >= 128) {
+            evt.consume();
+        }
+        try {
+            if (l >= 128) {
+                evt.consume();
+                jLabel20.setText("SENHA * -  Máximo 128 Caracteres");
+            } else {
+                jLabel20.setText("SENHA *");
+            }
+        } catch (Exception w) {
+        }
+    }//GEN-LAST:event_jPasswordField1KeyTyped
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
