@@ -167,7 +167,7 @@ public class TelaNovaPublicacao extends javax.swing.JFrame {
         jComboBox4.setBackground(new java.awt.Color(18, 18, 18));
         jComboBox4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um Assunto", "Dica", "Conquista", "Opinião", "Informação", "Convite", "Outro" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um Assunto", "Ajuda", "Conquista", "Convite", "Informação", "Outro" }));
         jComboBox4.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox4ItemStateChanged(evt);
