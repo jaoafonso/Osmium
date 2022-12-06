@@ -1,7 +1,7 @@
 
 # Osmium
 
-O Osmium é uma rede social desenvolvida para gamers que possuem dificuldade em encontrar um parceiro ideal para jogos. Esse projeto foi desenvolvido por mim para ser entregue como TCC no Curso Técnico de Desenvolvimento de Sistemas do SENAI mas continuo aprimorando ele até hoje.
+O Osmium é uma rede social desenvolvida para gamers que possuem dificuldade em encontrar um parceiro ideal para jogos. Esse projeto foi desenvolvido por mim para ser entregue como TCC no Curso Técnico de Desenvolvimento de Sistemas do SENAI mas continuo aprimorando ele até hoje (Como passatempo).
 ## Autores
 
 - [@jaoafonso](https://www.github.com/jaoafonso)
