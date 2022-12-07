@@ -19,14 +19,14 @@ public class TelaPosCadastro extends javax.swing.JFrame {
     public TelaPosCadastro() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/icon.png")));
-        
+
         // Configurações de aparência para os JOptionPane
         UIManager.put("control", new Color(18, 18, 18));
         UIManager.put("OptionPane.background", new Color(18, 18, 18));
         UIManager.put("OptionPane.messageForeground", Color.white);
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 14));
         UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.PLAIN, 12));
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 if (usr.getFoto_usuario() != 0) {
@@ -297,11 +297,14 @@ public class TelaPosCadastro extends javax.swing.JFrame {
 
     private void panelBtnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBtnRegistrarMouseClicked
         usr.setDesc_usuario(jTextArea2.getText());
-        usr.setFoto_usuario(usr.getFoto_usuario());
-        
+
+        if (usr.getFoto_usuario() == 0) {
+            usr.setFoto_usuario(22);
+        }
+
         usrDAO = new UsuarioDAO();
         usrDAO.posCadastrar(usr, usr.getNome_usuario());
-        
+
         TelaPrincipal frame = new TelaPrincipal();
         frame.usr = usr;
         frame.setVisible(true);
